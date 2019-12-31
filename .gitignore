@@ -1,4 +1,11 @@
 # Created by .ignore support plugin (hsz.mobi)
+package-lock.json
+yarn.lock
+.project
 *.env
+*.iml
 node_modules/
 .idea/
+.next/
+fonts/
+.settings/

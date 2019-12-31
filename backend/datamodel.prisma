@@ -1,0 +1,53 @@
+enum Permission {
+    ADMIN
+    USER
+    NONPROFITCREATE
+    NONPROFITUPDATE
+    NONPROFITDELETE
+    PERMISSIONUPDATE
+}
+
+type User {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission] @scalarList(strategy: RELATION)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type NonProfit {
+	id: ID! @id
+	ein: Int! @unique
+	name: String!
+	ico: String
+	street: String!
+	city: String!
+	state: String!
+	zip: String!
+	group: Int
+	subsection: Int
+	affiliation: Int
+	classification: Int
+	ruling: Int
+	deductibility: Int
+	foundation: Int
+	activity: Int
+	organization: Int
+	status: Int
+	taxperiod: Int
+	assetCd: Int
+	incomeCd: Int
+	filingReqCd: Int
+	pfFilingReqCd: Int
+	acctPd: Int
+	assetAmt: Int
+	revenueAmt: Int
+	nteeCd: String
+	sortName: String
+    createdAt: DateTime! @createdAt
+    updatedAt: DateTime! @updatedAt
+}
