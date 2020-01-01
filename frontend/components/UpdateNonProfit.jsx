@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Mutation, Query} from 'react-apollo';
 import gql from 'graphql-tag'
-import Error from './ErrorMessage';
 
 const SINGLE_NONPROFIT_QUERY = gql`
     query SINGLE_NONPROFIT_QUERY($id: ID!) {
@@ -126,7 +125,6 @@ class UpdateNonProfit extends Component {
                             <Mutation mutation={UPDATE_NONPROFIT_MUTATION} variables={this.state}>
                                 {(updateNonProfit, {loading, error}) => (
                                     <form onSubmit={async e => this.updateNonProfit(e, updateNonProfit)}>
-                                        <Error error={error}/>
                                         <fieldset disabled={loading} aria-busy={loading}>
                                             <label htmlFor="ein">
                                                 EIN:&emsp;<input

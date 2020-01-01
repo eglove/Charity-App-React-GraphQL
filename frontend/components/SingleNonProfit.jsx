@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import gql from "graphql-tag";
 import {Query} from "react-apollo";
 import Head from "next/head";
-import Error from "./ErrorMessage";
 
 const SINGLE_NONPROFIT_QUERY = gql`
     query SINGLE_NONPROFIT_QUERY($id: ID!) {
@@ -24,9 +23,9 @@ class SingleNonProfit extends Component {
                 id: this.props.id,
             }}>
                 {({error, loading, data}) => {
-                    if (error) return <Error error={error}/>
-                    if (loading) return <p>Loading...</p>
-                    if (!data.nonProfit) return <p>No Non-Profit found with ID: {this.props.id}</p>
+                    if (error) return <p>Error: {error}</p>;
+                    if (loading) return <p>Loading...</p>;
+                    if (!data.nonProfit) return <p>No Non-Profit found with ID: {this.props.id}</p>;
                     console.log(data);
                     const nonProfit = data.nonProfit;
                     return (

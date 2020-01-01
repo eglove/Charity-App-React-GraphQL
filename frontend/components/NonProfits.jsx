@@ -29,7 +29,6 @@ class NonProfits extends Component {
                     skip: this.props.page * perPage - perPage,
                 }}>
                     {({data, error, loading}) => {
-                        console.log(data);
                         if (loading) return <p>Loading...</p>;
                         if (error) return <p>Error: {error.message}</p>;
                         return (

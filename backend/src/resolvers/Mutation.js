@@ -51,22 +51,44 @@ const Mutation = {
         // create user in DB
         const user = await ctx.db.mutation.createUser({
             data: {
-               ...args,
-               password,
-               permissions: {set: ['USER']}
+                ...args,
+                password,
+                permissions: {set: ['USER']}
             },
         }, info);
 
         // Create JWT token to sign in on sign up
         const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
         // set jwt as cookie on response
-        cts.response.cookie('token', token, {
+        ctx.response.cookie('token', token, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
         });
         // return to user to browser
         return user;
     },
+
+    async signin(parent, {email, password}, ctx, info) {
+        // check if there is a user with email
+        const user = await ctx.db.query.user({where: {email}});
+        if (!user) {
+            throw new Error(`No user for ${email}`);
+        }
+        // check is password is correct
+        const valid = await bcrypt.compare(password, user.password);
+        if(!valid) {
+            throw new Error('Invalid Password');
+        }
+        // generate jwt token
+        const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
+        // set cookie with token
+        ctx.response.cookie('token', token, {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
+        });
+        // return the user
+        return user;
+    }
 };
 
 module.exports = Mutation;

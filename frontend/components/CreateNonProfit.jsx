@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import gql from 'graphql-tag'
 import {Mutation} from 'react-apollo';
 import Router from 'next/router';
-import Error from './ErrorMessage';
 
 const CREATE_NONPROFIT_MUTATION = gql`
     mutation CREATE_NONPROFIT_MUTATION(
@@ -116,7 +115,6 @@ class CreateNonProfit extends Component {
                             console.log(res);
                             await Router.push(`/nonProfit?id=${res.data.createNonProfit.id}`);
                         }}>
-                            <Error error={error}/>
                             <fieldset disabled={loading} aria-busy={loading}>
                                 <label htmlFor="ein">
                                     EIN:&emsp;<input
