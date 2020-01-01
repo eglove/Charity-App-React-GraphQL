@@ -8,3 +8,4 @@ In progress...
 * [Yoga](https://github.com/prisma-labs/graphql-yoga)
 * [Apollo](https://www.apollographql.com/)
 * [Prisma](https://www.prisma.io/)
+* [Mailtrap](https://mailtrap.io/) (For testing only.)
