@@ -1,4 +1,8 @@
 # import * from './generated/prisma.graphql'
+type SuccessMessage {
+	message: String
+}
+
 type Mutation {
 	createNonProfit(
 		ein: Int!
@@ -62,12 +66,10 @@ type Mutation {
 	):NonProfit!
 
 	deleteNonProfit(id: ID!):NonProfit
-
 	createUser(name: String!, email: String!, password: String!):User!
-
 	updateUser (name: String, email: String, password: String):User!
-
 	signin(email:String!, password:String!):User!
+	signout:SuccessMessage
 }
 
 type Query {

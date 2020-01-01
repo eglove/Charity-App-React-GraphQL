@@ -1,55 +1,57 @@
 import Link from 'next/link';
 import User from './User';
+import SignOut from "./SignOut";
 
-const Nav = () => <>
-    <User>
-        {({data}) => {
-            const me = data ? data.me : null;
-            return (
-                <ul className="topnav component">
-                    <li>
-                        <Link href="/">
-                            <a>Home</a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/nonProfits">
-                            <a>All Charities</a>
-                        </Link>
-                    </li>
-                    {me && (
-                        <>
-                            <li>
-                                <Link href="/favorites">
-                                    <a>Favorites</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/account">
-                                    <a>Account</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/add">
-                                    <a>Add Charity</a>
-                                </Link>
-                            </li>
-                        </>
-                    )};
-
-                    {!me && (
+const Nav = () =>
+    <>
+        <User>
+            {({data}) => {
+                const me = data ? data.me : null;
+                return (
+                    <ul className="topnav component">
                         <li>
-                            <Link href="/signup">
-                                <a>Sign In</a>
+                            <Link href="/">
+                                <a>Home</a>
                             </Link>
                         </li>
-                    )};
+                        <li>
+                            <Link href="/nonProfits">
+                                <a>All Charities</a>
+                            </Link>
+                        </li>
+                        {me && (
+                            <>
+                                <li>
+                                    <Link href="/favorites">
+                                        <a>Favorites</a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/account">
+                                        <a>Account</a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/add">
+                                        <a>Add Charity</a>
+                                    </Link>
+                                </li>
+                                <SignOut/>
+                            </>
+                        )}
 
-                </ul>
-            )
-        }}
-    </User>
-    <style jsx>{`
+                        {!me && (
+                            <li>
+                                <Link href="/signup">
+                                    <a>Sign In</a>
+                                </Link>
+                            </li>
+                        )}
+                    </ul>
+                )
+            }}
+        </User>
+        <style jsx>{`
             ul.topnav {
                 list-style-type: none;
                 padding: 0;
@@ -80,6 +82,6 @@ const Nav = () => <>
                 ul.topnav li {float: none;}
                 }
         `}</style>
-</>;
+    </>;
 
 export default Nav;
