@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Mutation} from 'react-apollo';
 import gql from "graphql-tag";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import {CURRENT_USER_QUERY} from "./User";
 
 const RESET_MUTATION = gql`
@@ -25,7 +25,7 @@ const RESET_MUTATION = gql`
 class Reset extends Component {
 
     static propTypes = {
-        resetToken: PropTypes.string.isRequired,
+        resetToken: propTypes.string.isRequired,
     };
 
     state = {

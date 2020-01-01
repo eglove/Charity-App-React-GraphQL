@@ -8,9 +8,20 @@ const oneYearCookie = 1000 * 60 * 60 * 24 * 365;
 
 const Mutation = {
     async createNonProfit(parent, args, ctx, info) {
+        // check if user is logged in
+        if(!ctx.request.userId) {
+            throw new Error('You must be logged in to do that.');
+        }
+
         const nonProfit = ctx.db.mutation.createNonProfit(
             {
                 data: {
+                    // Creates relationship between nonprofit and user
+                    user: {
+                      connect: {
+                          id: ctx.request.userId,
+                      },
+                    },
                     ...args
                 }
             }, info);

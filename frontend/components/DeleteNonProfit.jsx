@@ -5,9 +5,7 @@ import {ALL_NONPROFITS_QUERY} from "./NonProfits";
 
 const DELETE_NONPROFIT_MUTATION = gql`
     mutation DELETE_NONPROFIT_MUTATION($id: ID!) {
-        deleteNonProfit(where: {
-            id: $id
-        }) {
+        deleteNonProfit(id: $id) {
             name
         }
     }
@@ -37,7 +35,6 @@ class DeleteNonProfit extends Component {
                         onClick={() => {
                             if (confirm('Are you sure you want to delete this item?')) {
                                 deleteNonProfit();
-                                window.location.reload();
                             }
                         }}
                     >

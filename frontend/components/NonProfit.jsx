@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import Link from 'next/link';
 import DeleteNonProfit from "./DeleteNonProfit";
 
 class NonProfit extends Component {
 
 	static propTypes = {
-		nonProfit: PropTypes.object.isRequired,
+		nonProfit: propTypes.object.isRequired,
 	};
 
 	render() {
@@ -31,7 +31,7 @@ class NonProfit extends Component {
 }
 
 NonProfit.propTypes = {
-	nonProfit: PropTypes.object.isRequired,
+	nonProfit: propTypes.object.isRequired,
 };
 
 export default NonProfit;
