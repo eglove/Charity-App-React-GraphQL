@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import User from './User';
 
-const Nav = () => (
-    <>
-        <User>
-            {({data: {me}}) => (
+const Nav = () => <>
+    <User>
+        {({data}) => {
+            const me = data ? data.me : null;
+            return (
                 <ul className="topnav component">
                     <li>
                         <Link href="/">
@@ -45,9 +46,10 @@ const Nav = () => (
                     )};
 
                 </ul>
-            )}
-        </User>
-        <style jsx>{`
+            )
+        }}
+    </User>
+    <style jsx>{`
             ul.topnav {
                 list-style-type: none;
                 padding: 0;
@@ -78,7 +80,6 @@ const Nav = () => (
                 ul.topnav li {float: none;}
                 }
         `}</style>
-    </>
-);
+</>;
 
 export default Nav;

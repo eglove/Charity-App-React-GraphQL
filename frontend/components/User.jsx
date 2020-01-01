@@ -4,18 +4,18 @@ import PropTypes from 'prop-types';
 
 const CURRENT_USER_QUERY = gql`
     query {
-        me (
+        me {
             id
-            email
             name
+            email
             permissions
-        )
+        }
     }
 `;
 
 const User = props => (
     <Query {...props} query={CURRENT_USER_QUERY}>
-        {payload => console.log(payload) || props.children(payload)}
+        {payload => props.children(payload)}
     </Query>
 );
 

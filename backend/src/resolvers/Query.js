@@ -9,14 +9,17 @@ const Query = {
     usersConnection: forwardTo('db'),
     nonProfitsConnection: forwardTo('db'),
     me(parent, args, ctx, info) {
-        // Check if there is a current user id
+        // check if there is a current user ID
         if (!ctx.request.userId) {
             return null;
         }
-        return ctx.db.query.user({
-            where: {id: ctx.request.userId}
-        }, info);
-    }
+        return ctx.db.query.user(
+            {
+                where: { id: ctx.request.userId },
+            },
+            info
+        );
+    },
 };
 
 module.exports = Query;

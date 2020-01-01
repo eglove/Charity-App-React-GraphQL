@@ -80,3 +80,10 @@ type Query {
 	usersConnection(where:UserWhereInput):UserConnection!
 	me:User
 }
+
+type User {
+	id: ID!
+	name: String!
+	email: String!
+	permissions: [Permission]
+}
