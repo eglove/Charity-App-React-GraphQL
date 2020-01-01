@@ -1,9 +1,10 @@
 import CreateNonProfit from "../components/CreateNonProfit";
+import PleaseSignIn from "../components/PleaseSignIn";
 
 const Add = props => (
-	<>
-	<CreateNonProfit />
-	</>
+    <PleaseSignIn>
+        <CreateNonProfit/>
+    </PleaseSignIn>
 );
 
 export default Add;
