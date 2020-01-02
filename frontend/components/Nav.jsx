@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import User from './User';
+import Link from "next/link";
+import User from "./User";
 import SignOut from "./SignOut";
 
 const Nav = () =>
