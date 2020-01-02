@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Query} from 'react-apollo';
-import gql from 'graphql-tag';
-import NonProfit from './NonProfit';
+import React, {Component} from "react";
+import {Query} from "react-apollo";
+import gql from "graphql-tag";
+import NonProfit from "./NonProfit";
 import Pagination from "./Pagination";
 import {perPage} from "../config";
 

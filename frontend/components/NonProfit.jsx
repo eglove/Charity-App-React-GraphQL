@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Link from 'next/link';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Link from "next/link";
 import DeleteNonProfit from "./DeleteNonProfit";
 
 class NonProfit extends Component {
@@ -30,7 +30,7 @@ class NonProfit extends Component {
 	}
 }
 
-NonProfit.PropTypes = {
+NonProfit.propTypes = {
 	nonProfit: PropTypes.object.isRequired,
 };
 

@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import gql from 'graphql-tag'
-import {Mutation} from 'react-apollo';
-import Router from 'next/router';
+import React, {Component} from "react";
+import gql from "graphql-tag"
+import {Mutation} from "react-apollo";
+import Router from "next/router";
 
 const CREATE_NONPROFIT_MUTATION = gql`
     mutation CREATE_NONPROFIT_MUTATION(
@@ -70,12 +70,12 @@ const CREATE_NONPROFIT_MUTATION = gql`
 class CreateNonProfit extends Component {
     state = {
         ein: 0,
-        name: '',
-        street: '',
-        city: '',
-        state: '',
-        zip: '',
-        ico: '',
+        name: "",
+        street: "",
+        city: "",
+        state: "",
+        zip: "",
+        ico: "",
         group: 0,
         subsection: 0,
         affiliation: 0,
@@ -94,14 +94,15 @@ class CreateNonProfit extends Component {
         acctPd: 0,
         assetAmt: 0,
         revenueAmt: 0,
-        nteeCd: '',
-        sortName: ''
+        nteeCd: "",
+        sortName: ""
     };
 
     handleChange = (e) => {
         const {name, type, value} = e.target;
-        const val = type === 'number' ? parseFloat(value) : value;
-        this.setState({[name]: val})
+        const val = type === "number" ? parseFloat(value) : value;
+        this.setState({[name]: val});
+        console.log(this.state);
     };
 
     render() {

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Mutation} from 'react-apollo';
-import gql from 'graphql-tag';
+import React, {Component} from "react";
+import {Mutation} from "react-apollo";
+import gql from "graphql-tag";
 import {ALL_NONPROFITS_QUERY} from "./NonProfits";
 
 const DELETE_NONPROFIT_MUTATION = gql`
@@ -33,8 +33,10 @@ class DeleteNonProfit extends Component {
                 {(deleteNonProfit, {error}) => (
                     <button
                         onClick={() => {
-                            if (confirm('Are you sure you want to delete this item?')) {
-                                deleteNonProfit();
+                            if (confirm("Are you sure you want to delete this item?")) {
+                                deleteNonProfit().catch(err => {
+                                    alert(err.message);
+                                });
                             }
                         }}
                     >
