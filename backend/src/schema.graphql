@@ -79,7 +79,7 @@ type Query {
 	nonProfit(where:NonProfitWhereUniqueInput!):NonProfit
 	nonProfitsConnection(where:NonProfitWhereInput):NonProfitConnection!
 
-	users: [User!]!
+	users: [User]!
 	user(where:UserWhereUniqueInput!):User
 	usersConnection(where:UserWhereInput):UserConnection!
 	me:User
