@@ -259,6 +259,27 @@ const Mutation = {
             );
         }
     },
+
+    async removeFromFavorites(parent, args, ctx, info) {
+        // find favorited item
+        const favorite = await ctx.db.query.favorite({
+            where: {
+                id: args.id,
+            },
+        },
+            `{id, user{id}}`
+        );
+        // make sure favorite is found
+        if (!favorite) throw new Error('Favorite not found.');
+        // make sure favorites list belongs to user
+        if (favorite.user.id !== ctx.request.userId) {
+            throw new Error('This is not your favorites list.');
+        }
+        // remove from list
+        return ctx.db.mutation.deleteFavorite({
+            where: { id: args.id },
+        }, info);
+    },
 };
 
 module.exports = Mutation;

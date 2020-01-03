@@ -1,4 +1,4 @@
-import {Mutation, Query} from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
 import PropTypes from "prop-types";
 
@@ -35,19 +35,19 @@ const ALL_USERS_QUERY = gql`
 
 const Permissions = props => (
     <Query query={ALL_USERS_QUERY}>
-        {({data, loading, error}) => (
+        {({ data, loading, error }) => (
             <div>
                 <h2>Manage Permissions</h2>
                 <table>
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        {possiblePermissions.map(permission => <th key={permission}>{permission}</th>)}
-                        <th>:point_down:</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            {possiblePermissions.map(permission => <th key={permission}>{permission}</th>)}
+                            <th>:point_down:</th>
+                        </tr>
                     </thead>
-                    <tbody>{data.users.map(user => <UserPermissions user={user} key={user.id}/>)}</tbody>
+                    <tbody>{data.users.map(user => <UserPermissions user={user} key={user.id} />)}</tbody>
                 </table>
             </div>
         )}
@@ -77,7 +77,7 @@ class UserPermissions extends React.Component {
         } else {
             updatedPermissions = updatedPermissions.filter(permission => permission !== checkbox.value);
         }
-        this.setState({permissions: updatedPermissions});
+        this.setState({ permissions: updatedPermissions });
     };
 
     render() {
@@ -90,7 +90,7 @@ class UserPermissions extends React.Component {
                     userId: this.props.user.id,
                 }}
             >
-                {(updatePermissions, {loading, error}) => (
+                {(updatePermissions, { loading, error }) => (
                     <>
                         < tr>
                             <td>{user.name}</td>

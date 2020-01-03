@@ -78,6 +78,7 @@ type Mutation {
 	
 	updatePermissions(permissions: [Permission], userId: ID!): User
 	addToFavorites(id: ID!):Favorite
+	removeFromFavorites(id: ID!):Favorite
 }
 
 type Query {

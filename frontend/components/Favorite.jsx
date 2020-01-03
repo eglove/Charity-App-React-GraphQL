@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import RemoveFromFavorites from './RemoveFromFavorites';
 
 
-const Favorite = (props) => (
+const Favorite = ({ favorite }) => (
 	<>
-		<div>{props.favorite.nonProfit.ein} - {props.favorite.nonProfit.name}</div>
+		<div>{favorite.nonProfit.ein} - {favorite.nonProfit.name}
+			<RemoveFromFavorites id={favorite.id} /></div>
 	</>
 )
 
