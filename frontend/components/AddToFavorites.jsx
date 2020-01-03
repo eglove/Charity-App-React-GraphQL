@@ -24,7 +24,7 @@ class AddToFavorites extends React.Component {
 				refetchQueries={[{ query: CURRENT_USER_QUERY }]}
 			>
 				{(addToFavorites, { loading }) => (
-					<button disabled={loading} onClick={addToFavorites}>
+					<button disabled={loading} aria-disabled={loading} onClick={addToFavorites}>
 						Add{loading && 'ing'} To Favorites &hearts;
 					</button>
 				)}
