@@ -55,6 +55,6 @@ type NonProfit {
 
 type Favorite {
 	id: ID! @id
-	nonProfit: NonProfit! #relationship to nonprofit
+	nonProfit: NonProfit #relationship to nonprofit
 	user: User! # relationship to user
 }

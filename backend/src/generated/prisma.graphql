@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/ethan-glover-d293d5/charityapp-backend/dev
-# timestamp: Fri Jan 03 2020 12:45:39 GMT-0600 (Central Standard Time)
+# timestamp: Fri Jan 03 2020 16:18:07 GMT-0600 (Central Standard Time)
 
 type AggregateFavorite {
   count: Int!
@@ -22,7 +22,7 @@ scalar DateTime
 
 type Favorite implements Node {
   id: ID!
-  nonProfit: NonProfit!
+  nonProfit: NonProfit
   user: User!
 }
 
@@ -38,7 +38,7 @@ type FavoriteConnection {
 
 input FavoriteCreateInput {
   id: ID
-  nonProfit: NonProfitCreateOneInput!
+  nonProfit: NonProfitCreateOneInput
   user: UserCreateOneWithoutFavoritesInput!
 }
 
@@ -49,7 +49,7 @@ input FavoriteCreateManyWithoutUserInput {
 
 input FavoriteCreateWithoutUserInput {
   id: ID
-  nonProfit: NonProfitCreateOneInput!
+  nonProfit: NonProfitCreateOneInput
 }
 
 """An edge in a connection."""
@@ -159,7 +159,7 @@ input FavoriteSubscriptionWhereInput {
 }
 
 input FavoriteUpdateInput {
-  nonProfit: NonProfitUpdateOneRequiredInput
+  nonProfit: NonProfitUpdateOneInput
   user: UserUpdateOneRequiredWithoutFavoritesInput
 }
 
@@ -175,7 +175,7 @@ input FavoriteUpdateManyWithoutUserInput {
 }
 
 input FavoriteUpdateWithoutUserDataInput {
-  nonProfit: NonProfitUpdateOneRequiredInput
+  nonProfit: NonProfitUpdateOneInput
 }
 
 input FavoriteUpdateWithWhereUniqueWithoutUserInput {
@@ -595,9 +595,11 @@ input NonProfitUpdateManyMutationInput {
   sortName: String
 }
 
-input NonProfitUpdateOneRequiredInput {
+input NonProfitUpdateOneInput {
   create: NonProfitCreateInput
   connect: NonProfitWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
   update: NonProfitUpdateDataInput
   upsert: NonProfitUpsertNestedInput
 }
