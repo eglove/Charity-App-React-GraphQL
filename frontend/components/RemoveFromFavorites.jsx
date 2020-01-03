@@ -21,11 +21,9 @@ class RemoveFromFavorites extends React.Component {
 	// Gets called when server responds back with favorite removal
 	update = (cache, payload) => {
 		// read the cache
-		console.log('Running remove from cart update function.')
 		const data = cache.readQuery({
 			query: CURRENT_USER_QUERY
 		})
-		console.log(data);
 		// remove item from favorites
 		const favoriteId = payload.data.removeFromFavorites.id;
 		data.me.favorites = data.me.favorites.filter(favorite =>

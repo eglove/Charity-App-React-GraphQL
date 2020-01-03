@@ -1,6 +1,7 @@
 import Link from "next/link";
 import User from "./User";
 import SignOut from "./SignOut";
+import FavoritesCount from "./FavoritesCount";
 
 const Nav = () =>
     <>
@@ -23,17 +24,15 @@ const Nav = () =>
                             <>
                                 <li>
                                     <Link href="/favorites">
-                                        <a>Favorites</a>
+                                        <a>
+                                            Favorites (
+                                            <FavoritesCount count={me.favorites.length}/>)
+                                        </a>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/account">
                                         <a>Account</a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/add">
-                                        <a>Add Charity</a>
                                     </Link>
                                 </li>
                                 <SignOut/>
