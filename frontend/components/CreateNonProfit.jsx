@@ -1,6 +1,6 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import gql from "graphql-tag"
-import {Mutation} from "react-apollo";
+import { Mutation } from "react-apollo";
 import Router from "next/router";
 
 const CREATE_NONPROFIT_MUTATION = gql`
@@ -99,17 +99,16 @@ class CreateNonProfit extends Component {
     };
 
     handleChange = (e) => {
-        const {name, type, value} = e.target;
+        const { name, type, value } = e.target;
         const val = type === "number" ? parseFloat(value) : value;
-        this.setState({[name]: val});
-        console.log(this.state);
+        this.setState({ [name]: val });
     };
 
     render() {
         return (
             <div className="component">
                 <Mutation mutation={CREATE_NONPROFIT_MUTATION} variables={this.state}>
-                    {(createNonProfit, {loading, error}) => (
+                    {(createNonProfit, { loading, error }) => (
                         <form onSubmit={async e => {
                             e.preventDefault();
                             const res = await createNonProfit();
@@ -119,87 +118,87 @@ class CreateNonProfit extends Component {
                             <fieldset disabled={loading} aria-busy={loading}>
                                 <label htmlFor="ein">
                                     EIN:&emsp;<input
-                                    type="number"
-                                    id="ein"
-                                    name="ein"
-                                    placeholder="EIN"
-                                    required
-                                    value={this.state.ein}
-                                    onChange={this.handleChange}
-                                />
+                                        type="number"
+                                        id="ein"
+                                        name="ein"
+                                        placeholder="EIN"
+                                        required
+                                        value={this.state.ein}
+                                        onChange={this.handleChange}
+                                    />
                                 </label>
-                                <br/>
+                                <br />
                                 <label htmlFor="name">
                                     Name:&emsp;<input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    placeholder="Name"
-                                    required
-                                    value={this.state.name}
-                                    onChange={this.handleChange}
-                                />
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Name"
+                                        required
+                                        value={this.state.name}
+                                        onChange={this.handleChange}
+                                    />
                                 </label>
-                                <br/>
+                                <br />
                                 <label htmlFor="street">
                                     Street:&emsp;<input
-                                    type="text"
-                                    id="street"
-                                    name="street"
-                                    placeholder="Street"
-                                    required
-                                    value={this.state.street}
-                                    onChange={this.handleChange}
-                                />
+                                        type="text"
+                                        id="street"
+                                        name="street"
+                                        placeholder="Street"
+                                        required
+                                        value={this.state.street}
+                                        onChange={this.handleChange}
+                                    />
                                 </label>
-                                <br/>
+                                <br />
                                 <label htmlFor="city">
                                     City:&emsp;<input
-                                    type="text"
-                                    id="city"
-                                    name="city"
-                                    placeholder="City"
-                                    required
-                                    value={this.state.city}
-                                    onChange={this.handleChange}
-                                />
+                                        type="text"
+                                        id="city"
+                                        name="city"
+                                        placeholder="City"
+                                        required
+                                        value={this.state.city}
+                                        onChange={this.handleChange}
+                                    />
                                 </label>
-                                <br/>
+                                <br />
                                 <label htmlFor="state">
                                     State:&emsp;<input
-                                    type="text"
-                                    id="state"
-                                    name="state"
-                                    placeholder="State"
-                                    required
-                                    value={this.state.state}
-                                    onChange={this.handleChange}
-                                />
+                                        type="text"
+                                        id="state"
+                                        name="state"
+                                        placeholder="State"
+                                        required
+                                        value={this.state.state}
+                                        onChange={this.handleChange}
+                                    />
                                 </label>
-                                <br/>
+                                <br />
                                 <label htmlFor="zip">
                                     Zip Code:&emsp;<input
-                                    type="text"
-                                    id="zip"
-                                    name="zip"
-                                    placeholder="Zip Code"
-                                    required
-                                    value={this.state.zip}
-                                    onChange={this.handleChange}
-                                />
+                                        type="text"
+                                        id="zip"
+                                        name="zip"
+                                        placeholder="Zip Code"
+                                        required
+                                        value={this.state.zip}
+                                        onChange={this.handleChange}
+                                    />
                                 </label>
                                 <p>Optional</p>
                                 <label htmlFor="ico">
                                     ICO:&emsp;<input
-                                    type="text"
-                                    id="ico"
-                                    name="ico"
-                                    placeholder="ICO"
-                                    value={this.state.ico}
-                                    onChange={this.handleChange}
-                                />
+                                        type="text"
+                                        id="ico"
+                                        name="ico"
+                                        placeholder="ICO"
+                                        value={this.state.ico}
+                                        onChange={this.handleChange}
+                                    />
                                 </label>
-                                <br/>
+                                <br />
                                 <button type="submit">Add</button>
                             </fieldset>
                         </form>
@@ -211,4 +210,4 @@ class CreateNonProfit extends Component {
 }
 
 export default CreateNonProfit;
-export {CREATE_NONPROFIT_MUTATION};
+export { CREATE_NONPROFIT_MUTATION };

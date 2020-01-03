@@ -15,6 +15,7 @@ type User {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission] @scalarList(strategy: RELATION)
+  favorites: [Favorite!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -50,5 +51,10 @@ type NonProfit {
 	sortName: String
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
-    user: User!
+}
+
+type Favorite {
+	id: ID! @id
+	nonProfit: NonProfit! #relationship to nonprofit
+	user: User! # relationship to user
 }

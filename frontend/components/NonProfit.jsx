@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import DeleteNonProfit from "./DeleteNonProfit";
+import AddToFavorites from './AddToFavorites';
 
 class NonProfit extends Component {
 
@@ -22,7 +23,7 @@ class NonProfit extends Component {
 					<Link href={`/update?id=${nonProfit.id}`}>
 						<a>Edit</a>
 					</Link>
-					<button>Add To Favorites</button>
+					<AddToFavorites id={nonProfit.id} />
 					<DeleteNonProfit id={nonProfit.id}>Delete This Item</DeleteNonProfit>
 				</div>
 			</div>

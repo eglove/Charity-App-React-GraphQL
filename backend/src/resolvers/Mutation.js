@@ -1,9 +1,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const {randomBytes} = require("crypto");
-const {promisify} = require("util");
-const {transport, makeANiceEmail} = require("../mail");
-const {hasPermission} = require("../utils");
+const { randomBytes } = require("crypto");
+const { promisify } = require("util");
+const { transport, makeANiceEmail } = require("../mail");
+const { hasPermission } = require("../utils");
 
 const oneYearCookie = 1000 * 60 * 60 * 24 * 365;
 
@@ -32,7 +32,7 @@ const Mutation = {
 
     updateNonProfit(parent, args, ctx, info) {
         // get copy of updates
-        const updates = {...args};
+        const updates = { ...args };
         // remove ID from updates (so it won't be updated)
         delete updates.id;
         // run update method
@@ -45,7 +45,7 @@ const Mutation = {
     },
 
     updateUser(parent, args, ctx, info) {
-        const updates = {...args};
+        const updates = { ...args };
         delete updates.id;
         return ctx.db.mutation.updateUser({
             data: updates,
@@ -56,16 +56,16 @@ const Mutation = {
     },
 
     async deleteNonProfit(parent, args, ctx, info) {
-        const where = {id: args.id};
+        const where = { id: args.id };
         // find nonprofit
-        const nonProfit = await ctx.db.query.nonProfit({where}, `{id name user{id}}`);
+        const nonProfit = await ctx.db.query.nonProfit({ where }, `{id name user{id}}`);
         // check if user has permission to delete
         const addedNonProfit = nonProfit.user.id === ctx.request.userId;
         const hasPermissions = ctx.request.user.permissions.some(permission => ["ADMIN", "NONPROFITDELETE"].includes(permission));
         if (!addedNonProfit && !hasPermissions)
             throw new Error("You don't have permission to delete.");
         // delete it
-        return ctx.db.mutation.deleteNonProfit({where}, info);
+        return ctx.db.mutation.deleteNonProfit({ where }, info);
     },
 
     async createUser(parent, args, ctx, info) {
@@ -77,12 +77,12 @@ const Mutation = {
             data: {
                 ...args,
                 password,
-                permissions: {set: ["USER"]}
+                permissions: { set: ["USER"] }
             },
         }, info);
 
         // Create JWT token to sign in on sign up
-        const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
+        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
         // set jwt as cookie on response
         ctx.response.cookie("token", token, {
             httpOnly: true,
@@ -92,9 +92,9 @@ const Mutation = {
         return user;
     },
 
-    async signin(parent, {email, password}, ctx, info) {
+    async signin(parent, { email, password }, ctx, info) {
         // check if there is a user with email
-        const user = await ctx.db.query.user({where: {email}});
+        const user = await ctx.db.query.user({ where: { email } });
         if (!user) {
             throw new Error(`No user for ${email}`);
         }
@@ -104,7 +104,7 @@ const Mutation = {
             throw new Error("Invalid Password");
         }
         // generate jwt token
-        const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
+        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
         // set cookie with token
         ctx.response.cookie("token", token, {
             httpOnly: true,
@@ -116,13 +116,13 @@ const Mutation = {
 
     signout(parent, args, ctx, info) {
         ctx.response.clearCookie("token");
-        return {message: "Goodbye!"};
+        return { message: "Goodbye!" };
     },
 
     async requestReset(parent, args, ctx, info) {
 
         // Check if this is a real user
-        const user = await ctx.db.query.user({where: {email: args.email}});
+        const user = await ctx.db.query.user({ where: { email: args.email } });
         if (!user) {
             throw new Error(`No user for ${args.email}`);
         }
@@ -131,26 +131,26 @@ const Mutation = {
         const resetToken = (await promisify(randomBytes)(20)).toString("hex");
         const resetTokenExpiry = Date.now() + 3600000; // 1 hour from now
         const res = await ctx.db.mutation.updateUser({
-            where: {email: args.email},
-            data: {resetToken, resetTokenExpiry}
+            where: { email: args.email },
+            data: { resetToken, resetTokenExpiry }
         });
 
         // Email them reset token
         const mailResponse = await transport.sendMail({
-                from: "glover.ethan@gmail.com",
-                to: user.email,
-                subject: "Your password reset token.",
-                text: `${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}`,
-                html: makeANiceEmail(`Your password reset link is here!\n\n
+            from: "glover.ethan@gmail.com",
+            to: user.email,
+            subject: "Your password reset token.",
+            text: `${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}`,
+            html: makeANiceEmail(`Your password reset link is here!\n\n
                 <a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">
                     Click here to reset your password.
                 </a>
             `)
-            })
-        ;
+        })
+            ;
 
         // Return the messsage
-        return {message: 'Thanks!'}
+        return { message: 'Thanks!' }
     },
 
     async resetPassword(parent, args, ctx, info) {
@@ -176,7 +176,7 @@ const Mutation = {
 
         // 5. Save the new password to the user and remove old resetToken fields
         const updatedUser = await ctx.db.mutation.updateUser({
-            where: {email: user.email},
+            where: { email: user.email },
             data: {
                 password,
                 resetToken: null,
@@ -185,7 +185,7 @@ const Mutation = {
         });
 
         // 6. Generate JWT
-        const token = jwt.sign({userId: updatedUser.id}, process.env.APP_SECRET);
+        const token = jwt.sign({ userId: updatedUser.id }, process.env.APP_SECRET);
 
         // 7. Set the JWT cookie
         ctx.response.cookie('token', token, {
@@ -227,6 +227,37 @@ const Mutation = {
             },
             info
         );
+    },
+
+    async addToFavorites(parent, args, ctx, info) {
+        // Make sure they're signed in
+        const { userId } = ctx.request;
+        if (!userId) {
+            throw new Error('You must be signed in to do that.');
+        }
+        // Query the users current favorites
+        const [existingFavorite] = await ctx.db.query.favorites({
+            where: {
+                user: { id: userId },
+                nonProfit: { id: args.id },
+            },
+        });
+        // Add to favorites if not already in list
+        if (!existingFavorite) {
+            return ctx.db.mutation.createFavorite(
+                {
+                    data: {
+                        user: {
+                            connect: { id: userId },
+                        },
+                        nonProfit: {
+                            connect: { id: args.id },
+                        },
+                    },
+                },
+                info
+            );
+        }
     },
 };
 

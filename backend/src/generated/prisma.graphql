@@ -1,5 +1,9 @@
 # source: https://us1.prisma.sh/ethan-glover-d293d5/charityapp-backend/dev
-# timestamp: Wed Jan 01 2020 21:55:22 GMT-0600 (Central Standard Time)
+# timestamp: Fri Jan 03 2020 12:45:39 GMT-0600 (Central Standard Time)
+
+type AggregateFavorite {
+  count: Int!
+}
 
 type AggregateNonProfit {
   count: Int!
@@ -16,6 +20,232 @@ type BatchPayload {
 
 scalar DateTime
 
+type Favorite implements Node {
+  id: ID!
+  nonProfit: NonProfit!
+  user: User!
+}
+
+"""A connection to a list of items."""
+type FavoriteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FavoriteEdge]!
+  aggregate: AggregateFavorite!
+}
+
+input FavoriteCreateInput {
+  id: ID
+  nonProfit: NonProfitCreateOneInput!
+  user: UserCreateOneWithoutFavoritesInput!
+}
+
+input FavoriteCreateManyWithoutUserInput {
+  create: [FavoriteCreateWithoutUserInput!]
+  connect: [FavoriteWhereUniqueInput!]
+}
+
+input FavoriteCreateWithoutUserInput {
+  id: ID
+  nonProfit: NonProfitCreateOneInput!
+}
+
+"""An edge in a connection."""
+type FavoriteEdge {
+  """The item at the end of the edge."""
+  node: Favorite!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FavoriteOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type FavoritePreviousValues {
+  id: ID!
+}
+
+input FavoriteScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FavoriteScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FavoriteScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FavoriteScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+}
+
+type FavoriteSubscriptionPayload {
+  mutation: MutationType!
+  node: Favorite
+  updatedFields: [String!]
+  previousValues: FavoritePreviousValues
+}
+
+input FavoriteSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FavoriteSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FavoriteSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FavoriteSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FavoriteWhereInput
+}
+
+input FavoriteUpdateInput {
+  nonProfit: NonProfitUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutFavoritesInput
+}
+
+input FavoriteUpdateManyWithoutUserInput {
+  create: [FavoriteCreateWithoutUserInput!]
+  connect: [FavoriteWhereUniqueInput!]
+  set: [FavoriteWhereUniqueInput!]
+  disconnect: [FavoriteWhereUniqueInput!]
+  delete: [FavoriteWhereUniqueInput!]
+  update: [FavoriteUpdateWithWhereUniqueWithoutUserInput!]
+  deleteMany: [FavoriteScalarWhereInput!]
+  upsert: [FavoriteUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input FavoriteUpdateWithoutUserDataInput {
+  nonProfit: NonProfitUpdateOneRequiredInput
+}
+
+input FavoriteUpdateWithWhereUniqueWithoutUserInput {
+  where: FavoriteWhereUniqueInput!
+  data: FavoriteUpdateWithoutUserDataInput!
+}
+
+input FavoriteUpsertWithWhereUniqueWithoutUserInput {
+  where: FavoriteWhereUniqueInput!
+  update: FavoriteUpdateWithoutUserDataInput!
+  create: FavoriteCreateWithoutUserInput!
+}
+
+input FavoriteWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FavoriteWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FavoriteWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FavoriteWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  nonProfit: NonProfitWhereInput
+  user: UserWhereInput
+}
+
+input FavoriteWhereUniqueInput {
+  id: ID
+}
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -23,18 +253,23 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createNonProfit(data: NonProfitCreateInput!): NonProfit!
   createUser(data: UserCreateInput!): User!
-  updateNonProfit(data: NonProfitUpdateInput!, where: NonProfitWhereUniqueInput!): NonProfit
+  createFavorite(data: FavoriteCreateInput!): Favorite!
+  createNonProfit(data: NonProfitCreateInput!): NonProfit!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  deleteNonProfit(where: NonProfitWhereUniqueInput!): NonProfit
+  updateFavorite(data: FavoriteUpdateInput!, where: FavoriteWhereUniqueInput!): Favorite
+  updateNonProfit(data: NonProfitUpdateInput!, where: NonProfitWhereUniqueInput!): NonProfit
   deleteUser(where: UserWhereUniqueInput!): User
-  upsertNonProfit(where: NonProfitWhereUniqueInput!, create: NonProfitCreateInput!, update: NonProfitUpdateInput!): NonProfit!
+  deleteFavorite(where: FavoriteWhereUniqueInput!): Favorite
+  deleteNonProfit(where: NonProfitWhereUniqueInput!): NonProfit
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyNonProfits(data: NonProfitUpdateManyMutationInput!, where: NonProfitWhereInput): BatchPayload!
+  upsertFavorite(where: FavoriteWhereUniqueInput!, create: FavoriteCreateInput!, update: FavoriteUpdateInput!): Favorite!
+  upsertNonProfit(where: NonProfitWhereUniqueInput!, create: NonProfitCreateInput!, update: NonProfitUpdateInput!): NonProfit!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  deleteManyNonProfits(where: NonProfitWhereInput): BatchPayload!
+  updateManyNonProfits(data: NonProfitUpdateManyMutationInput!, where: NonProfitWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyFavorites(where: FavoriteWhereInput): BatchPayload!
+  deleteManyNonProfits(where: NonProfitWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -80,7 +315,6 @@ type NonProfit implements Node {
   sortName: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  user: User!
 }
 
 """A connection to a list of items."""
@@ -122,7 +356,11 @@ input NonProfitCreateInput {
   revenueAmt: Int
   nteeCd: String
   sortName: String
-  user: UserCreateOneInput!
+}
+
+input NonProfitCreateOneInput {
+  create: NonProfitCreateInput
+  connect: NonProfitWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -267,6 +505,36 @@ input NonProfitSubscriptionWhereInput {
   node: NonProfitWhereInput
 }
 
+input NonProfitUpdateDataInput {
+  ein: Int
+  name: String
+  ico: String
+  street: String
+  city: String
+  state: String
+  zip: String
+  group: Int
+  subsection: Int
+  affiliation: Int
+  classification: Int
+  ruling: Int
+  deductibility: Int
+  foundation: Int
+  activity: Int
+  organization: Int
+  status: Int
+  taxperiod: Int
+  assetCd: Int
+  incomeCd: Int
+  filingReqCd: Int
+  pfFilingReqCd: Int
+  acctPd: Int
+  assetAmt: Int
+  revenueAmt: Int
+  nteeCd: String
+  sortName: String
+}
+
 input NonProfitUpdateInput {
   ein: Int
   name: String
@@ -295,7 +563,6 @@ input NonProfitUpdateInput {
   revenueAmt: Int
   nteeCd: String
   sortName: String
-  user: UserUpdateOneRequiredInput
 }
 
 input NonProfitUpdateManyMutationInput {
@@ -326,6 +593,18 @@ input NonProfitUpdateManyMutationInput {
   revenueAmt: Int
   nteeCd: String
   sortName: String
+}
+
+input NonProfitUpdateOneRequiredInput {
+  create: NonProfitCreateInput
+  connect: NonProfitWhereUniqueInput
+  update: NonProfitUpdateDataInput
+  upsert: NonProfitUpsertNestedInput
+}
+
+input NonProfitUpsertNestedInput {
+  update: NonProfitUpdateDataInput!
+  create: NonProfitCreateInput!
 }
 
 input NonProfitWhereInput {
@@ -1159,7 +1438,6 @@ input NonProfitWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
-  user: UserWhereInput
 }
 
 input NonProfitWhereUniqueInput {
@@ -1192,12 +1470,15 @@ enum Permission {
 }
 
 type Query {
-  nonProfits(where: NonProfitWhereInput, orderBy: NonProfitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NonProfit]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  nonProfit(where: NonProfitWhereUniqueInput!): NonProfit
+  favorites(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite]!
+  nonProfits(where: NonProfitWhereInput, orderBy: NonProfitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NonProfit]!
   user(where: UserWhereUniqueInput!): User
-  nonProfitsConnection(where: NonProfitWhereInput, orderBy: NonProfitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NonProfitConnection!
+  favorite(where: FavoriteWhereUniqueInput!): Favorite
+  nonProfit(where: NonProfitWhereUniqueInput!): NonProfit
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  favoritesConnection(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FavoriteConnection!
+  nonProfitsConnection(where: NonProfitWhereInput, orderBy: NonProfitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NonProfitConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1207,8 +1488,9 @@ type Query {
 }
 
 type Subscription {
-  nonProfit(where: NonProfitSubscriptionWhereInput): NonProfitSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  favorite(where: FavoriteSubscriptionWhereInput): FavoriteSubscriptionPayload
+  nonProfit(where: NonProfitSubscriptionWhereInput): NonProfitSubscriptionPayload
 }
 
 type User implements Node {
@@ -1219,6 +1501,7 @@ type User implements Node {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
+  favorites(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1241,15 +1524,26 @@ input UserCreateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+  favorites: FavoriteCreateManyWithoutUserInput
 }
 
-input UserCreateOneInput {
-  create: UserCreateInput
+input UserCreateOneWithoutFavoritesInput {
+  create: UserCreateWithoutFavoritesInput
   connect: UserWhereUniqueInput
 }
 
 input UserCreatepermissionsInput {
   set: [Permission!]
+}
+
+input UserCreateWithoutFavoritesInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserCreatepermissionsInput
 }
 
 """An edge in a connection."""
@@ -1329,15 +1623,6 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
-input UserUpdateDataInput {
-  name: String
-  email: String
-  password: String
-  resetToken: String
-  resetTokenExpiry: Float
-  permissions: UserUpdatepermissionsInput
-}
-
 input UserUpdateInput {
   name: String
   email: String
@@ -1345,6 +1630,7 @@ input UserUpdateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+  favorites: FavoriteUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -1356,20 +1642,29 @@ input UserUpdateManyMutationInput {
   permissions: UserUpdatepermissionsInput
 }
 
-input UserUpdateOneRequiredInput {
-  create: UserCreateInput
+input UserUpdateOneRequiredWithoutFavoritesInput {
+  create: UserCreateWithoutFavoritesInput
   connect: UserWhereUniqueInput
-  update: UserUpdateDataInput
-  upsert: UserUpsertNestedInput
+  update: UserUpdateWithoutFavoritesDataInput
+  upsert: UserUpsertWithoutFavoritesInput
 }
 
 input UserUpdatepermissionsInput {
   set: [Permission!]
 }
 
-input UserUpsertNestedInput {
-  update: UserUpdateDataInput!
-  create: UserCreateInput!
+input UserUpdateWithoutFavoritesDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+}
+
+input UserUpsertWithoutFavoritesInput {
+  update: UserUpdateWithoutFavoritesDataInput!
+  create: UserCreateWithoutFavoritesInput!
 }
 
 input UserWhereInput {
@@ -1647,6 +1942,9 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  favorites_every: FavoriteWhereInput
+  favorites_some: FavoriteWhereInput
+  favorites_none: FavoriteWhereInput
 }
 
 input UserWhereUniqueInput {
