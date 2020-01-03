@@ -18,9 +18,36 @@ class RemoveFromFavorites extends React.Component {
 		id: PropTypes.string.isRequired,
 	};
 
+	// Gets called when server responds back with favorite removal
+	update = (cache, payload) => {
+		// read the cache
+		console.log('Running remove from cart update function.')
+		const data = cache.readQuery({
+			query: CURRENT_USER_QUERY
+		})
+		console.log(data);
+		// remove item from favorites
+		const favoriteId = payload.data.removeFromFavorites.id;
+		data.me.favorites = data.me.favorites.filter(favorite =>
+			favorite.id !== favoriteId);
+		// write data back to cache
+		cache.writeQuery({ query: CURRENT_USER_QUERY, data });
+	}
+
 	render() {
 		return (
-			<Mutation mutation={REMOVE_FROM_FAVORITES_MUTATION} variables={{ id: this.props.id }}>
+			<Mutation mutation={REMOVE_FROM_FAVORITES_MUTATION}
+				variables={{ id: this.props.id }}
+				update={this.update}
+				optimisticResponse={{
+					__typename: 'Mutation',
+					removeFromFavorites: {
+						__typename: 'Favorite',
+						id: this.props.id,
+					}
+				}}
+			>
+
 				{(removeFromFavorites, { loading, error }) => (
 					<>
 						&emsp;
