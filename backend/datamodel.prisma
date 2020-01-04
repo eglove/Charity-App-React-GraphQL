@@ -22,7 +22,7 @@ type User {
 
 type NonProfit {
 	id: ID! @id
-	ein: Int! @unique
+	ein: String! @unique
 	name: String!
 	ico: String
 	street: String!

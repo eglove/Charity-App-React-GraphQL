@@ -90,6 +90,9 @@ type Query {
 	user(where:UserWhereUniqueInput!):User
 	usersConnection(where:UserWhereInput):UserConnection!
 	me:User
+
+	favorites(where:FavoriteWhereInput): [Favorite]!
+	favorite(where:FavoriteWhereInput):Favorite
 }
 
 type User {

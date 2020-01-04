@@ -4,7 +4,6 @@ import Router from "next/router";
 import {ApolloConsumer} from 'react-apollo';
 import gql from 'graphql-tag';
 import debounce from 'lodash.debounce';
-import {DropDown, DropDownItem, SearchStyles} from './styles/DropDown'
 
 const SEARCH_NONPROFITS_QUERY = gql`
     query SEARCH_NONPROFITS_QUERY($searchTerm: String!) {
@@ -53,7 +52,7 @@ class AutoComplete extends React.Component {
     render() {
         resetIdCounter();
         return (
-            <SearchStyles>
+            <>
                 <Downshift
                     onChange={routeToNonProfit}
                     itemToString={nonProfit => (nonProfit === null ? '' : nonProfit.name)}
@@ -67,7 +66,7 @@ class AutoComplete extends React.Component {
                                             type: 'search',
                                             placeholder: 'Search for a Charity',
                                             id: 'search',
-                                            className: this.state.loading ? 'loading' : '',
+                                            className: this.state.loading ? 'component searchBar loading' : 'component searchBar notLoading',
                                             onChange: e => {
                                                 e.persist();
                                                 this.onChange(e, client);
@@ -77,18 +76,18 @@ class AutoComplete extends React.Component {
                                 )}
                             </ApolloConsumer>
                             {isOpen && (
-                                <>
+                                <div className="searchResults">
                                     {this.state.nonProfits.map((nonProfit, index) => (
                                         <div
                                             {...getItemProps({
                                                 key: nonProfit.id,
                                                 index,
                                                 item: nonProfit,
+                                                className: 'individualResults',
                                                 style: {
-                                                  backgroundColor:
-                                                    highlightedIndex === index ? 'lightgray' : 'white',
-                                                    fontSize: 16,
-                                                },
+                                                    backgroundColor:
+                                                        highlightedIndex === index ? 'lightgray' : 'white',
+                                                }
                                             })}
                                         >
                                             {nonProfit.name}
@@ -98,12 +97,30 @@ class AutoComplete extends React.Component {
                                         && !this.state.loading
                                         && <div>Nothing Found for {inputValue}</div>
                                     }
-                                </>
+                                </div>
                             )}
                         </div>
                     )}
                 </Downshift>
-            </SearchStyles>
+                <style>{`
+                    .searchBar {
+                        font-size: 1em;
+                        border: solid 1px #eeeeee;
+                        width: 99%;
+                    }
+                    .loading {
+                        background-color: #eeeeee;
+                    }
+                    .individualResults {
+                    }
+                    .individualResults:hover {
+                        cursor: pointer;
+                    }
+                    .searchResults {
+                        border: solid 1px;
+                    }
+                `}</style>
+            </>
         );
     }
 }

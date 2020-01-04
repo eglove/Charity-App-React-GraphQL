@@ -8,6 +8,8 @@ const Query = {
     nonProfit: forwardTo("db"),
     usersConnection: forwardTo("db"),
     nonProfitsConnection: forwardTo("db"),
+    favorites: forwardTo("db"),
+    favorite: forwardTo("db"),
 
     me(parent, args, ctx, info) {
         // check if there is a current user ID

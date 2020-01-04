@@ -36,10 +36,9 @@ class CharityApp extends App {
 						display: block;
 						margin: 5px;
 					}
-					.paginationDisabler[aria-disabled='true'] {
-					    color: grey;
-					    pointer-events: none;
-					}
+                    .center {
+                        text-align: center;
+                    }
 					fieldset {
 						border: none;
 					}
@@ -53,26 +52,6 @@ class CharityApp extends App {
 						margin: 10px;
 						text-align: center;
 						line-height: 75px;
-					}
-					.nonProfitInfo > a {
-						text-decoration: none;
-						color: black;
-						font-size: 2em;
-					}
-					.buttonList {
-						display: grid;
-						grid-template-columns: auto auto auto;
-						padding: 10px;
-					}
-					.buttonList > a {
-						text-decoration: none;
-						font-size: 1em;
-						text-align: center;
-					}
-					.buttonList > button {
-						background-color: white;
-						border: none;
-						text-decoration: none;
 					}
 					@font-face {
 						font-family: 'Merriweather';

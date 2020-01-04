@@ -8,21 +8,28 @@ const { hasPermission } = require("../utils");
 const oneYearCookie = 1000 * 60 * 60 * 24 * 365;
 
 const Mutation = {
+
+    // async createUser(parent, args, ctx, info) {
+    //     args.email = args.email.toLowerCase();
+    //     // hash password, 10 argument 'salts' password for unique hashing algorithm
+    //     const password = await bcrypt.hash(args.password, 10);
+    //     // create user in DB
+    //     const user = await ctx.db.mutation.createUser({
+    //         data: {
+    //             ...args,
+    //             password,
+    //             permissions: { set: ["USER"] }
+    //         },
+    //     }, info);
+
     async createNonProfit(parent, args, ctx, info) {
         // check if user is logged in
         if (!ctx.request.userId) {
             throw new Error("You must be logged in to do that.");
         }
 
-        const nonProfit = ctx.db.mutation.createNonProfit(
-            {
+        const nonProfit = await ctx.db.mutation.createNonProfit({
                 data: {
-                    // Creates relationship between nonprofit and user
-                    user: {
-                        connect: {
-                            id: ctx.request.userId,
-                        },
-                    },
                     ...args
                 }
             }, info);
@@ -58,13 +65,7 @@ const Mutation = {
     async deleteNonProfit(parent, args, ctx, info) {
         const where = { id: args.id };
         // find nonprofit
-        const nonProfit = await ctx.db.query.nonProfit({ where }, `{id name user{id}}`);
-        // check if user has permission to delete
-        const addedNonProfit = nonProfit.user.id === ctx.request.userId;
-        const hasPermissions = ctx.request.user.permissions.some(permission => ["ADMIN", "NONPROFITDELETE"].includes(permission));
-        if (!addedNonProfit && !hasPermissions)
-            throw new Error("You don't have permission to delete.");
-        // delete it
+        const nonProfit = await ctx.db.query.nonProfit({ where }, `{id}`);
         return ctx.db.mutation.deleteNonProfit({ where }, info);
     },
 

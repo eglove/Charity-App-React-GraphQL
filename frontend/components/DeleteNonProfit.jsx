@@ -25,25 +25,43 @@ class DeleteNonProfit extends Component {
 
     render() {
         return (
-            <Mutation
-                mutation={DELETE_NONPROFIT_MUTATION}
-                variables={{id: this.props.id}}
-                update={this.update}
-            >
-                {(deleteNonProfit, {error}) => (
-                    <button
-                        onClick={() => {
-                            if (confirm("Are you sure you want to delete this item?")) {
-                                deleteNonProfit().catch(err => {
-                                    alert(err.message);
-                                });
-                            }
-                        }}
-                    >
-                        {this.props.children}
-                    </button>
-                )}
-            </Mutation>
+            <>
+                <Mutation
+                    mutation={DELETE_NONPROFIT_MUTATION}
+                    variables={{id: this.props.id}}
+                    update={this.update}
+                >
+                    {(deleteNonProfit, {error}) => (
+                        <button
+                            onClick={() => {
+                                if (confirm("Are you sure you want to delete this item?")) {
+                                    deleteNonProfit().catch(err => {
+                                        alert(err.message);
+                                    });
+                                }
+                            }}
+                        >
+                            {this.props.children}
+                        </button>
+                    )}
+                </Mutation>
+                <style jsx>{`
+                    button {
+						background-color: white;
+						border: none;
+						text-align: center;
+						display: inline-block;
+						width: 100%;
+						height: 80%;
+						font-family: Merriweather;
+						font-size: 1em;
+					}
+					button:hover {
+					    background-color: #eeeeee;
+					    cursor: pointer;
+					}
+                `}</style>
+            </>
         );
     }
 }

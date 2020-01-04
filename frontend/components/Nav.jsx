@@ -11,40 +11,40 @@ const Nav = () =>
                 const me = data ? data.me : null;
                 return (
                     <>
-                    <ul className="topnav component">
-                        <li>
-                            <Link href="/nonProfits">
-                                <a>Find Charities</a>
-                            </Link>
-                        </li>
-                        {me && (
-                            <>
-                                <li>
-                                    <Link href="/favorites">
-                                        <a>
-                                            Favorites (
-                                            <FavoritesCount count={me.favorites.length}/>)
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/account">
-                                        <a>Account</a>
-                                    </Link>
-                                </li>
-                                <SignOut/>
-                            </>
-                        )}
-
-                        {!me && (
+                        <ul className="topnav component">
                             <li>
-                                <Link href="/signup">
-                                    <a>Sign In</a>
+                                <Link href="/nonProfits">
+                                    <a>Find Charities</a>
                                 </Link>
                             </li>
-                        )}
-                    </ul>
-                    <Search/>
+                            {me && (
+                                <>
+                                    <li>
+                                        <Link href="/favorites">
+                                            <a>
+                                                Favorites (
+                                                <FavoritesCount count={me.favorites.length}/>)
+                                            </a>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/account">
+                                            <a>Account</a>
+                                        </Link>
+                                    </li>
+                                    <SignOut/>
+                                </>
+                            )}
+
+                            {!me && (
+                                <li>
+                                    <Link href="/signup">
+                                        <a>Sign In</a>
+                                    </Link>
+                                </li>
+                            )}
+                        </ul>
+                        <Search/>
                     </>
                 )
             }}
@@ -78,7 +78,7 @@ const Nav = () =>
             @media screen and (max-width: 600px) {
                 ul.topnav li.right,
                 ul.topnav li {float: none;}
-                }
+            }
         `}</style>
     </>;
 
