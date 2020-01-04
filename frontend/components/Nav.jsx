@@ -2,6 +2,7 @@ import Link from "next/link";
 import User from "./User";
 import SignOut from "./SignOut";
 import FavoritesCount from "./FavoritesCount";
+import Search from './Search';
 
 const Nav = () =>
     <>
@@ -9,15 +10,11 @@ const Nav = () =>
             {({data}) => {
                 const me = data ? data.me : null;
                 return (
+                    <>
                     <ul className="topnav component">
                         <li>
-                            <Link href="/">
-                                <a>Home</a>
-                            </Link>
-                        </li>
-                        <li>
                             <Link href="/nonProfits">
-                                <a>All Charities</a>
+                                <a>Find Charities</a>
                             </Link>
                         </li>
                         {me && (
@@ -47,6 +44,8 @@ const Nav = () =>
                             </li>
                         )}
                     </ul>
+                    <Search/>
+                    </>
                 )
             }}
         </User>
