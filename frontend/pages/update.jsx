@@ -1,10 +1,7 @@
-import React from 'react';
-import UpdateNonProfit from "../components/UpdateNonProfit";
+import UpdateCharity from "../components/UpdateCharity";
 
 const Update = ({query}) => (
-    <>
-        <UpdateNonProfit id={query.id} />
-    </>
+    <UpdateCharity id={query.id}/>
 );
 
 export default Update;

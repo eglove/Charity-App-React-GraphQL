@@ -1,9 +1,9 @@
-import CreateNonProfit from "../components/CreateNonProfit";
+import CreateCharity from "../components/CreateCharity";
 import PleaseSignIn from "../components/PleaseSignIn";
 
 const Add = props => (
     <PleaseSignIn>
-        <CreateNonProfit/>
+        <CreateCharity/>
     </PleaseSignIn>
 );
 

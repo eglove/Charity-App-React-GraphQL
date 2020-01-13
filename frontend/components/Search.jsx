@@ -1,28 +1,37 @@
-import React from 'react';
-import Downshift, {resetIdCounter} from "downshift";
+import React from "react";
+import Downshift, {resetCounter, resetIdCounter} from "downshift";
 import Router from "next/router";
-import {ApolloConsumer} from 'react-apollo';
-import gql from 'graphql-tag';
-import debounce from 'lodash.debounce';
+import {ApolloConsumer} from "react-apollo";
+import gql from "graphql-tag";
+import debounce from "lodash.debounce"
+import {DropDown, DropDownItem, SearchStyles} from "./styles/DropDown";
 
-const SEARCH_NONPROFITS_QUERY = gql`
-    query SEARCH_NONPROFITS_QUERY($searchTerm: String!) {
-        nonProfits(where: {
+const SEARCH_CHARITIES_QUERY = gql`
+    query SEARCH_CHARITIES_QUERY($searchTerm: String!) {
+        charities(where: {
             OR: [
-                { name_contains: $searchTerm},
+                {ein_contains: $searchTerm},
+                {name_contains: $searchTerm},
+                {description_contains: $searchTerm},
+                {website_contains: $searchTerm},
+                {street_contains: $searchTerm},
+                {city_contains: $searchTerm},
+                {state_contains: $searchTerm},
+                {zip_contains: $searchTerm},
             ]
         }) {
             id
+            image
             name
         }
     }
 `;
 
-function routeToNonProfit(nonProfit) {
+function routeToCharity(charity) {
     Router.push({
-        pathname: '/nonProfit',
+        pathname: '/charity',
         query: {
-            id: nonProfit.id,
+            id: charity.id,
         },
     });
 }
@@ -30,97 +39,69 @@ function routeToNonProfit(nonProfit) {
 class AutoComplete extends React.Component {
 
     state = {
-        nonProfits: [],
+        charities: [],
         loading: false,
     };
 
     onChange = debounce(async (e, client) => {
-        console.log('Searching...');
         // turn loading on
         this.setState({loading: true});
-        // Manually query apollo client
+        // manually query apollo client with search change
         const res = await client.query({
-            query: SEARCH_NONPROFITS_QUERY,
-            variables: {searchTerm: e.target.value}
+            query: SEARCH_CHARITIES_QUERY,
+            variables: {searchTerm: e.target.value},
         });
         this.setState({
-            nonProfits: res.data.nonProfits,
+            charities: res.data.charities,
             loading: false,
-        });
+        })
     }, 350);
 
     render() {
         resetIdCounter();
         return (
-            <>
-                <Downshift
-                    onChange={routeToNonProfit}
-                    itemToString={nonProfit => (nonProfit === null ? '' : nonProfit.name)}
-                >
+            <SearchStyles>
+                <Downshift onChange={routeToCharity} itemToString={item => (item === null ? '' : item.title)}>
                     {({getInputProps, getItemProps, isOpen, inputValue, highlightedIndex}) => (
                         <div>
                             <ApolloConsumer>
-                                {client => (
+                                {(client) => (
                                     <input
                                         {...getInputProps({
                                             type: 'search',
                                             placeholder: 'Search for a Charity',
                                             id: 'search',
-                                            className: this.state.loading ? 'component searchBar loading' : 'component searchBar notLoading',
+                                            className: this.state.loading ? 'loading' : '',
                                             onChange: e => {
-                                                e.persist();
-                                                this.onChange(e, client);
-                                            },
-                                        })}
-                                    />
+                                            e.persist();
+                                            this.onChange(e, client);
+                                        },
+                                    })}/>
                                 )}
                             </ApolloConsumer>
                             {isOpen && (
-                                <div className="searchResults">
-                                    {this.state.nonProfits.map((nonProfit, index) => (
-                                        <div
-                                            {...getItemProps({
-                                                key: nonProfit.id,
-                                                index,
-                                                item: nonProfit,
-                                                className: 'individualResults',
-                                                style: {
-                                                    backgroundColor:
-                                                        highlightedIndex === index ? 'lightgray' : 'white',
-                                                }
-                                            })}
-                                        >
-                                            {nonProfit.name}
-                                        </div>
-                                    ))}
-                                    {!this.state.nonProfits.length
-                                        && !this.state.loading
-                                        && <div>Nothing Found for {inputValue}</div>
-                                    }
-                                </div>
+                                <DropDown>
+                                        {this.state.charities.map((item, index) =>
+                                            <DropDownItem
+                                                {...getItemProps({item})}
+                                                key={item.id}
+                                                highlighted={index === highlightedIndex}
+                                            >
+                                                <img width="50" src={item.image} alt={item.imageDescription}/>
+                                                {item.name}
+                                            </DropDownItem>
+                                        )}
+                                        {!this.state.charities.length && !this.state.loading && (
+                                            <DropDownItem>
+                                                Nothing found for '{inputValue}'
+                                            </DropDownItem>
+                                        )}
+                                </DropDown>
                             )}
                         </div>
                     )}
                 </Downshift>
-                <style>{`
-                    .searchBar {
-                        font-size: 1em;
-                        border: solid 1px #eeeeee;
-                        width: 99%;
-                    }
-                    .loading {
-                        background-color: #eeeeee;
-                    }
-                    .individualResults {
-                    }
-                    .individualResults:hover {
-                        cursor: pointer;
-                    }
-                    .searchResults {
-                        border: solid 1px;
-                    }
-                `}</style>
-            </>
+            </SearchStyles>
         );
     }
 }

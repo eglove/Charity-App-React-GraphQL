@@ -1,9 +1,9 @@
-import NonProfits from '../components/NonProfits';
+import Charities from "../components/Charities";
 
 const Home = props => (
-	<div className="component">
-		<NonProfits page={parseFloat(props.query.page) || 1} />
-	</div>
+    <>
+        <Charities page={parseFloat(props.query.page) || 1}/>
+    </>
 );
 
 export default Home;

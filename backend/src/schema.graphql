@@ -1,104 +1,58 @@
 # import * from './generated/prisma.graphql'
+
 type SuccessMessage {
-	message: String
+    message: String
 }
 
 type Mutation {
-	createNonProfit(
-		ein: Int!
-		name: String!
-		ico: String
-		street: String!
-		city: String!
-		state: String!
-		zip: String!
-		group: Int
-		subsection: Int
-		affiliation: Int
-		classification: Int
-		ruling: Int
-		deductibility: Int
-		foundation: Int
-		activity: Int
-		organization: Int
-		status: Int
-		taxperiod: Int
-		assetCd: Int
-		incomeCd: Int
-		filingReqCd: Int
-		pfFilingReqCd: Int
-		acctPd: Int
-		assetAmt: Int
-		revenueAmt: Int
-		nteeCd: String
-		sortName: String
-	):NonProfit!
+    createCharity(
+        ein: String,
+        name: String,
+        description: String,
+        website: String,
+        image: String,
+        largeImage: String,
+        imageDescription: String,
+        street: String,
+        city: String,
+        state: String,
+        zip: String
+    ):Charity!
 
-	updateNonProfit(
-		id: ID!
-		ein: Int
-		name: String
-		ico: String
-		street: String
-		city: String
-		state: String
-		zip: String
-		group: Int
-		subsection: Int
-		affiliation: Int
-		classification: Int
-		ruling: Int
-		deductibility: Int
-		foundation: Int
-		activity: Int
-		organization: Int
-		status: Int
-		taxperiod: Int
-		assetCd: Int
-		incomeCd: Int
-		filingReqCd: Int
-		pfFilingReqCd: Int
-		acctPd: Int
-		assetAmt: Int
-		revenueAmt: Int
-		nteeCd: String
-		sortName: String
-	):NonProfit!
+    updateCharity(
+        id: ID!,
+        name: String,
+        description: String,
+        website: String,
+        street: String,
+        city: String,
+        state: String,
+        zip: String
+    ):Charity!
 
-	deleteNonProfit(id: ID!):NonProfit
-	
-	createUser(name: String!, email: String!, password: String!):User!
-	updateUser (name: String, email: String, password: String):User!
-	
-	signin(email:String!, password:String!):User!
-	signout:SuccessMessage
-	
-	requestReset(email: String!):SuccessMessage
-	resetPassword(resetToken:String!, password:String!, confirmPassword:String!):User!
-	
-	updatePermissions(permissions: [Permission], userId: ID!): User
-	addToFavorites(id: ID!):Favorite
-	removeFromFavorites(id: ID!):Favorite
+    deleteCharity(id: ID!):Charity
+    signup(email:String!, password:String!, name:String!):User!
+    signin(email:String!, password:String!):User!
+    signout:SuccessMessage
+    requestReset(email: String!):SuccessMessage
+    resetPassword(resetToken: String!, password: String!, confirmPassword: String!):User!
+    updatePermissions(permissions: [Permission], userId: ID!):User
+    addToFavorites(id: ID!):Favorite
+    removeFromFavorites(id: ID!):Favorite
 }
 
 type Query {
-	nonProfits(where:NonProfitWhereInput, orderBy:NonProfitOrderByInput, skip:Int, first:Int): [NonProfit!]!
-	nonProfit(where:NonProfitWhereUniqueInput!):NonProfit
-	nonProfitsConnection(where:NonProfitWhereInput):NonProfitConnection!
-
-	users: [User]!
-	user(where:UserWhereUniqueInput!):User
-	usersConnection(where:UserWhereInput):UserConnection!
-	me:User
-
-	favorites(where:FavoriteWhereInput): [Favorite]!
-	favorite(where:FavoriteWhereInput):Favorite
+    charities(where: CharityWhereInput, orderBy: CharityOrderByInput, skip: Int, first: Int):[Charity]!
+    charity(where: CharityWhereUniqueInput!):Charity
+    charitiesConnection(where: CharityWhereInput):CharityConnection!
+    me:User
+    users:[User]!
 }
 
 type User {
-	id: ID!
-	name: String!
-	email: String!
-	permissions: [Permission!]!
-	favorites: [Favorite!]!
+    id: ID!
+    name: String!
+    email: String!
+    permissions: [Permission]
+    favorites: [Favorite!]!
 }

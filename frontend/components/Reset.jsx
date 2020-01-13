@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
-import {Mutation} from 'react-apollo';
+import {Mutation} from "react-apollo";
 import gql from "graphql-tag";
-import PropTypes from "prop-types";
+import Head from 'next/head';
+import PropTypes from 'prop-types';
+import Form from "./styles/Form";
+import Error from './ErrorMessage';
 import {CURRENT_USER_QUERY} from "./User";
 
 const RESET_MUTATION = gql`
     mutation RESET_MUTATION(
         $resetToken: String!,
         $password: String!,
-        $confirmPassword: String!,
+        $confirmPassword: String!
     ) {
-        resetPassword(
+        resetPassword (
             resetToken: $resetToken,
             password: $password,
-            confirmPassword: $confirmPassword,
+            confirmPassword: $confirmPassword
         ) {
             id
             email
@@ -24,7 +27,7 @@ const RESET_MUTATION = gql`
 
 class Reset extends Component {
 
-    static PropTypes = {
+    static propTypes = {
         resetToken: PropTypes.string.isRequired,
     };
 
@@ -46,38 +49,50 @@ class Reset extends Component {
                     password: this.state.password,
                     confirmPassword: this.state.confirmPassword,
                 }}
-                refetchQueries={[{
-                    query: CURRENT_USER_QUERY
-                }]}
+                refetchQueries={[{query: CURRENT_USER_QUERY}]}
             >
                 {(reset, {error, loading, called}) => {
                     return (
-                        <form method="post" onSubmit={async (e) => {
-                            e.preventDefault();
-                            await reset();
-                            this.setState({password: '', confirmPassword: '',});
-                        }}>
-                            <fieldset disabled={loading} aria-busy={loading}>
-                                <h2>Reset Your Password</h2>
-                                <label htmlFor="password">
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        placeholder="Password"
-                                        value={this.state.password}
-                                        onChange={this.saveToState}/>
-                                </label>
-                                <label htmlFor="confirmPassword">
-                                    <input
-                                        type="password"
-                                        name="confirmPassword"
-                                        placeholder="Confirm Password"
-                                        value={this.state.confirmPassword}
-                                        onChange={this.saveToState}/>
-                                </label>
-                                <button type="submit">Reset Password</button>
-                            </fieldset>
-                        </form>
+                        <>
+                            <Head>
+                                <title>Cognitame ⛑ Reset</title>
+                            </Head>
+                            <Form
+                                method="POST"
+                                onSubmit={async e => {
+                                    e.preventDefault();
+                                    await reset();
+                                    this.setState({password: '', confirmPassword: ''});
+                                }}
+                            >
+                                <fieldset disabled={loading} aria-busy={loading}>
+                                    <h2>Reset Your Password</h2>
+                                    <Error error={error}/>
+                                    {!error && !loading && called && <p>Success! Your password has been reset.</p>}
+                                    <label htmlFor="password">
+                                        Password
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            placeholder="Password"
+                                            value={this.state.password}
+                                            onChange={this.saveToState}
+                                        />
+                                    </label>
+                                    <label htmlFor="confirmPassword">
+                                        Confirm Password
+                                        <input
+                                            type="password"
+                                            name="confirmPassword"
+                                            placeholder="Confirm Password"
+                                            value={this.state.confirmPassword}
+                                            onChange={this.saveToState}
+                                        />
+                                    </label>
+                                    <button type="submit">Reset{loading ? 'ting' : ''}</button>
+                                </fieldset>
+                            </Form>
+                        </>
                     )
                 }}
             </Mutation>

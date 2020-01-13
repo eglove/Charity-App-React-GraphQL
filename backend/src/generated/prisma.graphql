@@ -1,11 +1,11 @@
 # source: https://us1.prisma.sh/ethan-glover-d293d5/charityapp-backend/dev
-# timestamp: Fri Jan 03 2020 16:18:07 GMT-0600 (Central Standard Time)
+# timestamp: Mon Jan 13 2020 11:41:39 GMT-0600 (Central Standard Time)
 
-type AggregateFavorite {
+type AggregateCharity {
   count: Int!
 }
 
-type AggregateNonProfit {
+type AggregateFavorite {
   count: Int!
 }
 
@@ -18,369 +18,81 @@ type BatchPayload {
   count: Long!
 }
 
-scalar DateTime
-
-type Favorite implements Node {
+type Charity implements Node {
   id: ID!
-  nonProfit: NonProfit
-  user: User!
-}
-
-"""A connection to a list of items."""
-type FavoriteConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [FavoriteEdge]!
-  aggregate: AggregateFavorite!
-}
-
-input FavoriteCreateInput {
-  id: ID
-  nonProfit: NonProfitCreateOneInput
-  user: UserCreateOneWithoutFavoritesInput!
-}
-
-input FavoriteCreateManyWithoutUserInput {
-  create: [FavoriteCreateWithoutUserInput!]
-  connect: [FavoriteWhereUniqueInput!]
-}
-
-input FavoriteCreateWithoutUserInput {
-  id: ID
-  nonProfit: NonProfitCreateOneInput
-}
-
-"""An edge in a connection."""
-type FavoriteEdge {
-  """The item at the end of the edge."""
-  node: Favorite!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum FavoriteOrderByInput {
-  id_ASC
-  id_DESC
-}
-
-type FavoritePreviousValues {
-  id: ID!
-}
-
-input FavoriteScalarWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FavoriteScalarWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FavoriteScalarWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FavoriteScalarWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-}
-
-type FavoriteSubscriptionPayload {
-  mutation: MutationType!
-  node: Favorite
-  updatedFields: [String!]
-  previousValues: FavoritePreviousValues
-}
-
-input FavoriteSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FavoriteSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FavoriteSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FavoriteSubscriptionWhereInput!]
-
-  """The subscription event gets dispatched when it's listed in mutation_in"""
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: FavoriteWhereInput
-}
-
-input FavoriteUpdateInput {
-  nonProfit: NonProfitUpdateOneInput
-  user: UserUpdateOneRequiredWithoutFavoritesInput
-}
-
-input FavoriteUpdateManyWithoutUserInput {
-  create: [FavoriteCreateWithoutUserInput!]
-  connect: [FavoriteWhereUniqueInput!]
-  set: [FavoriteWhereUniqueInput!]
-  disconnect: [FavoriteWhereUniqueInput!]
-  delete: [FavoriteWhereUniqueInput!]
-  update: [FavoriteUpdateWithWhereUniqueWithoutUserInput!]
-  deleteMany: [FavoriteScalarWhereInput!]
-  upsert: [FavoriteUpsertWithWhereUniqueWithoutUserInput!]
-}
-
-input FavoriteUpdateWithoutUserDataInput {
-  nonProfit: NonProfitUpdateOneInput
-}
-
-input FavoriteUpdateWithWhereUniqueWithoutUserInput {
-  where: FavoriteWhereUniqueInput!
-  data: FavoriteUpdateWithoutUserDataInput!
-}
-
-input FavoriteUpsertWithWhereUniqueWithoutUserInput {
-  where: FavoriteWhereUniqueInput!
-  update: FavoriteUpdateWithoutUserDataInput!
-  create: FavoriteCreateWithoutUserInput!
-}
-
-input FavoriteWhereInput {
-  """Logical AND on all given filters."""
-  AND: [FavoriteWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [FavoriteWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [FavoriteWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  nonProfit: NonProfitWhereInput
-  user: UserWhereInput
-}
-
-input FavoriteWhereUniqueInput {
-  id: ID
-}
-
-"""
-The `Long` scalar type represents non-fractional signed whole numeric values.
-Long can represent values between -(2^63) and 2^63 - 1.
-"""
-scalar Long
-
-type Mutation {
-  createUser(data: UserCreateInput!): User!
-  createFavorite(data: FavoriteCreateInput!): Favorite!
-  createNonProfit(data: NonProfitCreateInput!): NonProfit!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateFavorite(data: FavoriteUpdateInput!, where: FavoriteWhereUniqueInput!): Favorite
-  updateNonProfit(data: NonProfitUpdateInput!, where: NonProfitWhereUniqueInput!): NonProfit
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteFavorite(where: FavoriteWhereUniqueInput!): Favorite
-  deleteNonProfit(where: NonProfitWhereUniqueInput!): NonProfit
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertFavorite(where: FavoriteWhereUniqueInput!, create: FavoriteCreateInput!, update: FavoriteUpdateInput!): Favorite!
-  upsertNonProfit(where: NonProfitWhereUniqueInput!, create: NonProfitCreateInput!, update: NonProfitUpdateInput!): NonProfit!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  updateManyNonProfits(data: NonProfitUpdateManyMutationInput!, where: NonProfitWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyFavorites(where: FavoriteWhereInput): BatchPayload!
-  deleteManyNonProfits(where: NonProfitWhereInput): BatchPayload!
-}
-
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
-
-"""An object with an ID"""
-interface Node {
-  """The id of the object."""
-  id: ID!
-}
-
-type NonProfit implements Node {
-  id: ID!
-  ein: Int!
+  ein: String!
   name: String!
-  ico: String
-  street: String!
-  city: String!
-  state: String!
-  zip: String!
-  group: Int
-  subsection: Int
-  affiliation: Int
-  classification: Int
-  ruling: Int
-  deductibility: Int
-  foundation: Int
-  activity: Int
-  organization: Int
-  status: Int
-  taxperiod: Int
-  assetCd: Int
-  incomeCd: Int
-  filingReqCd: Int
-  pfFilingReqCd: Int
-  acctPd: Int
-  assetAmt: Int
-  revenueAmt: Int
-  nteeCd: String
-  sortName: String
+  description: String!
+  website: String
+  image: String
+  largeImage: String
+  imageDescription: String
+  street: String
+  city: String
+  state: String
+  zip: String
+  user: User!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
-type NonProfitConnection {
+type CharityConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [NonProfitEdge]!
-  aggregate: AggregateNonProfit!
+  edges: [CharityEdge]!
+  aggregate: AggregateCharity!
 }
 
-input NonProfitCreateInput {
+input CharityCreateInput {
   id: ID
-  ein: Int!
+  ein: String!
   name: String!
-  ico: String
-  street: String!
-  city: String!
-  state: String!
-  zip: String!
-  group: Int
-  subsection: Int
-  affiliation: Int
-  classification: Int
-  ruling: Int
-  deductibility: Int
-  foundation: Int
-  activity: Int
-  organization: Int
-  status: Int
-  taxperiod: Int
-  assetCd: Int
-  incomeCd: Int
-  filingReqCd: Int
-  pfFilingReqCd: Int
-  acctPd: Int
-  assetAmt: Int
-  revenueAmt: Int
-  nteeCd: String
-  sortName: String
+  description: String!
+  website: String
+  image: String
+  largeImage: String
+  imageDescription: String
+  street: String
+  city: String
+  state: String
+  zip: String
+  user: UserCreateOneInput!
 }
 
-input NonProfitCreateOneInput {
-  create: NonProfitCreateInput
-  connect: NonProfitWhereUniqueInput
+input CharityCreateOneInput {
+  create: CharityCreateInput
+  connect: CharityWhereUniqueInput
 }
 
 """An edge in a connection."""
-type NonProfitEdge {
+type CharityEdge {
   """The item at the end of the edge."""
-  node: NonProfit!
+  node: Charity!
 
   """A cursor for use in pagination."""
   cursor: String!
 }
 
-enum NonProfitOrderByInput {
+enum CharityOrderByInput {
   id_ASC
   id_DESC
   ein_ASC
   ein_DESC
   name_ASC
   name_DESC
-  ico_ASC
-  ico_DESC
+  description_ASC
+  description_DESC
+  website_ASC
+  website_DESC
+  image_ASC
+  image_DESC
+  largeImage_ASC
+  largeImage_DESC
+  imageDescription_ASC
+  imageDescription_DESC
   street_ASC
   street_DESC
   city_ASC
@@ -389,103 +101,49 @@ enum NonProfitOrderByInput {
   state_DESC
   zip_ASC
   zip_DESC
-  group_ASC
-  group_DESC
-  subsection_ASC
-  subsection_DESC
-  affiliation_ASC
-  affiliation_DESC
-  classification_ASC
-  classification_DESC
-  ruling_ASC
-  ruling_DESC
-  deductibility_ASC
-  deductibility_DESC
-  foundation_ASC
-  foundation_DESC
-  activity_ASC
-  activity_DESC
-  organization_ASC
-  organization_DESC
-  status_ASC
-  status_DESC
-  taxperiod_ASC
-  taxperiod_DESC
-  assetCd_ASC
-  assetCd_DESC
-  incomeCd_ASC
-  incomeCd_DESC
-  filingReqCd_ASC
-  filingReqCd_DESC
-  pfFilingReqCd_ASC
-  pfFilingReqCd_DESC
-  acctPd_ASC
-  acctPd_DESC
-  assetAmt_ASC
-  assetAmt_DESC
-  revenueAmt_ASC
-  revenueAmt_DESC
-  nteeCd_ASC
-  nteeCd_DESC
-  sortName_ASC
-  sortName_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
 
-type NonProfitPreviousValues {
+type CharityPreviousValues {
   id: ID!
-  ein: Int!
+  ein: String!
   name: String!
-  ico: String
-  street: String!
-  city: String!
-  state: String!
-  zip: String!
-  group: Int
-  subsection: Int
-  affiliation: Int
-  classification: Int
-  ruling: Int
-  deductibility: Int
-  foundation: Int
-  activity: Int
-  organization: Int
-  status: Int
-  taxperiod: Int
-  assetCd: Int
-  incomeCd: Int
-  filingReqCd: Int
-  pfFilingReqCd: Int
-  acctPd: Int
-  assetAmt: Int
-  revenueAmt: Int
-  nteeCd: String
-  sortName: String
+  description: String!
+  website: String
+  image: String
+  largeImage: String
+  imageDescription: String
+  street: String
+  city: String
+  state: String
+  zip: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
 
-type NonProfitSubscriptionPayload {
+type CharitySubscriptionPayload {
   mutation: MutationType!
-  node: NonProfit
+  node: Charity
   updatedFields: [String!]
-  previousValues: NonProfitPreviousValues
+  previousValues: CharityPreviousValues
 }
 
-input NonProfitSubscriptionWhereInput {
+input CharitySubscriptionWhereInput {
   """Logical AND on all given filters."""
-  AND: [NonProfitSubscriptionWhereInput!]
+  AND: [CharitySubscriptionWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [NonProfitSubscriptionWhereInput!]
+  OR: [CharitySubscriptionWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [NonProfitSubscriptionWhereInput!]
+  NOT: [CharitySubscriptionWhereInput!]
 
-  """The subscription event gets dispatched when it's listed in mutation_in"""
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
   mutation_in: [MutationType!]
 
   """
@@ -502,122 +160,76 @@ input NonProfitSubscriptionWhereInput {
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
   updatedFields_contains_some: [String!]
-  node: NonProfitWhereInput
+  node: CharityWhereInput
 }
 
-input NonProfitUpdateDataInput {
-  ein: Int
+input CharityUpdateDataInput {
+  ein: String
   name: String
-  ico: String
+  description: String
+  website: String
+  image: String
+  largeImage: String
+  imageDescription: String
   street: String
   city: String
   state: String
   zip: String
-  group: Int
-  subsection: Int
-  affiliation: Int
-  classification: Int
-  ruling: Int
-  deductibility: Int
-  foundation: Int
-  activity: Int
-  organization: Int
-  status: Int
-  taxperiod: Int
-  assetCd: Int
-  incomeCd: Int
-  filingReqCd: Int
-  pfFilingReqCd: Int
-  acctPd: Int
-  assetAmt: Int
-  revenueAmt: Int
-  nteeCd: String
-  sortName: String
+  user: UserUpdateOneRequiredInput
 }
 
-input NonProfitUpdateInput {
-  ein: Int
+input CharityUpdateInput {
+  ein: String
   name: String
-  ico: String
+  description: String
+  website: String
+  image: String
+  largeImage: String
+  imageDescription: String
   street: String
   city: String
   state: String
   zip: String
-  group: Int
-  subsection: Int
-  affiliation: Int
-  classification: Int
-  ruling: Int
-  deductibility: Int
-  foundation: Int
-  activity: Int
-  organization: Int
-  status: Int
-  taxperiod: Int
-  assetCd: Int
-  incomeCd: Int
-  filingReqCd: Int
-  pfFilingReqCd: Int
-  acctPd: Int
-  assetAmt: Int
-  revenueAmt: Int
-  nteeCd: String
-  sortName: String
+  user: UserUpdateOneRequiredInput
 }
 
-input NonProfitUpdateManyMutationInput {
-  ein: Int
+input CharityUpdateManyMutationInput {
+  ein: String
   name: String
-  ico: String
+  description: String
+  website: String
+  image: String
+  largeImage: String
+  imageDescription: String
   street: String
   city: String
   state: String
   zip: String
-  group: Int
-  subsection: Int
-  affiliation: Int
-  classification: Int
-  ruling: Int
-  deductibility: Int
-  foundation: Int
-  activity: Int
-  organization: Int
-  status: Int
-  taxperiod: Int
-  assetCd: Int
-  incomeCd: Int
-  filingReqCd: Int
-  pfFilingReqCd: Int
-  acctPd: Int
-  assetAmt: Int
-  revenueAmt: Int
-  nteeCd: String
-  sortName: String
 }
 
-input NonProfitUpdateOneInput {
-  create: NonProfitCreateInput
-  connect: NonProfitWhereUniqueInput
+input CharityUpdateOneInput {
+  create: CharityCreateInput
+  connect: CharityWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: NonProfitUpdateDataInput
-  upsert: NonProfitUpsertNestedInput
+  update: CharityUpdateDataInput
+  upsert: CharityUpsertNestedInput
 }
 
-input NonProfitUpsertNestedInput {
-  update: NonProfitUpdateDataInput!
-  create: NonProfitCreateInput!
+input CharityUpsertNestedInput {
+  update: CharityUpdateDataInput!
+  create: CharityCreateInput!
 }
 
-input NonProfitWhereInput {
+input CharityWhereInput {
   """Logical AND on all given filters."""
-  AND: [NonProfitWhereInput!]
+  AND: [CharityWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [NonProfitWhereInput!]
+  OR: [CharityWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [NonProfitWhereInput!]
+  NOT: [CharityWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -658,28 +270,46 @@ input NonProfitWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  ein: Int
+  ein: String
 
   """All values that are not equal to given value."""
-  ein_not: Int
+  ein_not: String
 
   """All values that are contained in given list."""
-  ein_in: [Int!]
+  ein_in: [String!]
 
   """All values that are not contained in given list."""
-  ein_not_in: [Int!]
+  ein_not_in: [String!]
 
   """All values less than the given value."""
-  ein_lt: Int
+  ein_lt: String
 
   """All values less than or equal the given value."""
-  ein_lte: Int
+  ein_lte: String
 
   """All values greater than the given value."""
-  ein_gt: Int
+  ein_gt: String
 
   """All values greater than or equal the given value."""
-  ein_gte: Int
+  ein_gte: String
+
+  """All values containing the given string."""
+  ein_contains: String
+
+  """All values not containing the given string."""
+  ein_not_contains: String
+
+  """All values starting with the given string."""
+  ein_starts_with: String
+
+  """All values not starting with the given string."""
+  ein_not_starts_with: String
+
+  """All values ending with the given string."""
+  ein_ends_with: String
+
+  """All values not ending with the given string."""
+  ein_not_ends_with: String
   name: String
 
   """All values that are not equal to given value."""
@@ -720,46 +350,206 @@ input NonProfitWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  ico: String
+  description: String
 
   """All values that are not equal to given value."""
-  ico_not: String
+  description_not: String
 
   """All values that are contained in given list."""
-  ico_in: [String!]
+  description_in: [String!]
 
   """All values that are not contained in given list."""
-  ico_not_in: [String!]
+  description_not_in: [String!]
 
   """All values less than the given value."""
-  ico_lt: String
+  description_lt: String
 
   """All values less than or equal the given value."""
-  ico_lte: String
+  description_lte: String
 
   """All values greater than the given value."""
-  ico_gt: String
+  description_gt: String
 
   """All values greater than or equal the given value."""
-  ico_gte: String
+  description_gte: String
 
   """All values containing the given string."""
-  ico_contains: String
+  description_contains: String
 
   """All values not containing the given string."""
-  ico_not_contains: String
+  description_not_contains: String
 
   """All values starting with the given string."""
-  ico_starts_with: String
+  description_starts_with: String
 
   """All values not starting with the given string."""
-  ico_not_starts_with: String
+  description_not_starts_with: String
 
   """All values ending with the given string."""
-  ico_ends_with: String
+  description_ends_with: String
 
   """All values not ending with the given string."""
-  ico_not_ends_with: String
+  description_not_ends_with: String
+  website: String
+
+  """All values that are not equal to given value."""
+  website_not: String
+
+  """All values that are contained in given list."""
+  website_in: [String!]
+
+  """All values that are not contained in given list."""
+  website_not_in: [String!]
+
+  """All values less than the given value."""
+  website_lt: String
+
+  """All values less than or equal the given value."""
+  website_lte: String
+
+  """All values greater than the given value."""
+  website_gt: String
+
+  """All values greater than or equal the given value."""
+  website_gte: String
+
+  """All values containing the given string."""
+  website_contains: String
+
+  """All values not containing the given string."""
+  website_not_contains: String
+
+  """All values starting with the given string."""
+  website_starts_with: String
+
+  """All values not starting with the given string."""
+  website_not_starts_with: String
+
+  """All values ending with the given string."""
+  website_ends_with: String
+
+  """All values not ending with the given string."""
+  website_not_ends_with: String
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
+  largeImage: String
+
+  """All values that are not equal to given value."""
+  largeImage_not: String
+
+  """All values that are contained in given list."""
+  largeImage_in: [String!]
+
+  """All values that are not contained in given list."""
+  largeImage_not_in: [String!]
+
+  """All values less than the given value."""
+  largeImage_lt: String
+
+  """All values less than or equal the given value."""
+  largeImage_lte: String
+
+  """All values greater than the given value."""
+  largeImage_gt: String
+
+  """All values greater than or equal the given value."""
+  largeImage_gte: String
+
+  """All values containing the given string."""
+  largeImage_contains: String
+
+  """All values not containing the given string."""
+  largeImage_not_contains: String
+
+  """All values starting with the given string."""
+  largeImage_starts_with: String
+
+  """All values not starting with the given string."""
+  largeImage_not_starts_with: String
+
+  """All values ending with the given string."""
+  largeImage_ends_with: String
+
+  """All values not ending with the given string."""
+  largeImage_not_ends_with: String
+  imageDescription: String
+
+  """All values that are not equal to given value."""
+  imageDescription_not: String
+
+  """All values that are contained in given list."""
+  imageDescription_in: [String!]
+
+  """All values that are not contained in given list."""
+  imageDescription_not_in: [String!]
+
+  """All values less than the given value."""
+  imageDescription_lt: String
+
+  """All values less than or equal the given value."""
+  imageDescription_lte: String
+
+  """All values greater than the given value."""
+  imageDescription_gt: String
+
+  """All values greater than or equal the given value."""
+  imageDescription_gte: String
+
+  """All values containing the given string."""
+  imageDescription_contains: String
+
+  """All values not containing the given string."""
+  imageDescription_not_contains: String
+
+  """All values starting with the given string."""
+  imageDescription_starts_with: String
+
+  """All values not starting with the given string."""
+  imageDescription_not_starts_with: String
+
+  """All values ending with the given string."""
+  imageDescription_ends_with: String
+
+  """All values not ending with the given string."""
+  imageDescription_not_ends_with: String
   street: String
 
   """All values that are not equal to given value."""
@@ -920,482 +710,6 @@ input NonProfitWhereInput {
 
   """All values not ending with the given string."""
   zip_not_ends_with: String
-  group: Int
-
-  """All values that are not equal to given value."""
-  group_not: Int
-
-  """All values that are contained in given list."""
-  group_in: [Int!]
-
-  """All values that are not contained in given list."""
-  group_not_in: [Int!]
-
-  """All values less than the given value."""
-  group_lt: Int
-
-  """All values less than or equal the given value."""
-  group_lte: Int
-
-  """All values greater than the given value."""
-  group_gt: Int
-
-  """All values greater than or equal the given value."""
-  group_gte: Int
-  subsection: Int
-
-  """All values that are not equal to given value."""
-  subsection_not: Int
-
-  """All values that are contained in given list."""
-  subsection_in: [Int!]
-
-  """All values that are not contained in given list."""
-  subsection_not_in: [Int!]
-
-  """All values less than the given value."""
-  subsection_lt: Int
-
-  """All values less than or equal the given value."""
-  subsection_lte: Int
-
-  """All values greater than the given value."""
-  subsection_gt: Int
-
-  """All values greater than or equal the given value."""
-  subsection_gte: Int
-  affiliation: Int
-
-  """All values that are not equal to given value."""
-  affiliation_not: Int
-
-  """All values that are contained in given list."""
-  affiliation_in: [Int!]
-
-  """All values that are not contained in given list."""
-  affiliation_not_in: [Int!]
-
-  """All values less than the given value."""
-  affiliation_lt: Int
-
-  """All values less than or equal the given value."""
-  affiliation_lte: Int
-
-  """All values greater than the given value."""
-  affiliation_gt: Int
-
-  """All values greater than or equal the given value."""
-  affiliation_gte: Int
-  classification: Int
-
-  """All values that are not equal to given value."""
-  classification_not: Int
-
-  """All values that are contained in given list."""
-  classification_in: [Int!]
-
-  """All values that are not contained in given list."""
-  classification_not_in: [Int!]
-
-  """All values less than the given value."""
-  classification_lt: Int
-
-  """All values less than or equal the given value."""
-  classification_lte: Int
-
-  """All values greater than the given value."""
-  classification_gt: Int
-
-  """All values greater than or equal the given value."""
-  classification_gte: Int
-  ruling: Int
-
-  """All values that are not equal to given value."""
-  ruling_not: Int
-
-  """All values that are contained in given list."""
-  ruling_in: [Int!]
-
-  """All values that are not contained in given list."""
-  ruling_not_in: [Int!]
-
-  """All values less than the given value."""
-  ruling_lt: Int
-
-  """All values less than or equal the given value."""
-  ruling_lte: Int
-
-  """All values greater than the given value."""
-  ruling_gt: Int
-
-  """All values greater than or equal the given value."""
-  ruling_gte: Int
-  deductibility: Int
-
-  """All values that are not equal to given value."""
-  deductibility_not: Int
-
-  """All values that are contained in given list."""
-  deductibility_in: [Int!]
-
-  """All values that are not contained in given list."""
-  deductibility_not_in: [Int!]
-
-  """All values less than the given value."""
-  deductibility_lt: Int
-
-  """All values less than or equal the given value."""
-  deductibility_lte: Int
-
-  """All values greater than the given value."""
-  deductibility_gt: Int
-
-  """All values greater than or equal the given value."""
-  deductibility_gte: Int
-  foundation: Int
-
-  """All values that are not equal to given value."""
-  foundation_not: Int
-
-  """All values that are contained in given list."""
-  foundation_in: [Int!]
-
-  """All values that are not contained in given list."""
-  foundation_not_in: [Int!]
-
-  """All values less than the given value."""
-  foundation_lt: Int
-
-  """All values less than or equal the given value."""
-  foundation_lte: Int
-
-  """All values greater than the given value."""
-  foundation_gt: Int
-
-  """All values greater than or equal the given value."""
-  foundation_gte: Int
-  activity: Int
-
-  """All values that are not equal to given value."""
-  activity_not: Int
-
-  """All values that are contained in given list."""
-  activity_in: [Int!]
-
-  """All values that are not contained in given list."""
-  activity_not_in: [Int!]
-
-  """All values less than the given value."""
-  activity_lt: Int
-
-  """All values less than or equal the given value."""
-  activity_lte: Int
-
-  """All values greater than the given value."""
-  activity_gt: Int
-
-  """All values greater than or equal the given value."""
-  activity_gte: Int
-  organization: Int
-
-  """All values that are not equal to given value."""
-  organization_not: Int
-
-  """All values that are contained in given list."""
-  organization_in: [Int!]
-
-  """All values that are not contained in given list."""
-  organization_not_in: [Int!]
-
-  """All values less than the given value."""
-  organization_lt: Int
-
-  """All values less than or equal the given value."""
-  organization_lte: Int
-
-  """All values greater than the given value."""
-  organization_gt: Int
-
-  """All values greater than or equal the given value."""
-  organization_gte: Int
-  status: Int
-
-  """All values that are not equal to given value."""
-  status_not: Int
-
-  """All values that are contained in given list."""
-  status_in: [Int!]
-
-  """All values that are not contained in given list."""
-  status_not_in: [Int!]
-
-  """All values less than the given value."""
-  status_lt: Int
-
-  """All values less than or equal the given value."""
-  status_lte: Int
-
-  """All values greater than the given value."""
-  status_gt: Int
-
-  """All values greater than or equal the given value."""
-  status_gte: Int
-  taxperiod: Int
-
-  """All values that are not equal to given value."""
-  taxperiod_not: Int
-
-  """All values that are contained in given list."""
-  taxperiod_in: [Int!]
-
-  """All values that are not contained in given list."""
-  taxperiod_not_in: [Int!]
-
-  """All values less than the given value."""
-  taxperiod_lt: Int
-
-  """All values less than or equal the given value."""
-  taxperiod_lte: Int
-
-  """All values greater than the given value."""
-  taxperiod_gt: Int
-
-  """All values greater than or equal the given value."""
-  taxperiod_gte: Int
-  assetCd: Int
-
-  """All values that are not equal to given value."""
-  assetCd_not: Int
-
-  """All values that are contained in given list."""
-  assetCd_in: [Int!]
-
-  """All values that are not contained in given list."""
-  assetCd_not_in: [Int!]
-
-  """All values less than the given value."""
-  assetCd_lt: Int
-
-  """All values less than or equal the given value."""
-  assetCd_lte: Int
-
-  """All values greater than the given value."""
-  assetCd_gt: Int
-
-  """All values greater than or equal the given value."""
-  assetCd_gte: Int
-  incomeCd: Int
-
-  """All values that are not equal to given value."""
-  incomeCd_not: Int
-
-  """All values that are contained in given list."""
-  incomeCd_in: [Int!]
-
-  """All values that are not contained in given list."""
-  incomeCd_not_in: [Int!]
-
-  """All values less than the given value."""
-  incomeCd_lt: Int
-
-  """All values less than or equal the given value."""
-  incomeCd_lte: Int
-
-  """All values greater than the given value."""
-  incomeCd_gt: Int
-
-  """All values greater than or equal the given value."""
-  incomeCd_gte: Int
-  filingReqCd: Int
-
-  """All values that are not equal to given value."""
-  filingReqCd_not: Int
-
-  """All values that are contained in given list."""
-  filingReqCd_in: [Int!]
-
-  """All values that are not contained in given list."""
-  filingReqCd_not_in: [Int!]
-
-  """All values less than the given value."""
-  filingReqCd_lt: Int
-
-  """All values less than or equal the given value."""
-  filingReqCd_lte: Int
-
-  """All values greater than the given value."""
-  filingReqCd_gt: Int
-
-  """All values greater than or equal the given value."""
-  filingReqCd_gte: Int
-  pfFilingReqCd: Int
-
-  """All values that are not equal to given value."""
-  pfFilingReqCd_not: Int
-
-  """All values that are contained in given list."""
-  pfFilingReqCd_in: [Int!]
-
-  """All values that are not contained in given list."""
-  pfFilingReqCd_not_in: [Int!]
-
-  """All values less than the given value."""
-  pfFilingReqCd_lt: Int
-
-  """All values less than or equal the given value."""
-  pfFilingReqCd_lte: Int
-
-  """All values greater than the given value."""
-  pfFilingReqCd_gt: Int
-
-  """All values greater than or equal the given value."""
-  pfFilingReqCd_gte: Int
-  acctPd: Int
-
-  """All values that are not equal to given value."""
-  acctPd_not: Int
-
-  """All values that are contained in given list."""
-  acctPd_in: [Int!]
-
-  """All values that are not contained in given list."""
-  acctPd_not_in: [Int!]
-
-  """All values less than the given value."""
-  acctPd_lt: Int
-
-  """All values less than or equal the given value."""
-  acctPd_lte: Int
-
-  """All values greater than the given value."""
-  acctPd_gt: Int
-
-  """All values greater than or equal the given value."""
-  acctPd_gte: Int
-  assetAmt: Int
-
-  """All values that are not equal to given value."""
-  assetAmt_not: Int
-
-  """All values that are contained in given list."""
-  assetAmt_in: [Int!]
-
-  """All values that are not contained in given list."""
-  assetAmt_not_in: [Int!]
-
-  """All values less than the given value."""
-  assetAmt_lt: Int
-
-  """All values less than or equal the given value."""
-  assetAmt_lte: Int
-
-  """All values greater than the given value."""
-  assetAmt_gt: Int
-
-  """All values greater than or equal the given value."""
-  assetAmt_gte: Int
-  revenueAmt: Int
-
-  """All values that are not equal to given value."""
-  revenueAmt_not: Int
-
-  """All values that are contained in given list."""
-  revenueAmt_in: [Int!]
-
-  """All values that are not contained in given list."""
-  revenueAmt_not_in: [Int!]
-
-  """All values less than the given value."""
-  revenueAmt_lt: Int
-
-  """All values less than or equal the given value."""
-  revenueAmt_lte: Int
-
-  """All values greater than the given value."""
-  revenueAmt_gt: Int
-
-  """All values greater than or equal the given value."""
-  revenueAmt_gte: Int
-  nteeCd: String
-
-  """All values that are not equal to given value."""
-  nteeCd_not: String
-
-  """All values that are contained in given list."""
-  nteeCd_in: [String!]
-
-  """All values that are not contained in given list."""
-  nteeCd_not_in: [String!]
-
-  """All values less than the given value."""
-  nteeCd_lt: String
-
-  """All values less than or equal the given value."""
-  nteeCd_lte: String
-
-  """All values greater than the given value."""
-  nteeCd_gt: String
-
-  """All values greater than or equal the given value."""
-  nteeCd_gte: String
-
-  """All values containing the given string."""
-  nteeCd_contains: String
-
-  """All values not containing the given string."""
-  nteeCd_not_contains: String
-
-  """All values starting with the given string."""
-  nteeCd_starts_with: String
-
-  """All values not starting with the given string."""
-  nteeCd_not_starts_with: String
-
-  """All values ending with the given string."""
-  nteeCd_ends_with: String
-
-  """All values not ending with the given string."""
-  nteeCd_not_ends_with: String
-  sortName: String
-
-  """All values that are not equal to given value."""
-  sortName_not: String
-
-  """All values that are contained in given list."""
-  sortName_in: [String!]
-
-  """All values that are not contained in given list."""
-  sortName_not_in: [String!]
-
-  """All values less than the given value."""
-  sortName_lt: String
-
-  """All values less than or equal the given value."""
-  sortName_lte: String
-
-  """All values greater than the given value."""
-  sortName_gt: String
-
-  """All values greater than or equal the given value."""
-  sortName_gte: String
-
-  """All values containing the given string."""
-  sortName_contains: String
-
-  """All values not containing the given string."""
-  sortName_not_contains: String
-
-  """All values starting with the given string."""
-  sortName_starts_with: String
-
-  """All values not starting with the given string."""
-  sortName_not_starts_with: String
-
-  """All values ending with the given string."""
-  sortName_ends_with: String
-
-  """All values not ending with the given string."""
-  sortName_not_ends_with: String
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -1440,11 +754,347 @@ input NonProfitWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  user: UserWhereInput
 }
 
-input NonProfitWhereUniqueInput {
+input CharityWhereUniqueInput {
   id: ID
-  ein: Int
+  ein: String
+}
+
+scalar DateTime
+
+type Favorite implements Node {
+  id: ID!
+  amount: Float!
+  charity: Charity
+  user: User!
+}
+
+"""A connection to a list of items."""
+type FavoriteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FavoriteEdge]!
+  aggregate: AggregateFavorite!
+}
+
+input FavoriteCreateInput {
+  id: ID
+  amount: Float
+  charity: CharityCreateOneInput
+  user: UserCreateOneWithoutFavoritesInput!
+}
+
+input FavoriteCreateManyWithoutUserInput {
+  create: [FavoriteCreateWithoutUserInput!]
+  connect: [FavoriteWhereUniqueInput!]
+}
+
+input FavoriteCreateWithoutUserInput {
+  id: ID
+  amount: Float
+  charity: CharityCreateOneInput
+}
+
+"""An edge in a connection."""
+type FavoriteEdge {
+  """The item at the end of the edge."""
+  node: Favorite!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FavoriteOrderByInput {
+  id_ASC
+  id_DESC
+  amount_ASC
+  amount_DESC
+}
+
+type FavoritePreviousValues {
+  id: ID!
+  amount: Float!
+}
+
+input FavoriteScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FavoriteScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FavoriteScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FavoriteScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
+}
+
+type FavoriteSubscriptionPayload {
+  mutation: MutationType!
+  node: Favorite
+  updatedFields: [String!]
+  previousValues: FavoritePreviousValues
+}
+
+input FavoriteSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FavoriteSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FavoriteSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FavoriteSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FavoriteWhereInput
+}
+
+input FavoriteUpdateInput {
+  amount: Float
+  charity: CharityUpdateOneInput
+  user: UserUpdateOneRequiredWithoutFavoritesInput
+}
+
+input FavoriteUpdateManyDataInput {
+  amount: Float
+}
+
+input FavoriteUpdateManyMutationInput {
+  amount: Float
+}
+
+input FavoriteUpdateManyWithoutUserInput {
+  create: [FavoriteCreateWithoutUserInput!]
+  connect: [FavoriteWhereUniqueInput!]
+  set: [FavoriteWhereUniqueInput!]
+  disconnect: [FavoriteWhereUniqueInput!]
+  delete: [FavoriteWhereUniqueInput!]
+  update: [FavoriteUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [FavoriteUpdateManyWithWhereNestedInput!]
+  deleteMany: [FavoriteScalarWhereInput!]
+  upsert: [FavoriteUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input FavoriteUpdateManyWithWhereNestedInput {
+  where: FavoriteScalarWhereInput!
+  data: FavoriteUpdateManyDataInput!
+}
+
+input FavoriteUpdateWithoutUserDataInput {
+  amount: Float
+  charity: CharityUpdateOneInput
+}
+
+input FavoriteUpdateWithWhereUniqueWithoutUserInput {
+  where: FavoriteWhereUniqueInput!
+  data: FavoriteUpdateWithoutUserDataInput!
+}
+
+input FavoriteUpsertWithWhereUniqueWithoutUserInput {
+  where: FavoriteWhereUniqueInput!
+  update: FavoriteUpdateWithoutUserDataInput!
+  create: FavoriteCreateWithoutUserInput!
+}
+
+input FavoriteWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FavoriteWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FavoriteWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FavoriteWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
+  charity: CharityWhereInput
+  user: UserWhereInput
+}
+
+input FavoriteWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createFavorite(data: FavoriteCreateInput!): Favorite!
+  createUser(data: UserCreateInput!): User!
+  createCharity(data: CharityCreateInput!): Charity!
+  updateFavorite(data: FavoriteUpdateInput!, where: FavoriteWhereUniqueInput!): Favorite
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateCharity(data: CharityUpdateInput!, where: CharityWhereUniqueInput!): Charity
+  deleteFavorite(where: FavoriteWhereUniqueInput!): Favorite
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteCharity(where: CharityWhereUniqueInput!): Charity
+  upsertFavorite(where: FavoriteWhereUniqueInput!, create: FavoriteCreateInput!, update: FavoriteUpdateInput!): Favorite!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertCharity(where: CharityWhereUniqueInput!, create: CharityCreateInput!, update: CharityUpdateInput!): Charity!
+  updateManyFavorites(data: FavoriteUpdateManyMutationInput!, where: FavoriteWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyCharities(data: CharityUpdateManyMutationInput!, where: CharityWhereInput): BatchPayload!
+  deleteManyFavorites(where: FavoriteWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyCharities(where: CharityWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
 }
 
 """Information about pagination in a connection."""
@@ -1465,22 +1115,22 @@ type PageInfo {
 enum Permission {
   ADMIN
   USER
-  NONPROFITCREATE
-  NONPROFITUPDATE
-  NONPROFITDELETE
+  CHARITYCREATE
+  CHARITYUPDATE
+  CHARITYDELETE
   PERMISSIONUPDATE
 }
 
 type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   favorites(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite]!
-  nonProfits(where: NonProfitWhereInput, orderBy: NonProfitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NonProfit]!
-  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  charities(where: CharityWhereInput, orderBy: CharityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Charity]!
   favorite(where: FavoriteWhereUniqueInput!): Favorite
-  nonProfit(where: NonProfitWhereUniqueInput!): NonProfit
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  user(where: UserWhereUniqueInput!): User
+  charity(where: CharityWhereUniqueInput!): Charity
   favoritesConnection(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FavoriteConnection!
-  nonProfitsConnection(where: NonProfitWhereInput, orderBy: NonProfitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NonProfitConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  charitiesConnection(where: CharityWhereInput, orderBy: CharityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CharityConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1490,9 +1140,9 @@ type Query {
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   favorite(where: FavoriteSubscriptionWhereInput): FavoriteSubscriptionPayload
-  nonProfit(where: NonProfitSubscriptionWhereInput): NonProfitSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  charity(where: CharitySubscriptionWhereInput): CharitySubscriptionPayload
 }
 
 type User implements Node {
@@ -1527,6 +1177,11 @@ input UserCreateInput {
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
   favorites: FavoriteCreateManyWithoutUserInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutFavoritesInput {
@@ -1605,7 +1260,9 @@ input UserSubscriptionWhereInput {
   """Logical NOT on all given filters combined by AND."""
   NOT: [UserSubscriptionWhereInput!]
 
-  """The subscription event gets dispatched when it's listed in mutation_in"""
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
   mutation_in: [MutationType!]
 
   """
@@ -1623,6 +1280,16 @@ input UserSubscriptionWhereInput {
   """
   updatedFields_contains_some: [String!]
   node: UserWhereInput
+}
+
+input UserUpdateDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+  favorites: FavoriteUpdateManyWithoutUserInput
 }
 
 input UserUpdateInput {
@@ -1644,6 +1311,13 @@ input UserUpdateManyMutationInput {
   permissions: UserUpdatepermissionsInput
 }
 
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
 input UserUpdateOneRequiredWithoutFavoritesInput {
   create: UserCreateWithoutFavoritesInput
   connect: UserWhereUniqueInput
@@ -1662,6 +1336,11 @@ input UserUpdateWithoutFavoritesDataInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithoutFavoritesInput {

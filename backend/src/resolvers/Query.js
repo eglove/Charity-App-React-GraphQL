@@ -1,39 +1,35 @@
-const { forwardTo } = require("prisma-binding");
-const { hasPermission } = require("../utils");
+const {forwardTo} = require('prisma-binding');
+const {hasPermission} = require('../utils');
 
 const Query = {
-
-    nonProfits: forwardTo("db"),
-    user: forwardTo("db"),
-    nonProfit: forwardTo("db"),
-    usersConnection: forwardTo("db"),
-    nonProfitsConnection: forwardTo("db"),
-    favorites: forwardTo("db"),
-    favorite: forwardTo("db"),
-
-    me(parent, args, ctx, info) {
-        // check if there is a current user ID
+    // async charities(parent, args, ctx, info) {
+    //     const charities = await ctx.db.query.charities();
+    //     return charities;
+    // }
+    charities: forwardTo('db'),
+    charity: forwardTo('db'),
+    charitiesConnection: forwardTo('db'),
+    async me(parent, args, ctx, info) {
+        // check if a user is logged in
         if (!ctx.request.userId) {
             return null;
         }
-        return ctx.db.query.user(
-            {
-                where: { id: ctx.request.userId },
-            },
-            info
-        );
+        return await ctx.db.query.user({
+            where: {id: ctx.request.userId}
+        }, info);
     },
-
     async users(parent, args, ctx, info) {
         // check if user is logged in
-        if (!ctx.request.userId) {
+        if(!ctx.request.userId) {
             throw new Error("You must be logged in.");
         }
-        // check if user has permissions to query all users
-        hasPermission(ctx.request.user, ["ADMIN", "PERMISSIONUPDATE"]);
-        // if they do, query all users
+
+        // check if user has permission to query all users
+        hasPermission(ctx.request.user, ['ADMIN', 'PERMISSIONUPDATE']);
+
+        // if they do, query all the users
         return ctx.db.query.users({}, info);
-    },
+    }
 };
 
 module.exports = Query;

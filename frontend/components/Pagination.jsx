@@ -1,12 +1,14 @@
-import React from 'react';
+import React from "react";
 import gql from "graphql-tag";
-import {Query} from 'react-apollo';
-import {perPage} from '../config';
-import Link from "next/link";
+import {Query} from "react-apollo";
+import Head from 'next/head';
+import Link from 'next/link';
+import PaginationStyles from "./styles/PaginationStyles";
+import {perPage} from "../config";
 
 const PAGINATION_QUERY = gql`
     query PAGINATION_QUERY {
-        nonProfitsConnection {
+        charitiesConnection {
             aggregate {
                 count
             }
@@ -15,46 +17,37 @@ const PAGINATION_QUERY = gql`
 `;
 
 const Pagination = props => (
-    <>
-        <Query query={PAGINATION_QUERY}>
-            {({data, loading, error}) => {
-                if (loading) return <p>Loading...</p>;
-                const count = data.nonProfitsConnection.aggregate.count;
-                const pages = Math.ceil(count / perPage);
-                const page = props.page;
-                return (
-                    <div className="paginate">
-                        <Link href={{
-                            pathname: '/nonProfits',
-                            query: {page: page - 1}
+    <Query query={PAGINATION_QUERY}>
+        {({data, loading, error}) => {
+            if (loading) return <p>Loading...</p>;
+            const count = data.charitiesConnection.aggregate.count;
+            const pages = Math.ceil(count / perPage);
+            const currentPage = props.page;
+            return (
+                <>
+                    <Head>
+                        <title>Cognitame 📄 Page {currentPage} of {pages}</title>
+                    </Head>
+                    <PaginationStyles>
+                        <Link prefetch href={{
+                            pathname: '/charities',
+                            query: {page: currentPage - 1}
                         }}>
-                            <a className="paginationDisabler" aria-disabled={page <= 1}>◀ Prev</a>
+                            <a className="prev" aria-disabled={currentPage <= 1}>◀</a>
                         </Link>
-                        <span> Page {page} of {pages} | ({count} total) </span>
-                        <Link href={{
-                            pathname: '/nonProfits',
-                            query: {page: page + 1}
+                        <p>Page {currentPage} of {pages} Pages</p>
+                        <p>💙 {count} Charities Total 💙</p>
+                        <Link prefetch href={{
+                            pathname: '/charities',
+                            query: {page: currentPage + 1}
                         }}>
-                            <a className="paginationDisabler" aria-disabled={page >= pages}>Next ▶</a>
+                            <a className="next" aria-disabled={currentPage >= pages}>▶</a>
                         </Link>
-                    </div>
-                )
-            }}
-        </Query>
-        <style jsx>{`
-            .paginationDisabler[aria-disabled='true'] {
-                color: grey;
-                pointer-events: none;
-            }
-            .paginate {
-                text-align: center;
-                padding: 5px;
-            }
-            .paginate a {
-                text-decoration: none;
-            }
-        `}</style>
-    </>
-)
+                    </PaginationStyles>
+                </>
+            );
+        }}
+    </Query>
+);
 
 export default Pagination;

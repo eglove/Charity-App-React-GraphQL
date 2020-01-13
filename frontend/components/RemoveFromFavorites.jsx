@@ -1,69 +1,77 @@
-import React from 'react';
-import { Mutation } from 'react-apollo';
+import React from "react";
+import {Mutation} from "react-apollo";
+import styled from "styled-components";
 import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
-import { CURRENT_USER_QUERY } from './User';
+import gql from "graphql-tag";
+import {CURRENT_USER_QUERY} from "./User";
 
 const REMOVE_FROM_FAVORITES_MUTATION = gql`
-	mutation removeFromFavorites($id: ID!) {
-		removeFromFavorites(id: $id) {
-			id
-		}
-	}
+    mutation removeFromFavorites($id: ID!) {
+        removeFromFavorites(id: $id) {
+            id
+        }
+    }
+`;
+
+const BigButton = styled.button`
+    font-size: 3em;
+    background: none;
+    border: 0;
+    &:hover {
+        color ${props => props.theme.blue};
+        cursor: pointer;   
+    }
 `;
 
 class RemoveFromFavorites extends React.Component {
 
-	static propTypes = {
-		id: PropTypes.string.isRequired,
-	};
+    static propTypes = {
+        id: PropTypes.string.isRequired,
+    };
 
-	// Gets called when server responds back with favorite removal
-	update = (cache, payload) => {
-		// read the cache
-		const data = cache.readQuery({
-			query: CURRENT_USER_QUERY
-		})
-		// remove item from favorites
-		const favoriteId = payload.data.removeFromFavorites.id;
-		data.me.favorites = data.me.favorites.filter(favorite =>
-			favorite.id !== favoriteId);
-		// write data back to cache
-		cache.writeQuery({ query: CURRENT_USER_QUERY, data });
-	}
+    // gets called after server response
+    update = (cache, payload) => {
+        // read cache
+        const data = cache.readQuery({
+            query: CURRENT_USER_QUERY
+        });
+        // remove item from favorites
+        const favoriteId = payload.data.removeFromFavorites.id;
+        data.me.favorites = data.me.favorites.filter(favorite =>
+            favorite.id !== favoriteId);
+        // write items back to cache
+        cache.writeQuery({query: CURRENT_USER_QUERY, data});
+    };
 
-	render() {
-		return (
-			<Mutation mutation={REMOVE_FROM_FAVORITES_MUTATION}
-				variables={{ id: this.props.id }}
-				update={this.update}
-				optimisticResponse={{
-					__typename: 'Mutation',
-					removeFromFavorites: {
-						__typename: 'Favorite',
-						id: this.props.id,
-					}
-				}}
-			>
-
-				{(removeFromFavorites, { loading, error }) => (
-					<>
-						&emsp;
-						<button
-							disabled={loading}
-							aria-disabled={loading}
-							onClick={() => {
-								removeFromFavorites().catch(err => alert(error.message));
-							}}
-							title="Delete From Favorites"
-						>
-							&times;
-						</button>
-					</>
-				)}
-			</Mutation>
-		);
-	}
+    render() {
+        return (
+            <Mutation
+                mutation={REMOVE_FROM_FAVORITES_MUTATION}
+                variables={{id: this.props.id}}
+                update={this.update}
+                optimisticResponse={{
+                    __typename: 'Mutation',
+                    removeFromFavorites: {
+                        __typename: 'Favorite',
+                        id: this.props.id,
+                    },
+                }}
+            >
+                {(removeFromFavorites, {loading, error}) => (
+                    <BigButton
+                        disabled={loading}
+                        aria-busy={loading}
+                        onClick={() => {
+                            removeFromFavorites().catch(err => alert(err.message));
+                        }}
+                        title="Delete Favorite"
+                    >
+                        &times;
+                    </BigButton>
+                )}
+            </Mutation>
+        );
+    }
 }
 
 export default RemoveFromFavorites;

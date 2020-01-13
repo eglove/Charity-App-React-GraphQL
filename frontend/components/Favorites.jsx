@@ -1,31 +1,29 @@
 import React from "react";
-import {adopt} from 'react-adopt';
-import User from './User';
-import Favorite from './Favorite';
-
-const Composed = adopt({
-    user: ({render}) => <User>{render}</User>,
-});
+import User from "./User";
+import Supreme from "./styles/Supreme";
+import SignIn from "./SignIn";
+import Favorite from "./Favorite";
+import calcTotalPrice from "../lib/calcTotalPrice";
+import formatMoney from "../lib/formatMoney";
 
 const Favorites = () => {
     return (
-        <>
-            <Composed>{({user}) => {
-                const me = user.data.me;
-                if (!me) return null;
+        <User>
+            {({data: {me}}) => {
+                if (!me) return <SignIn/>;
                 return (
-                    <div>
-                        <h3>{me.name}'s Favorites</h3>
-                        <p>You Have {me.favorites.length} {me.favorites.length === 1 ? 'Charity' : 'Charities'} In Your
-                            Favorites</p>
+                    <>
+                        <Supreme>{me.name}'s Favorites</Supreme>
+                        <p>You have {me.favorites.length} favorite{me.favorites.length === 1 ? '' : 's'}.</p>
+                        <p>Total donated: {formatMoney(calcTotalPrice(me.favorites))}</p>
                         <ul>
                             {me.favorites.map(favorite => <Favorite key={favorite.id} favorite={favorite}/>)}
                         </ul>
-                    </div>
-                )
-            }}</Composed>
-        </>
-    )
+                    </>
+                );
+            }}
+        </User>
+    );
 };
 
 export default Favorites;

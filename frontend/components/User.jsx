@@ -1,20 +1,29 @@
-import { Query } from 'react-apollo';
+import {Query} from "react-apollo";
 import gql from "graphql-tag";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const CURRENT_USER_QUERY = gql`
     query {
         me {
             id
-            name
             email
+            name
             permissions
             favorites {
                 id
-                nonProfit {
+                amount
+                charity {
                     id
                     ein
                     name
+                    description
+                    website
+                    largeImage
+                    imageDescription
+                    street
+                    city
+                    state
+                    zip
                 }
             }
         }
@@ -32,4 +41,4 @@ User.propTypes = {
 };
 
 export default User;
-export { CURRENT_USER_QUERY };
+export {CURRENT_USER_QUERY};
