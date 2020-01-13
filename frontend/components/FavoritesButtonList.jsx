@@ -24,9 +24,14 @@ const FavoritesButtonList = props =>
                             </Link>
                         )}
                         {!me && (
+                            <>
+                            <Link href="signin">
+                                <a>Sign In To Your Account 👍</a>
+                            </Link>
                             <Link href="signup">
                                 <a>💙 Sign Up to Add Favorites 💙</a>
                             </Link>
+                            </>
                         )}
                         {me && !charityIds.includes(charity.id) && (
                             <AddToFavorites id={charity.id}/>

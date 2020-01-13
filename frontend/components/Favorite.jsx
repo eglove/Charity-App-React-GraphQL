@@ -37,10 +37,18 @@ const Favorite = ({favorite}) => {
             <div className="favorite-details">
                 <h2>{favorite.charity.name}</h2>
                 <p>You've donated {formatMoney(favorite.amount)}.</p>
-                <p><Link href={favorite.charity.website}><a>Website</a></Link></p>
+                <p>
+                    <Link href={favorite.charity.website}>
+                        <a>Website</a>
+                    </Link>
+                    &emsp;
+                    <Link href={`https://smile.amazon.com/gp/chpf/homepage?q=${favorite.charity.name}`}>
+                        <a>AmazonSmile</a>
+                    </Link>
+                </p>
                 <p>EIN: {favorite.charity.ein} - {favorite.charity.description}</p>
                 <p>{favorite.charity.street}</p>
-                <p>{favorite.charity.city}, {favorite.charity.state} {favorite.charity.zip}</p>
+                <p>{favorite.charity.city} {favorite.charity.state} {favorite.charity.zip}</p>
             </div>
             <RemoveFromFavorites id={favorite.id}/>
         </FavoriteStyles>

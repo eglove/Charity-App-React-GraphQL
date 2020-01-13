@@ -5,6 +5,8 @@ import Head from 'next/head';
 import Form from "./styles/Form";
 import Error from './ErrorMessage';
 import {CURRENT_USER_QUERY} from "./User";
+import Link from "next/link";
+import Router from "next/router";
 
 const SIGNUP_MUTATION = gql`
     mutation SIGNUP_MUTATION(
@@ -41,7 +43,7 @@ class SignUp extends Component {
             <Mutation
                 mutation={SIGNUP_MUTATION}
                 variables={this.state}
-                refetchQueries={[{CURRENT_USER_QUERY}]}
+                refetchQueries={[{query: CURRENT_USER_QUERY}]}
             >
                 {(signup, {error, loading}) => {
                     return (
@@ -55,6 +57,7 @@ class SignUp extends Component {
                                 e.preventDefault();
                                 await signup();
                                 this.setState({name: '', email: '', password: ''});
+                                Router.push("/");
                             }}
                         >
                             <fieldset disabled={loading} aria-busy={loading}>
@@ -92,6 +95,13 @@ class SignUp extends Component {
                                 </label>
                                 <button type="submit">Sign{loading ? 'ing' : ''} Up!</button>
                             </fieldset>
+                            <Link href="signin" style="text-align:center">
+                                <a>Sign into Existing Account</a>
+                            </Link>
+                            <br/>
+                            <Link href="reset" style="text-align:center">
+                                <a>Reset Password</a>
+                            </Link>
                         </Form>
                         </>
                     )
