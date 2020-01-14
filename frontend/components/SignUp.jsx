@@ -57,7 +57,7 @@ class SignUp extends Component {
                                 e.preventDefault();
                                 await signup();
                                 this.setState({name: '', email: '', password: ''});
-                                Router.push("/");
+                                await Router.push("/");
                             }}
                         >
                             <fieldset disabled={loading} aria-busy={loading}>

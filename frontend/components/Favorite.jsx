@@ -37,7 +37,8 @@ const Favorite = ({favorite}) => {
             <img width="100" src={favorite.charity.largeImage} alt={favorite.charity.imageDescription}/>
             <div className="favorite-details">
                 <h2>{favorite.charity.name}</h2>
-                <p>You've donated __.</p>
+                <p>You've donated {formatMoney(favorite.amount)}.</p>
+                <AddDonation id={favorite.id} amount={favorite.amount}/>
                 <p>
                     <Link href={favorite.charity.website}>
                         <a>Website</a>
