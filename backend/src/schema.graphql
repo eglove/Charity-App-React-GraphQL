@@ -30,6 +30,11 @@ type Mutation {
         zip: String
     ):Charity!
 
+    updateFavorite(
+        id: ID!,
+        amount: Float,
+    ):Favorite!
+
     deleteCharity(id: ID!):Charity
     signup(email:String!, password:String!, name:String!):User!
     signin(email:String!, password:String!):User!

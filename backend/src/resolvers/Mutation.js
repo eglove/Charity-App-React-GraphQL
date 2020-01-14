@@ -32,7 +32,7 @@ const mutations = {
     async updateCharity(parent, args, ctx, info) {
         // get copy of updates
         const updates = {...args};
-        // remove ID & ein from updates (so it can be referenced here)
+        // remove ID from updates (so it can be referenced here)
         delete updates.id;
         // run the update method
         return ctx.db.mutation.updateCharity({
@@ -41,6 +41,20 @@ const mutations = {
                 id: args.id
             },
         }, info);
+    },
+
+    async updateFavorite(parent, args, ctx, info) {
+        // get copy of updates
+        const updates = {...args}
+        // delete ID so it can be referenced here
+        delete updates.id;
+        // run update method
+        return ctx.db.mutation.updateFavorite({
+            data: updates,
+            where: {
+                id: args.id
+            },
+        }, info)
     },
 
     async deleteCharity(parent, args, ctx, info) {

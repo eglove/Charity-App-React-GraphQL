@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import formatMoney from "../lib/formatMoney";
 import RemoveFromFavorites from "./RemoveFromFavorites";
+import AddDonation from "./AddDonation";
 
 const FavoriteStyles = styled.li`
     padding: 1em 0;
@@ -37,6 +38,7 @@ const Favorite = ({favorite}) => {
             <div className="favorite-details">
                 <h2>{favorite.charity.name}</h2>
                 <p>You've donated {formatMoney(favorite.amount)}.</p>
+                <AddDonation id={favorite.id} amount={favorite.amount}/>
                 <p>
                     <Link href={favorite.charity.website}>
                         <a>Website</a>

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Mutation, Query} from 'react-apollo';
 import gql from "graphql-tag";
 import styled from "styled-components";
-import Router from "next/router";
 import Error from './ErrorMessage';
 import Form from "./styles/Form";
 
@@ -85,8 +84,8 @@ class UpdateCharity extends Component {
                 id: this.props.id
             }}>
                 {({data, loading}) => {
-                    if(loading) return <p>Loading...</p>;
-                    if(!data.charity) return <p>No Charity found with ID: {this.props.id}</p>
+                    if (loading) return <p>Loading...</p>;
+                    if (!data.charity) return <p>No Charity found with ID: {this.props.id}</p>
                     return (
                         <Mutation mutation={UPDATE_CHARITY_MUTATION} variables={this.state}>
                             {(updateCharity, {loading, error}) => (
