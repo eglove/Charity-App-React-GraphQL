@@ -57,6 +57,7 @@ class UpdateCharity extends Component {
                                     Amount <Required>*</Required>
                                     <input
                                         type="number"
+                                        step="0.01"
                                         id="addAmount"
                                         name="addAmount"
                                         placeholder="Amount"
