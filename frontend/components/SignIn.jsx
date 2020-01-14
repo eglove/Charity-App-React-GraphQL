@@ -7,6 +7,7 @@ import Error from './ErrorMessage';
 import {CURRENT_USER_QUERY} from "./User";
 import Link from "next/link";
 import Router from "next/router";
+import styled from "styled-components";
 
 const SIGNIN_MUTATION = gql`
     mutation SIGNIN_MUTATION(
@@ -22,6 +23,10 @@ const SIGNIN_MUTATION = gql`
             name
         }
     }
+`;
+
+const Center = styled.span`
+    text-align: center;
 `;
 
 class SignIn extends Component {
@@ -84,13 +89,15 @@ class SignIn extends Component {
                                     </label>
                                     <button type="submit">Sign{loading ? 'ing' : ''} In!</button>
                                 </fieldset>
-                                <Link href="signup" style="text-align:center">
-                                    <a>Sign Up for New Account</a>
-                                </Link>
-                                <br/>
-                                <Link href="reset" style="text-align:center">
-                                    <a>Reset Password</a>
-                                </Link>
+                                <Center>
+                                    <Link href="signup">
+                                        <a>Sign Up for New Account</a>
+                                    </Link>
+                                    <br/>
+                                    <Link href="reset">
+                                        <a>Reset Password</a>
+                                    </Link>
+                                </Center>
                             </Form>
                         </>
                     )
