@@ -22,9 +22,6 @@ const Nav = () => (
                                 <FavoritesCount count={me.favorites.length}/>
                             </a>
                         </Link>
-                        <Link href="/me">
-                            <a>Account</a>
-                        </Link>
                         <SignOut/>
                     </>
                 )}
