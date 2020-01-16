@@ -5,12 +5,17 @@ import styled from "styled-components";
 import Error from "./ErrorMessage";
 import Form from "./styles/Form";
 
-const UPDATE_FAVORITE_MUTATION = gql`
-    mutation UPDATE_FAVORITE_MUTATION (
+const ADD_DONATION_MUTATION = gql`
+    mutation ADD_DONATION_MUTATION (
         $id: ID!,
-        $amount: Float!
+        $amount: Float!,
+        $dateDonated: DateTime!,
     ) {
-        updateFavorite(id: $id, amount: $amount) {
+        addDonation(
+            id: $id, 
+            amount: $amount,
+            dateDonated: $dateDonated,
+        ) {
             id
             amount
         }
@@ -23,7 +28,9 @@ const Required = styled.span`
 
 class UpdateCharity extends Component {
     state = {
-        addAmount: 0,
+        id: this.props.id,
+        amount: 0,
+        dateDonated: '',
     };
 
     handleChange = e => {
@@ -32,35 +39,38 @@ class UpdateCharity extends Component {
         this.setState({[name]: val});
     };
 
-    updateFavorite = async (e, updateFavoriteMutation) => {
-        e.preventDefault();
-        const res = await updateFavoriteMutation({
-            variables: {
-                id: this.props.id,
-                amount: Number(this.props.amount) + Number(this.state.addAmount) * 100,
-            }
-        });
-    };
-
     render() {
-        console.log(this.props);
         console.log(this.state);
         return (
-            <Mutation mutation={UPDATE_FAVORITE_MUTATION} variables={this.state}>
-                {(updateFavorite, {loading, error}) => (
+            <Mutation mutation={ADD_DONATION_MUTATION} variables={this.state}>
+                {(addDonation, {loading, error}) => (
                     <details>
                         <summary>Add Donation</summary>
-                        <Form onSubmit={e => this.updateFavorite(e, updateFavorite)}>
+                        <Form onSubmit={async (e) =>{
+                            e.preventDefault();
+                            const res = await addDonation();
+                        }}>
                             <Error error={error}/>
                             <fieldset disabled={loading} aria-busy={loading}>
-                                <label htmlFor="addAmount">
+                                <label htmlFor="amount">
                                     Amount <Required>*</Required>
                                     <input
                                         type="number"
                                         step="0.01"
-                                        id="addAmount"
-                                        name="addAmount"
+                                        id="amount"
+                                        name="amount"
                                         placeholder="Amount"
+                                        onChange={this.handleChange}
+                                        required
+                                    />
+                                </label>
+                                <label htmlFor="dateDonated">
+                                    Amount <Required>*</Required>
+                                    <input
+                                        type="date"
+                                        id="dateDonated"
+                                        name="dateDonated"
+                                        placeholder="Date Donated"
                                         onChange={this.handleChange}
                                         required
                                     />
@@ -76,4 +86,4 @@ class UpdateCharity extends Component {
 }
 
 export default UpdateCharity;
-export {UPDATE_FAVORITE_MUTATION};
+export {ADD_DONATION_MUTATION};

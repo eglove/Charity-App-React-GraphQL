@@ -264,7 +264,6 @@ const mutations = {
             throw new Error('You must be signed in to do that.');
         }
         // Add donation to list in favorite
-        console.log(ctx.db.mutation);
         return ctx.db.mutation.createDonation(
             {
                 data: {

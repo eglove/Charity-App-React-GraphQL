@@ -7,7 +7,6 @@ const ADD_TO_FAVORITES_MUTATION = gql`
     mutation addToFavorites($id: ID!) {
         addToFavorites(id: $id) {
             id
-            amount
         }
     }
 `;

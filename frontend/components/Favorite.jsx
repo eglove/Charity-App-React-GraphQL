@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Link from "next/link";
-import formatMoney from "../lib/formatMoney";
 import RemoveFromFavorites from "./RemoveFromFavorites";
 import AddDonation from "./AddDonation";
 
@@ -37,8 +36,8 @@ const Favorite = ({favorite}) => {
             <img width="100" src={favorite.charity.largeImage} alt={favorite.charity.imageDescription}/>
             <div className="favorite-details">
                 <h2>{favorite.charity.name}</h2>
-                <p>You've donated {formatMoney(favorite.amount)}.</p>
-                <AddDonation id={favorite.id} amount={favorite.amount}/>
+                <p>You've donated __.</p>
+                <AddDonation id={favorite.id}/>
                 <p>
                     <Link href={favorite.charity.website}>
                         <a>Website</a>

@@ -11,7 +11,6 @@ const CURRENT_USER_QUERY = gql`
             permissions
             favorites {
                 id
-                amount
                 charity {
                     id
                     ein
@@ -24,6 +23,11 @@ const CURRENT_USER_QUERY = gql`
                     city
                     state
                     zip
+                }
+                donations {
+                    id
+                    amount
+                    dateDonated
                 }
             }
         }
