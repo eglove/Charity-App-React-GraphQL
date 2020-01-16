@@ -1,7 +1,11 @@
 # source: https://us1.prisma.sh/ethan-glover-d293d5/charityapp-backend/dev
-# timestamp: Mon Jan 13 2020 11:41:39 GMT-0600 (Central Standard Time)
+# timestamp: Thu Jan 16 2020 14:07:14 GMT-0600 (Central Standard Time)
 
 type AggregateCharity {
+  count: Int!
+}
+
+type AggregateDonation {
   count: Int!
 }
 
@@ -764,71 +768,74 @@ input CharityWhereUniqueInput {
 
 scalar DateTime
 
-type Favorite implements Node {
+type Donation implements Node {
   id: ID!
   amount: Float!
-  charity: Charity
-  user: User!
+  dateDonated: DateTime!
+  favorite: Favorite!
 }
 
 """A connection to a list of items."""
-type FavoriteConnection {
+type DonationConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [FavoriteEdge]!
-  aggregate: AggregateFavorite!
+  edges: [DonationEdge]!
+  aggregate: AggregateDonation!
 }
 
-input FavoriteCreateInput {
+input DonationCreateInput {
   id: ID
   amount: Float
-  charity: CharityCreateOneInput
-  user: UserCreateOneWithoutFavoritesInput!
+  dateDonated: DateTime!
+  favorite: FavoriteCreateOneWithoutDonationsInput!
 }
 
-input FavoriteCreateManyWithoutUserInput {
-  create: [FavoriteCreateWithoutUserInput!]
-  connect: [FavoriteWhereUniqueInput!]
+input DonationCreateManyWithoutFavoriteInput {
+  create: [DonationCreateWithoutFavoriteInput!]
+  connect: [DonationWhereUniqueInput!]
 }
 
-input FavoriteCreateWithoutUserInput {
+input DonationCreateWithoutFavoriteInput {
   id: ID
   amount: Float
-  charity: CharityCreateOneInput
+  dateDonated: DateTime!
 }
 
 """An edge in a connection."""
-type FavoriteEdge {
+type DonationEdge {
   """The item at the end of the edge."""
-  node: Favorite!
+  node: Donation!
 
   """A cursor for use in pagination."""
   cursor: String!
 }
 
-enum FavoriteOrderByInput {
+enum DonationOrderByInput {
   id_ASC
   id_DESC
   amount_ASC
   amount_DESC
+  dateDonated_ASC
+  dateDonated_DESC
 }
 
-type FavoritePreviousValues {
+type DonationPreviousValues {
   id: ID!
   amount: Float!
+  dateDonated: DateTime!
 }
 
-input FavoriteScalarWhereInput {
+input DonationScalarWhereInput {
   """Logical AND on all given filters."""
-  AND: [FavoriteScalarWhereInput!]
+  AND: [DonationScalarWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [FavoriteScalarWhereInput!]
+  OR: [DonationScalarWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [FavoriteScalarWhereInput!]
+  NOT: [DonationScalarWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -891,6 +898,331 @@ input FavoriteScalarWhereInput {
 
   """All values greater than or equal the given value."""
   amount_gte: Float
+  dateDonated: DateTime
+
+  """All values that are not equal to given value."""
+  dateDonated_not: DateTime
+
+  """All values that are contained in given list."""
+  dateDonated_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  dateDonated_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  dateDonated_lt: DateTime
+
+  """All values less than or equal the given value."""
+  dateDonated_lte: DateTime
+
+  """All values greater than the given value."""
+  dateDonated_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  dateDonated_gte: DateTime
+}
+
+type DonationSubscriptionPayload {
+  mutation: MutationType!
+  node: Donation
+  updatedFields: [String!]
+  previousValues: DonationPreviousValues
+}
+
+input DonationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DonationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DonationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DonationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: DonationWhereInput
+}
+
+input DonationUpdateInput {
+  amount: Float
+  dateDonated: DateTime
+  favorite: FavoriteUpdateOneRequiredWithoutDonationsInput
+}
+
+input DonationUpdateManyDataInput {
+  amount: Float
+  dateDonated: DateTime
+}
+
+input DonationUpdateManyMutationInput {
+  amount: Float
+  dateDonated: DateTime
+}
+
+input DonationUpdateManyWithoutFavoriteInput {
+  create: [DonationCreateWithoutFavoriteInput!]
+  connect: [DonationWhereUniqueInput!]
+  set: [DonationWhereUniqueInput!]
+  disconnect: [DonationWhereUniqueInput!]
+  delete: [DonationWhereUniqueInput!]
+  update: [DonationUpdateWithWhereUniqueWithoutFavoriteInput!]
+  updateMany: [DonationUpdateManyWithWhereNestedInput!]
+  deleteMany: [DonationScalarWhereInput!]
+  upsert: [DonationUpsertWithWhereUniqueWithoutFavoriteInput!]
+}
+
+input DonationUpdateManyWithWhereNestedInput {
+  where: DonationScalarWhereInput!
+  data: DonationUpdateManyDataInput!
+}
+
+input DonationUpdateWithoutFavoriteDataInput {
+  amount: Float
+  dateDonated: DateTime
+}
+
+input DonationUpdateWithWhereUniqueWithoutFavoriteInput {
+  where: DonationWhereUniqueInput!
+  data: DonationUpdateWithoutFavoriteDataInput!
+}
+
+input DonationUpsertWithWhereUniqueWithoutFavoriteInput {
+  where: DonationWhereUniqueInput!
+  update: DonationUpdateWithoutFavoriteDataInput!
+  create: DonationCreateWithoutFavoriteInput!
+}
+
+input DonationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DonationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DonationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DonationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
+  dateDonated: DateTime
+
+  """All values that are not equal to given value."""
+  dateDonated_not: DateTime
+
+  """All values that are contained in given list."""
+  dateDonated_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  dateDonated_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  dateDonated_lt: DateTime
+
+  """All values less than or equal the given value."""
+  dateDonated_lte: DateTime
+
+  """All values greater than the given value."""
+  dateDonated_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  dateDonated_gte: DateTime
+  favorite: FavoriteWhereInput
+}
+
+input DonationWhereUniqueInput {
+  id: ID
+}
+
+type Favorite implements Node {
+  id: ID!
+  charity: Charity
+  user: User!
+  donations(where: DonationWhereInput, orderBy: DonationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Donation!]
+}
+
+"""A connection to a list of items."""
+type FavoriteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FavoriteEdge]!
+  aggregate: AggregateFavorite!
+}
+
+input FavoriteCreateInput {
+  id: ID
+  charity: CharityCreateOneInput
+  user: UserCreateOneWithoutFavoritesInput!
+  donations: DonationCreateManyWithoutFavoriteInput
+}
+
+input FavoriteCreateManyWithoutUserInput {
+  create: [FavoriteCreateWithoutUserInput!]
+  connect: [FavoriteWhereUniqueInput!]
+}
+
+input FavoriteCreateOneWithoutDonationsInput {
+  create: FavoriteCreateWithoutDonationsInput
+  connect: FavoriteWhereUniqueInput
+}
+
+input FavoriteCreateWithoutDonationsInput {
+  id: ID
+  charity: CharityCreateOneInput
+  user: UserCreateOneWithoutFavoritesInput!
+}
+
+input FavoriteCreateWithoutUserInput {
+  id: ID
+  charity: CharityCreateOneInput
+  donations: DonationCreateManyWithoutFavoriteInput
+}
+
+"""An edge in a connection."""
+type FavoriteEdge {
+  """The item at the end of the edge."""
+  node: Favorite!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FavoriteOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type FavoritePreviousValues {
+  id: ID!
+}
+
+input FavoriteScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FavoriteScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FavoriteScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FavoriteScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
 }
 
 type FavoriteSubscriptionPayload {
@@ -933,17 +1265,9 @@ input FavoriteSubscriptionWhereInput {
 }
 
 input FavoriteUpdateInput {
-  amount: Float
   charity: CharityUpdateOneInput
   user: UserUpdateOneRequiredWithoutFavoritesInput
-}
-
-input FavoriteUpdateManyDataInput {
-  amount: Float
-}
-
-input FavoriteUpdateManyMutationInput {
-  amount: Float
+  donations: DonationUpdateManyWithoutFavoriteInput
 }
 
 input FavoriteUpdateManyWithoutUserInput {
@@ -953,24 +1277,35 @@ input FavoriteUpdateManyWithoutUserInput {
   disconnect: [FavoriteWhereUniqueInput!]
   delete: [FavoriteWhereUniqueInput!]
   update: [FavoriteUpdateWithWhereUniqueWithoutUserInput!]
-  updateMany: [FavoriteUpdateManyWithWhereNestedInput!]
   deleteMany: [FavoriteScalarWhereInput!]
   upsert: [FavoriteUpsertWithWhereUniqueWithoutUserInput!]
 }
 
-input FavoriteUpdateManyWithWhereNestedInput {
-  where: FavoriteScalarWhereInput!
-  data: FavoriteUpdateManyDataInput!
+input FavoriteUpdateOneRequiredWithoutDonationsInput {
+  create: FavoriteCreateWithoutDonationsInput
+  connect: FavoriteWhereUniqueInput
+  update: FavoriteUpdateWithoutDonationsDataInput
+  upsert: FavoriteUpsertWithoutDonationsInput
+}
+
+input FavoriteUpdateWithoutDonationsDataInput {
+  charity: CharityUpdateOneInput
+  user: UserUpdateOneRequiredWithoutFavoritesInput
 }
 
 input FavoriteUpdateWithoutUserDataInput {
-  amount: Float
   charity: CharityUpdateOneInput
+  donations: DonationUpdateManyWithoutFavoriteInput
 }
 
 input FavoriteUpdateWithWhereUniqueWithoutUserInput {
   where: FavoriteWhereUniqueInput!
   data: FavoriteUpdateWithoutUserDataInput!
+}
+
+input FavoriteUpsertWithoutDonationsInput {
+  update: FavoriteUpdateWithoutDonationsDataInput!
+  create: FavoriteCreateWithoutDonationsInput!
 }
 
 input FavoriteUpsertWithWhereUniqueWithoutUserInput {
@@ -1028,30 +1363,11 @@ input FavoriteWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  amount: Float
-
-  """All values that are not equal to given value."""
-  amount_not: Float
-
-  """All values that are contained in given list."""
-  amount_in: [Float!]
-
-  """All values that are not contained in given list."""
-  amount_not_in: [Float!]
-
-  """All values less than the given value."""
-  amount_lt: Float
-
-  """All values less than or equal the given value."""
-  amount_lte: Float
-
-  """All values greater than the given value."""
-  amount_gt: Float
-
-  """All values greater than or equal the given value."""
-  amount_gte: Float
   charity: CharityWhereInput
   user: UserWhereInput
+  donations_every: DonationWhereInput
+  donations_some: DonationWhereInput
+  donations_none: DonationWhereInput
 }
 
 input FavoriteWhereUniqueInput {
@@ -1066,21 +1382,26 @@ scalar Long
 
 type Mutation {
   createFavorite(data: FavoriteCreateInput!): Favorite!
+  createDonation(data: DonationCreateInput!): Donation!
   createUser(data: UserCreateInput!): User!
   createCharity(data: CharityCreateInput!): Charity!
   updateFavorite(data: FavoriteUpdateInput!, where: FavoriteWhereUniqueInput!): Favorite
+  updateDonation(data: DonationUpdateInput!, where: DonationWhereUniqueInput!): Donation
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCharity(data: CharityUpdateInput!, where: CharityWhereUniqueInput!): Charity
   deleteFavorite(where: FavoriteWhereUniqueInput!): Favorite
+  deleteDonation(where: DonationWhereUniqueInput!): Donation
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCharity(where: CharityWhereUniqueInput!): Charity
   upsertFavorite(where: FavoriteWhereUniqueInput!, create: FavoriteCreateInput!, update: FavoriteUpdateInput!): Favorite!
+  upsertDonation(where: DonationWhereUniqueInput!, create: DonationCreateInput!, update: DonationUpdateInput!): Donation!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCharity(where: CharityWhereUniqueInput!, create: CharityCreateInput!, update: CharityUpdateInput!): Charity!
-  updateManyFavorites(data: FavoriteUpdateManyMutationInput!, where: FavoriteWhereInput): BatchPayload!
+  updateManyDonations(data: DonationUpdateManyMutationInput!, where: DonationWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCharities(data: CharityUpdateManyMutationInput!, where: CharityWhereInput): BatchPayload!
   deleteManyFavorites(where: FavoriteWhereInput): BatchPayload!
+  deleteManyDonations(where: DonationWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCharities(where: CharityWhereInput): BatchPayload!
 }
@@ -1123,12 +1444,15 @@ enum Permission {
 
 type Query {
   favorites(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite]!
+  donations(where: DonationWhereInput, orderBy: DonationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Donation]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   charities(where: CharityWhereInput, orderBy: CharityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Charity]!
   favorite(where: FavoriteWhereUniqueInput!): Favorite
+  donation(where: DonationWhereUniqueInput!): Donation
   user(where: UserWhereUniqueInput!): User
   charity(where: CharityWhereUniqueInput!): Charity
   favoritesConnection(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FavoriteConnection!
+  donationsConnection(where: DonationWhereInput, orderBy: DonationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DonationConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   charitiesConnection(where: CharityWhereInput, orderBy: CharityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CharityConnection!
 
@@ -1141,6 +1465,7 @@ type Query {
 
 type Subscription {
   favorite(where: FavoriteSubscriptionWhereInput): FavoriteSubscriptionPayload
+  donation(where: DonationSubscriptionWhereInput): DonationSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   charity(where: CharitySubscriptionWhereInput): CharitySubscriptionPayload
 }

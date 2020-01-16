@@ -43,20 +43,6 @@ const mutations = {
         }, info);
     },
 
-    async updateFavorite(parent, args, ctx, info) {
-        // get copy of updates
-        const updates = {...args}
-        // delete ID so it can be referenced here
-        delete updates.id;
-        // run update method
-        return ctx.db.mutation.updateFavorite({
-            data: updates,
-            where: {
-                id: args.id
-            },
-        }, info)
-    },
-
     async deleteCharity(parent, args, ctx, info) {
         const where = {id: args.id};
         // find the item
@@ -270,6 +256,27 @@ const mutations = {
         return ctx.db.mutation.deleteFavorite({
             where: {id: args.id},
         }, info);
+    },
+
+    async addDonation(parent, args, ctx, info) {
+        // Make sure they're signed in
+        if (!ctx.request.userId) {
+            throw new Error('You must be signed in to do that.');
+        }
+        // Add donation to list in favorite
+        console.log(ctx.db.mutation);
+        return ctx.db.mutation.createDonation(
+            {
+                data: {
+                    favorite: {
+                        connect: {id: args.id},
+                    },
+                    amount: args.amount,
+                    dateDonated: args.dateDonated,
+                },
+            },
+            info
+        );
     },
 };
 

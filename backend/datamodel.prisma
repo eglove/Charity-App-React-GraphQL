@@ -40,7 +40,14 @@ type Charity {
 
 type Favorite {
     id: ID! @id
-    amount: Float! @default(value: 0)
     charity: Charity #relationship to favorite
     user: User! #relationship to user
+    donations: [Donation]!
+}
+
+type Donation {
+    id: ID! @id
+    amount: Float! @default(value: 0)
+    dateDonated: DateTime!
+    favorite: Favorite!
 }
