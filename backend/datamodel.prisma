@@ -43,6 +43,7 @@ type Favorite {
     charity: Charity #relationship to favorite
     user: User! #relationship to user
     donations: [Donation]!
+    totalDonatedToFavorite: Float
 }
 
 type Donation {

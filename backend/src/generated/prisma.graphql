@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/ethan-glover-d293d5/charityapp-backend/dev
-# timestamp: Thu Jan 16 2020 14:07:14 GMT-0600 (Central Standard Time)
+# timestamp: Fri Jan 17 2020 09:14:42 GMT-0600 (Central Standard Time)
 
 type AggregateCharity {
   count: Int!
@@ -1115,6 +1115,7 @@ type Favorite implements Node {
   charity: Charity
   user: User!
   donations(where: DonationWhereInput, orderBy: DonationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Donation!]
+  totalDonatedToFavorite: Float
 }
 
 """A connection to a list of items."""
@@ -1129,6 +1130,7 @@ type FavoriteConnection {
 
 input FavoriteCreateInput {
   id: ID
+  totalDonatedToFavorite: Float
   charity: CharityCreateOneInput
   user: UserCreateOneWithoutFavoritesInput!
   donations: DonationCreateManyWithoutFavoriteInput
@@ -1146,12 +1148,14 @@ input FavoriteCreateOneWithoutDonationsInput {
 
 input FavoriteCreateWithoutDonationsInput {
   id: ID
+  totalDonatedToFavorite: Float
   charity: CharityCreateOneInput
   user: UserCreateOneWithoutFavoritesInput!
 }
 
 input FavoriteCreateWithoutUserInput {
   id: ID
+  totalDonatedToFavorite: Float
   charity: CharityCreateOneInput
   donations: DonationCreateManyWithoutFavoriteInput
 }
@@ -1168,10 +1172,13 @@ type FavoriteEdge {
 enum FavoriteOrderByInput {
   id_ASC
   id_DESC
+  totalDonatedToFavorite_ASC
+  totalDonatedToFavorite_DESC
 }
 
 type FavoritePreviousValues {
   id: ID!
+  totalDonatedToFavorite: Float
 }
 
 input FavoriteScalarWhereInput {
@@ -1223,6 +1230,28 @@ input FavoriteScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  totalDonatedToFavorite: Float
+
+  """All values that are not equal to given value."""
+  totalDonatedToFavorite_not: Float
+
+  """All values that are contained in given list."""
+  totalDonatedToFavorite_in: [Float!]
+
+  """All values that are not contained in given list."""
+  totalDonatedToFavorite_not_in: [Float!]
+
+  """All values less than the given value."""
+  totalDonatedToFavorite_lt: Float
+
+  """All values less than or equal the given value."""
+  totalDonatedToFavorite_lte: Float
+
+  """All values greater than the given value."""
+  totalDonatedToFavorite_gt: Float
+
+  """All values greater than or equal the given value."""
+  totalDonatedToFavorite_gte: Float
 }
 
 type FavoriteSubscriptionPayload {
@@ -1265,9 +1294,18 @@ input FavoriteSubscriptionWhereInput {
 }
 
 input FavoriteUpdateInput {
+  totalDonatedToFavorite: Float
   charity: CharityUpdateOneInput
   user: UserUpdateOneRequiredWithoutFavoritesInput
   donations: DonationUpdateManyWithoutFavoriteInput
+}
+
+input FavoriteUpdateManyDataInput {
+  totalDonatedToFavorite: Float
+}
+
+input FavoriteUpdateManyMutationInput {
+  totalDonatedToFavorite: Float
 }
 
 input FavoriteUpdateManyWithoutUserInput {
@@ -1277,8 +1315,14 @@ input FavoriteUpdateManyWithoutUserInput {
   disconnect: [FavoriteWhereUniqueInput!]
   delete: [FavoriteWhereUniqueInput!]
   update: [FavoriteUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [FavoriteUpdateManyWithWhereNestedInput!]
   deleteMany: [FavoriteScalarWhereInput!]
   upsert: [FavoriteUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input FavoriteUpdateManyWithWhereNestedInput {
+  where: FavoriteScalarWhereInput!
+  data: FavoriteUpdateManyDataInput!
 }
 
 input FavoriteUpdateOneRequiredWithoutDonationsInput {
@@ -1289,11 +1333,13 @@ input FavoriteUpdateOneRequiredWithoutDonationsInput {
 }
 
 input FavoriteUpdateWithoutDonationsDataInput {
+  totalDonatedToFavorite: Float
   charity: CharityUpdateOneInput
   user: UserUpdateOneRequiredWithoutFavoritesInput
 }
 
 input FavoriteUpdateWithoutUserDataInput {
+  totalDonatedToFavorite: Float
   charity: CharityUpdateOneInput
   donations: DonationUpdateManyWithoutFavoriteInput
 }
@@ -1363,6 +1409,28 @@ input FavoriteWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  totalDonatedToFavorite: Float
+
+  """All values that are not equal to given value."""
+  totalDonatedToFavorite_not: Float
+
+  """All values that are contained in given list."""
+  totalDonatedToFavorite_in: [Float!]
+
+  """All values that are not contained in given list."""
+  totalDonatedToFavorite_not_in: [Float!]
+
+  """All values less than the given value."""
+  totalDonatedToFavorite_lt: Float
+
+  """All values less than or equal the given value."""
+  totalDonatedToFavorite_lte: Float
+
+  """All values greater than the given value."""
+  totalDonatedToFavorite_gt: Float
+
+  """All values greater than or equal the given value."""
+  totalDonatedToFavorite_gte: Float
   charity: CharityWhereInput
   user: UserWhereInput
   donations_every: DonationWhereInput
@@ -1397,6 +1465,7 @@ type Mutation {
   upsertDonation(where: DonationWhereUniqueInput!, create: DonationCreateInput!, update: DonationUpdateInput!): Donation!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCharity(where: CharityWhereUniqueInput!, create: CharityCreateInput!, update: CharityUpdateInput!): Charity!
+  updateManyFavorites(data: FavoriteUpdateManyMutationInput!, where: FavoriteWhereInput): BatchPayload!
   updateManyDonations(data: DonationUpdateManyMutationInput!, where: DonationWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCharities(data: CharityUpdateManyMutationInput!, where: CharityWhereInput): BatchPayload!

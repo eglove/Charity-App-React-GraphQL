@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 import Error from "./ErrorMessage";
 import Form from "./styles/Form";
+import {CURRENT_USER_QUERY} from "./User";
 
 const ADD_DONATION_MUTATION = gql`
     mutation ADD_DONATION_MUTATION (
@@ -12,7 +13,7 @@ const ADD_DONATION_MUTATION = gql`
         $dateDonated: DateTime!,
     ) {
         addDonation(
-            id: $id, 
+            id: $id,
             amount: $amount,
             dateDonated: $dateDonated,
         ) {
@@ -26,7 +27,7 @@ const Required = styled.span`
     color: red;
 `;
 
-class UpdateCharity extends Component {
+class AddDonation extends Component {
     state = {
         id: this.props.id,
         amount: 0,
@@ -40,13 +41,17 @@ class UpdateCharity extends Component {
     };
 
     render() {
-        console.log(this.state);
+        console.log(this.props);
         return (
-            <Mutation mutation={ADD_DONATION_MUTATION} variables={this.state}>
+            <Mutation
+                mutation={ADD_DONATION_MUTATION}
+                variables={this.state}
+                refetchQueries={[{query: CURRENT_USER_QUERY}]}
+            >
                 {(addDonation, {loading, error}) => (
                     <details>
                         <summary>Add Donation</summary>
-                        <Form onSubmit={async (e) =>{
+                        <Form onSubmit={async (e) => {
                             e.preventDefault();
                             const res = await addDonation();
                         }}>
@@ -85,5 +90,5 @@ class UpdateCharity extends Component {
     }
 }
 
-export default UpdateCharity;
+export default AddDonation;
 export {ADD_DONATION_MUTATION};

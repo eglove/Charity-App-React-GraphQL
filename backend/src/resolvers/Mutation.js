@@ -10,7 +10,7 @@ const maxAge = 1000 * 60 * 60 * 24 * 365;
 const mutations = {
     async createCharity(parent, args, ctx, info) {
         // check if user is logged in
-        if(!ctx.request.userId) {
+        if (!ctx.request.userId) {
             throw new Error("You must be logged in to add new charities.");
         }
 
@@ -18,9 +18,9 @@ const mutations = {
             data: {
                 // creates relationship between charity and user
                 user: {
-                  connect: {
-                      id: ctx.request.userId,
-                  }
+                    connect: {
+                        id: ctx.request.userId,
+                    }
                 },
                 ...args,
             }
@@ -52,7 +52,7 @@ const mutations = {
         const hasPermissions = ctx.request.user.permissions.some(
             permission => ['ADMIN', 'CHARITYDELETE'].includes(permission)
         );
-        if(!ownsCharity && !hasPermissions) {
+        if (!ownsCharity && !hasPermissions) {
             throw new Error("You don't have permission to do that.");
         }
         // delete it
@@ -89,12 +89,12 @@ const mutations = {
         const user = await ctx.db.query.user({
             where: {email}
         });
-        if(!user) {
+        if (!user) {
             throw new Error("No user found with that email.");
         }
         // check if password is correct
         const valid = await bcrypt.compare(password, user.password);
-        if(!valid) {
+        if (!valid) {
             throw new Error("Invalid password.");
         }
         // generate JWT token
@@ -144,7 +144,7 @@ const mutations = {
 
     async resetPassword(parent, args, ctx, info) {
         // check if passwords match
-        if(args.password !== args.confirmPassword) {
+        if (args.password !== args.confirmPassword) {
             throw new Error("Passwords don't match");
         }
         // check validity of reset token
@@ -155,7 +155,7 @@ const mutations = {
                 resetTokenExpiry_gte: Date.now() - 3600000
             }
         });
-        if(!user) {
+        if (!user) {
             throw new Error("This token is either invalid or expired.");
         }
         // hash new password
@@ -210,15 +210,15 @@ const mutations = {
 
     async addToFavorites(parent, args, ctx, info) {
         // Make sure they're signed in
-        const { userId } = ctx.request;
+        const {userId} = ctx.request;
         if (!userId) {
             throw new Error('You must be signed in to do that.');
         }
         // Query the users current favorites
         const [existingFavorite] = await ctx.db.query.favorites({
             where: {
-                user: { id: userId },
-                charity: { id: args.id },
+                user: {id: userId},
+                charity: {id: args.id},
             },
         });
         // Add to favorites if not already in list
@@ -227,10 +227,10 @@ const mutations = {
                 {
                     data: {
                         user: {
-                            connect: { id: userId },
+                            connect: {id: userId},
                         },
                         charity: {
-                            connect: { id: args.id },
+                            connect: {id: args.id},
                         },
                     },
                 },
@@ -247,9 +247,9 @@ const mutations = {
             },
         }, `{id, user { id}}`);
         // make sure favorite is found
-        if(!favorite) throw new Error("No favorite found.");
+        if (!favorite) throw new Error("No favorite found.");
         // make sure list belongs to user
-        if(favorite.user.id !== ctx.request.userId) {
+        if (favorite.user.id !== ctx.request.userId) {
             throw new Error("This isn't your favorites list.")
         }
         // delete item from list
@@ -263,8 +263,23 @@ const mutations = {
         if (!ctx.request.userId) {
             throw new Error('You must be signed in to do that.');
         }
+        // Update favorite
+        const favorite = await ctx.db.query.favorite({
+            where: {
+                id: args.id,
+            },
+        });
+        const newTotal = args.amount + favorite.totalDonatedToFavorite;
+        await ctx.db.mutation.updateFavorite({
+            where: {
+                id: args.id,
+            },
+            data: {
+                totalDonatedToFavorite: newTotal,
+            },
+        });
         // Add donation to list in favorite
-        return ctx.db.mutation.createDonation(
+        return await ctx.db.mutation.createDonation(
             {
                 data: {
                     favorite: {
@@ -275,7 +290,7 @@ const mutations = {
                 },
             },
             info
-        );
+        )
     },
 };
 
