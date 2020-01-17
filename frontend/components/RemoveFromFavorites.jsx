@@ -14,9 +14,10 @@ const REMOVE_FROM_FAVORITES_MUTATION = gql`
 `;
 
 const BigButton = styled.button`
-    font-size: 3em;
+    font-size: 12px;
     background: none;
     border: 0;
+    margin: 5px;
     &:hover {
         color ${props => props.theme.blue};
         cursor: pointer;   
@@ -58,6 +59,8 @@ class RemoveFromFavorites extends React.Component {
                 }}
             >
                 {(removeFromFavorites, {loading, error}) => (
+                    <>
+                    <br/>
                     <BigButton
                         disabled={loading}
                         aria-busy={loading}
@@ -66,8 +69,9 @@ class RemoveFromFavorites extends React.Component {
                         }}
                         title="Delete Favorite"
                     >
-                        &times;
+                        &times; Delete from Favorites
                     </BigButton>
+                    </>
                 )}
             </Mutation>
         );

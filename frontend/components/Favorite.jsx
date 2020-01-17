@@ -48,7 +48,6 @@ const Favorite = ({favorite}) => {
                         <a>AmazonSmile</a>
                     </Link>
                 </p>
-                <p>EIN: {favorite.charity.ein} - {favorite.charity.description}</p>
                 <p>{favorite.charity.street}</p>
                 <p>{favorite.charity.city} {favorite.charity.state} {favorite.charity.zip}</p>
             </div>

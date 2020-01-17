@@ -5,6 +5,8 @@ import {ApolloConsumer} from "react-apollo";
 import gql from "graphql-tag";
 import debounce from "lodash.debounce"
 import {DropDown, DropDownItem, SearchStyles} from "./styles/DropDown";
+import Link from "next/link";
+import styled from "styled-components";
 
 const SEARCH_CHARITIES_QUERY = gql`
     query SEARCH_CHARITIES_QUERY($searchTerm: String!) {
@@ -35,6 +37,12 @@ function routeToCharity(charity) {
         },
     });
 }
+
+const Underline = styled.a`
+    text-decoration: underline;
+    color: ${props => props.theme.blue};
+    cursor: pointer;
+`;
 
 class AutoComplete extends React.Component {
 
@@ -93,7 +101,10 @@ class AutoComplete extends React.Component {
                                         )}
                                         {!this.state.charities.length && !this.state.loading && (
                                             <DropDownItem>
-                                                Nothing found for '{inputValue}'
+                                                Nothing found for '{inputValue}'.
+                                                <Link href="/add">
+                                                    <Underline>Add New Charity</Underline>
+                                                </Link>
                                             </DropDownItem>
                                         )}
                                 </DropDown>

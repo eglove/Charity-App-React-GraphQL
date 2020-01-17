@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/ethan-glover-d293d5/charityapp-backend/dev
-# timestamp: Fri Jan 17 2020 13:07:41 GMT-0600 (Central Standard Time)
+# timestamp: Fri Jan 17 2020 13:52:05 GMT-0600 (Central Standard Time)
 
 type AggregateCharity {
   count: Int!
