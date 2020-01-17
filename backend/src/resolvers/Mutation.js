@@ -252,6 +252,21 @@ const mutations = {
         if (favorite.user.id !== ctx.request.userId) {
             throw new Error("This isn't your favorites list.")
         }
+        // Remove favorite total donations from user toal donations
+        const user = await ctx.db.query.user({
+            where: {
+                id: favorite.user.id,
+            },
+        });
+        const newUserTotal = user.totalDonated - favorite.totalDonatedToFavorite;
+        await ctx.db.mutation.updateUser({
+            where: {
+                id: favorite.user.id,
+            },
+            data: {
+                totalDonated: newUserTotal,
+            }
+        });
         // delete item from list
         return ctx.db.mutation.deleteFavorite({
             where: {id: args.id},
@@ -269,14 +284,30 @@ const mutations = {
                 id: args.id,
             },
         });
-        const newTotal = args.amount + favorite.totalDonatedToFavorite;
+        const newFavoriteTotal = args.amount + favorite.totalDonatedToFavorite;
         await ctx.db.mutation.updateFavorite({
             where: {
                 id: args.id,
             },
             data: {
-                totalDonatedToFavorite: newTotal,
+                totalDonatedToFavorite: newFavoriteTotal,
             },
+        });
+        // Update user total donations
+        const {userId} = ctx.request;
+        const user = await ctx.db.query.user({
+            where: {
+                id: userId,
+            },
+        });
+        const newUserTotal = args.amount + user.totalDonated;
+        await ctx.db.mutation.updateUser({
+            where: {
+                id: userId,
+            },
+            data: {
+                totalDonated: newUserTotal,
+            }
         });
         // Add donation to list in favorite
         return await ctx.db.mutation.createDonation(

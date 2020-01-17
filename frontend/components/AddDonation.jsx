@@ -41,7 +41,6 @@ class AddDonation extends Component {
     };
 
     render() {
-        console.log(this.props);
         return (
             <Mutation
                 mutation={ADD_DONATION_MUTATION}

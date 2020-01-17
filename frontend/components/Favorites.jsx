@@ -15,7 +15,8 @@ const Favorites = () => {
                     <>
                         <Supreme>{me.name}'s Favorites</Supreme>
                         <p>You have {me.favorites.length} favorite{me.favorites.length === 1 ? '' : 's'}.</p>
-                        <p>Total donated: {formatMoney(calcTotalPrice(me.favorites))}</p>
+                        <p>Total donated: {formatMoney(me.totalDonated ? me.totalDonated * 100 : 0)}</p>
+
                         <ul>
                             {me.favorites.map(favorite => <Favorite key={favorite.id} favorite={favorite}/>)}
                         </ul>

@@ -9,6 +9,7 @@ const CURRENT_USER_QUERY = gql`
             email
             name
             permissions
+            totalDonated
             favorites {
                 id
                 charity {
@@ -29,6 +30,7 @@ const CURRENT_USER_QUERY = gql`
                     amount
                     dateDonated
                 }
+                totalDonatedToFavorite
             }
         }
     }

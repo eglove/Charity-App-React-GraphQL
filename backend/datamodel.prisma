@@ -14,6 +14,7 @@ type User {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  totalDonated: Float @default(value: 0)
   permissions: [Permission] @scalarList(strategy: RELATION)
   favorites: [Favorite!]!
   createdAt: DateTime! @createdAt

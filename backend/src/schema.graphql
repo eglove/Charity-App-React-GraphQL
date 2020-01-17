@@ -54,6 +54,7 @@ type User {
     id: ID!
     name: String!
     email: String!
+    totalDonated: Float
     permissions: [Permission]
     favorites: [Favorite!]!
 }

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/ethan-glover-d293d5/charityapp-backend/dev
-# timestamp: Fri Jan 17 2020 09:14:42 GMT-0600 (Central Standard Time)
+# timestamp: Fri Jan 17 2020 13:07:41 GMT-0600 (Central Standard Time)
 
 type AggregateCharity {
   count: Int!
@@ -1546,6 +1546,7 @@ type User implements Node {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  totalDonated: Float
   permissions: [Permission!]!
   favorites(where: FavoriteWhereInput, orderBy: FavoriteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Favorite!]
   createdAt: DateTime!
@@ -1569,6 +1570,7 @@ input UserCreateInput {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  totalDonated: Float
   permissions: UserCreatepermissionsInput
   favorites: FavoriteCreateManyWithoutUserInput
 }
@@ -1594,6 +1596,7 @@ input UserCreateWithoutFavoritesInput {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  totalDonated: Float
   permissions: UserCreatepermissionsInput
 }
 
@@ -1619,6 +1622,8 @@ enum UserOrderByInput {
   resetToken_DESC
   resetTokenExpiry_ASC
   resetTokenExpiry_DESC
+  totalDonated_ASC
+  totalDonated_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1632,6 +1637,7 @@ type UserPreviousValues {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  totalDonated: Float
   permissions: [Permission!]!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -1682,6 +1688,7 @@ input UserUpdateDataInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  totalDonated: Float
   permissions: UserUpdatepermissionsInput
   favorites: FavoriteUpdateManyWithoutUserInput
 }
@@ -1692,6 +1699,7 @@ input UserUpdateInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  totalDonated: Float
   permissions: UserUpdatepermissionsInput
   favorites: FavoriteUpdateManyWithoutUserInput
 }
@@ -1702,6 +1710,7 @@ input UserUpdateManyMutationInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  totalDonated: Float
   permissions: UserUpdatepermissionsInput
 }
 
@@ -1729,6 +1738,7 @@ input UserUpdateWithoutFavoritesDataInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  totalDonated: Float
   permissions: UserUpdatepermissionsInput
 }
 
@@ -1973,6 +1983,28 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   resetTokenExpiry_gte: Float
+  totalDonated: Float
+
+  """All values that are not equal to given value."""
+  totalDonated_not: Float
+
+  """All values that are contained in given list."""
+  totalDonated_in: [Float!]
+
+  """All values that are not contained in given list."""
+  totalDonated_not_in: [Float!]
+
+  """All values less than the given value."""
+  totalDonated_lt: Float
+
+  """All values less than or equal the given value."""
+  totalDonated_lte: Float
+
+  """All values greater than the given value."""
+  totalDonated_gt: Float
+
+  """All values greater than or equal the given value."""
+  totalDonated_gte: Float
   createdAt: DateTime
 
   """All values that are not equal to given value."""
