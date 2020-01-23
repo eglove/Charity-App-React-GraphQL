@@ -10,12 +10,12 @@ const ADD_DONATION_MUTATION = gql`
     mutation ADD_DONATION_MUTATION (
         $id: ID!,
         $amount: Float!,
-        $dateDonated: DateTime!,
+        $yearDonated: Int!,
     ) {
         addDonation(
             id: $id,
             amount: $amount,
-            dateDonated: $dateDonated,
+            yearDonated: $yearDonated,
         ) {
             id
             amount
@@ -31,7 +31,7 @@ class AddDonation extends Component {
     state = {
         id: this.props.id,
         amount: 0,
-        dateDonated: '',
+        yearDonated: '',
     };
 
     handleChange = e => {
@@ -68,13 +68,13 @@ class AddDonation extends Component {
                                         required
                                     />
                                 </label>
-                                <label htmlFor="dateDonated">
+                                <label htmlFor="yearDonated">
                                     Amount <Required>*</Required>
                                     <input
-                                        type="date"
-                                        id="dateDonated"
-                                        name="dateDonated"
-                                        placeholder="Date Donated"
+                                        type="number"
+                                        id="yearDonated"
+                                        name="yearDonated"
+                                        placeholder="Year Donated"
                                         onChange={this.handleChange}
                                         required
                                     />

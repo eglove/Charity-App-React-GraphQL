@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/ethan-glover-d293d5/charityapp-backend/dev
-# timestamp: Fri Jan 17 2020 13:52:05 GMT-0600 (Central Standard Time)
+# timestamp: Wed Jan 22 2020 16:56:54 GMT-0600 (Central Standard Time)
 
 type AggregateCharity {
   count: Int!
@@ -771,7 +771,7 @@ scalar DateTime
 type Donation implements Node {
   id: ID!
   amount: Float!
-  dateDonated: DateTime!
+  yearDonated: Int!
   favorite: Favorite!
 }
 
@@ -788,7 +788,7 @@ type DonationConnection {
 input DonationCreateInput {
   id: ID
   amount: Float
-  dateDonated: DateTime!
+  yearDonated: Int!
   favorite: FavoriteCreateOneWithoutDonationsInput!
 }
 
@@ -800,7 +800,7 @@ input DonationCreateManyWithoutFavoriteInput {
 input DonationCreateWithoutFavoriteInput {
   id: ID
   amount: Float
-  dateDonated: DateTime!
+  yearDonated: Int!
 }
 
 """An edge in a connection."""
@@ -817,14 +817,14 @@ enum DonationOrderByInput {
   id_DESC
   amount_ASC
   amount_DESC
-  dateDonated_ASC
-  dateDonated_DESC
+  yearDonated_ASC
+  yearDonated_DESC
 }
 
 type DonationPreviousValues {
   id: ID!
   amount: Float!
-  dateDonated: DateTime!
+  yearDonated: Int!
 }
 
 input DonationScalarWhereInput {
@@ -898,28 +898,28 @@ input DonationScalarWhereInput {
 
   """All values greater than or equal the given value."""
   amount_gte: Float
-  dateDonated: DateTime
+  yearDonated: Int
 
   """All values that are not equal to given value."""
-  dateDonated_not: DateTime
+  yearDonated_not: Int
 
   """All values that are contained in given list."""
-  dateDonated_in: [DateTime!]
+  yearDonated_in: [Int!]
 
   """All values that are not contained in given list."""
-  dateDonated_not_in: [DateTime!]
+  yearDonated_not_in: [Int!]
 
   """All values less than the given value."""
-  dateDonated_lt: DateTime
+  yearDonated_lt: Int
 
   """All values less than or equal the given value."""
-  dateDonated_lte: DateTime
+  yearDonated_lte: Int
 
   """All values greater than the given value."""
-  dateDonated_gt: DateTime
+  yearDonated_gt: Int
 
   """All values greater than or equal the given value."""
-  dateDonated_gte: DateTime
+  yearDonated_gte: Int
 }
 
 type DonationSubscriptionPayload {
@@ -963,18 +963,18 @@ input DonationSubscriptionWhereInput {
 
 input DonationUpdateInput {
   amount: Float
-  dateDonated: DateTime
+  yearDonated: Int
   favorite: FavoriteUpdateOneRequiredWithoutDonationsInput
 }
 
 input DonationUpdateManyDataInput {
   amount: Float
-  dateDonated: DateTime
+  yearDonated: Int
 }
 
 input DonationUpdateManyMutationInput {
   amount: Float
-  dateDonated: DateTime
+  yearDonated: Int
 }
 
 input DonationUpdateManyWithoutFavoriteInput {
@@ -996,7 +996,7 @@ input DonationUpdateManyWithWhereNestedInput {
 
 input DonationUpdateWithoutFavoriteDataInput {
   amount: Float
-  dateDonated: DateTime
+  yearDonated: Int
 }
 
 input DonationUpdateWithWhereUniqueWithoutFavoriteInput {
@@ -1081,28 +1081,28 @@ input DonationWhereInput {
 
   """All values greater than or equal the given value."""
   amount_gte: Float
-  dateDonated: DateTime
+  yearDonated: Int
 
   """All values that are not equal to given value."""
-  dateDonated_not: DateTime
+  yearDonated_not: Int
 
   """All values that are contained in given list."""
-  dateDonated_in: [DateTime!]
+  yearDonated_in: [Int!]
 
   """All values that are not contained in given list."""
-  dateDonated_not_in: [DateTime!]
+  yearDonated_not_in: [Int!]
 
   """All values less than the given value."""
-  dateDonated_lt: DateTime
+  yearDonated_lt: Int
 
   """All values less than or equal the given value."""
-  dateDonated_lte: DateTime
+  yearDonated_lte: Int
 
   """All values greater than the given value."""
-  dateDonated_gt: DateTime
+  yearDonated_gt: Int
 
   """All values greater than or equal the given value."""
-  dateDonated_gte: DateTime
+  yearDonated_gte: Int
   favorite: FavoriteWhereInput
 }
 

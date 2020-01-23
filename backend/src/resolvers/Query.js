@@ -9,6 +9,7 @@ const Query = {
     charities: forwardTo('db'),
     charity: forwardTo('db'),
     charitiesConnection: forwardTo('db'),
+    donations: forwardTo('db'),
     async me(parent, args, ctx, info) {
         // check if a user is logged in
         if (!ctx.request.userId) {

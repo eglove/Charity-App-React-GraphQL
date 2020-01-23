@@ -50,6 +50,6 @@ type Favorite {
 type Donation {
     id: ID! @id
     amount: Float! @default(value: 0)
-    dateDonated: DateTime!
+    yearDonated: Int!
     favorite: Favorite!
 }

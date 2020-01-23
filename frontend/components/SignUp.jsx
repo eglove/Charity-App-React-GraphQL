@@ -99,7 +99,7 @@ class SignUp extends Component {
                                 <a>Sign into Existing Account</a>
                             </Link>
                             <br/>
-                            <Link href="reset" style="text-align:center">
+                            <Link href="resetRequest" style="text-align:center">
                                 <a>Reset Password</a>
                             </Link>
                         </Form>

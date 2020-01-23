@@ -39,7 +39,7 @@ type Mutation {
     updatePermissions(permissions: [Permission], userId: ID!):User
     addToFavorites(id: ID!):Favorite
     removeFromFavorites(id: ID!):Favorite
-    addDonation(id: ID!, dateDonated: DateTime!, amount: Float!):Donation
+    addDonation(id: ID!, yearDonated: Int!, amount: Float!):Donation
 }
 
 type Query {
@@ -48,6 +48,7 @@ type Query {
     charitiesConnection(where: CharityWhereInput):CharityConnection!
     me:User
     users:[User]!
+    donations(where: DonationWhereInput!):[Donation]!
 }
 
 type User {

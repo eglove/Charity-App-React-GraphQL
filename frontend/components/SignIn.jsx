@@ -94,7 +94,7 @@ class SignIn extends Component {
                                         <a>Sign Up for New Account</a>
                                     </Link>
                                     <br/>
-                                    <Link href="reset">
+                                    <Link href="resetRequest">
                                         <a>Reset Password</a>
                                     </Link>
                                 </Center>

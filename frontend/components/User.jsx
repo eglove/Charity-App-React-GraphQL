@@ -28,7 +28,7 @@ const CURRENT_USER_QUERY = gql`
                 donations {
                     id
                     amount
-                    dateDonated
+                    yearDonated
                 }
                 totalDonatedToFavorite
             }

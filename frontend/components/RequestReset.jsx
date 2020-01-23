@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import Head from 'next/head';
 import Form from "./styles/Form";
 import Error from './ErrorMessage';
+import Link from "next/link";
 
 const REQUEST_RESET_MUTATION = gql`
     mutation REQUEST_RESET_MUTATION(
@@ -63,6 +64,13 @@ class RequestReset extends Component {
                                     </label>
                                     <button type="submit">Request{loading ? 'ing' : ''}</button>
                                 </fieldset>
+                                <Link href="signin" style="text-align:center">
+                                    <a>Sign into Existing Account</a>
+                                </Link>
+                                <br/>
+                                <Link href="signup">
+                                    <a>Sign Up for New Account</a>
+                                </Link>
                             </Form>
                         </>
                     )

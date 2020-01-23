@@ -1,10 +1,8 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import Link from 'next/link';
-import ItemStyles from "./styles/ItemStyles";
-import DeleteCharity from "./DeleteCharity";
-import AddToFavorites from "./AddToFavorites";
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import FavoritesButtonList from "./FavoritesButtonList";
+import ItemStyles from "./styles/ItemStyles";
 
 class Charity extends Component {
 
