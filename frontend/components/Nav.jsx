@@ -8,15 +8,15 @@ const Nav = () => (
     <User>
         {({data: {me}}) => (
             <NavStyles>
-                <Link href="/charities">
+                <Link href="charities">
                     <a>Charities</a>
                 </Link>
                 {me && (
                     <>
-                        <Link href="/add">
+                        <Link href="add">
                             <a>Add</a>
                         </Link>
-                        <Link href="/favorites">
+                        <Link href="favorites">
                             <a>
                                 Favorites
                                 <FavoritesCount count={me.favorites.length}/>
@@ -26,7 +26,7 @@ const Nav = () => (
                     </>
                 )}
                 {!me && (
-                    <Link href="/signin">
+                    <Link href="signin">
                         <a>Sign In</a>
                     </Link>
                 )}
