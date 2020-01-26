@@ -4,7 +4,7 @@ import toJson from "enzyme-to-json";
 
 const fakeCharity = {
     id: 'ABC123',
-    ein: '123457',
+    ein: '123456',
     name: 'Good Dooers',
     description: 'We do good',
     website: 'goodooer.com',

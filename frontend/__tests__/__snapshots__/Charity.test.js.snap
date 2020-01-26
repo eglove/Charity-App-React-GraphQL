@@ -27,7 +27,7 @@ exports[`<Charity/> renders and matches the snapshot 1`] = `
     charity={
       Object {
         "description": "We do good",
-        "ein": "123457",
+        "ein": "123456",
         "id": "ABC123",
         "image": "image.png",
         "imageDescription": "descriptive description",
