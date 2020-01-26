@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SingleCharity/> Errors with a not found charity 1`] = `
+<p
+  data-test="graphql-error"
+>
+  <strong>
+    Oh no!
+  </strong>
+  Charity Not Found!
+</p>
+`;
+
+exports[`<SingleCharity/> renders with proper data 1`] = `
+<img
+  src="nemo.png"
+/>
+`;
+
+exports[`<SingleCharity/> renders with proper data 2`] = `
+Array [
+  <p>
+    Bartoletti Group
+     
+    <Link
+      href={
+        Object {
+          "pathname": "https://apps.irs.gov/app/eos/allSearch.do",
+          "query": Object {
+            "dispatchMethod": "searchAll",
+            "ein1": "7ae8c415-d3f2-4368-8393-f090492fd03e",
+            "indexOfFirstRow": "0",
+            "resultsPerPage": "25",
+          },
+        }
+      }
+    >
+      <a
+        href="https://apps.irs.gov/app/eos/allSearch.do?ein1=7ae8c415-d3f2-4368-8393-f090492fd03e&resultsPerPage=25&indexOfFirstRow=0&dispatchMethod=searchAll"
+        onClick={[Function]}
+      >
+        7ae8c415-d3f2-4368-8393-f090492fd03e
+      </a>
+    </Link>
+     
+    <Link
+      href="http://www.Evie.io/"
+    >
+      <a
+        href="http://www.Evie.io/"
+        onClick={[Function]}
+      >
+        Website
+      </a>
+    </Link>
+     
+    <Link
+      href={
+        Object {
+          "pathname": "https://smile.amazon.com/gp/chpf/homepage",
+          "query": Object {
+            "q": "7ae8c415-d3f2-4368-8393-f090492fd03e",
+          },
+        }
+      }
+    >
+      <a
+        href="https://smile.amazon.com/gp/chpf/homepage?q=7ae8c415-d3f2-4368-8393-f090492fd03e"
+        onClick={[Function]}
+      >
+        AmazonSmile
+      </a>
+    </Link>
+  </p>,
+  <p>
+    Vel provident dicta perferendis dolorum cupiditate illum. Ut assumenda sint quia sed exercitationem omnis laborum exercitationem. Sapiente laudantium molestias assumenda quasi adipisci mollitia iste. Omnis debitis rem similique temporibus aliquam sed sapiente soluta corporis.
+  </p>,
+  <p>
+    Helene Rest
+    <br />
+    Rocioville
+    , 
+    Michigan
+     
+  </p>,
+]
+`;

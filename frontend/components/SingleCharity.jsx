@@ -80,10 +80,10 @@ class SingleCharity extends Component {
                                     &emsp;
                                     {charity.website && (
                                         <>
-                                        <Link href={charity.website}>
-                                            <a>Website</a>
-                                        </Link>
-                                        &emsp;
+                                            <Link href={charity.website}>
+                                                <a>Website</a>
+                                            </Link>
+                                            &emsp;
                                         </>
                                     )}
                                     <Link href={{
@@ -105,3 +105,4 @@ class SingleCharity extends Component {
 }
 
 export default SingleCharity;
+export {SINGLE_CHARITY_QUERY};
