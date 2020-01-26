@@ -19,18 +19,18 @@ describe('<Charity/>', () => {
     it('renders and matches the snapshot', () => {
         const wrapper = shallow(<CharityComponent charity={fakeCharity}/> );
         expect(toJson(wrapper)).toMatchSnapshot();
-    })
+    });
 
-    // it('renders the image properly', () => {
-    //     const wrapper = shallow(<CharityComponent charity={fakeCharity}/>);
-    //     const img = wrapper.find('img');
-    //     expect(img.props().src).toBe(fakeCharity.image);
-    //     expect(img.props().alt).toBe(fakeCharity.imageDescription);
-    // });
-    //
-    // it('renders the description properly', () => {
-    //     const wrapper = shallow(<CharityComponent charity={fakeCharity}/>);
-    //     const p = wrapper.find('p');
-    //     expect(p.text()).toBe('We do good...');
-    // });
+    it('renders the image properly', () => {
+        const wrapper = shallow(<CharityComponent charity={fakeCharity}/>);
+        const img = wrapper.find('img');
+        expect(img.props().src).toBe(fakeCharity.image);
+        expect(img.props().alt).toBe(fakeCharity.imageDescription);
+    });
+
+    it('renders the description properly', () => {
+        const wrapper = shallow(<CharityComponent charity={fakeCharity}/>);
+        const p = wrapper.find('p');
+        expect(p.text()).toBe('We do good...');
+    });
 });
