@@ -25,7 +25,7 @@ const Favorites = props => {
                             Total donated: {formatMoney(me.totalDonated ? me.totalDonated * 100 : 0)}&emsp;-&emsp;
                         </p>
                         Donation History (Enter Year)
-                        <History id={me.id}/>
+                        <History id={me.id} favorites={me.favorites}/>
                         <ul>
                             {me.favorites.map(favorite => <Favorite key={favorite.id} favorite={favorite}/>)}
                         </ul>

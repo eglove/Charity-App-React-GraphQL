@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Charity/> renders and matches the snapshot 1`] = `
+<ItemStyles__Item>
+  <Link
+    href={
+      Object {
+        "pathname": "/charity",
+        "query": Object {
+          "id": "ABC123",
+        },
+      }
+    }
+  >
+    <a>
+      <img
+        alt="descriptive description"
+        src="image.png"
+      />
+    </a>
+  </Link>
+  <p>
+    We do good
+    ...
+  </p>
+  <FavoritesButtonList
+    charity={
+      Object {
+        "description": "We do good",
+        "ein": "123457",
+        "id": "ABC123",
+        "image": "image.png",
+        "imageDescription": "descriptive description",
+        "largeImage": "largeImage.png",
+        "name": "Good Dooers",
+        "user": "user1",
+        "website": "goodooer.com",
+      }
+    }
+  />
+</ItemStyles__Item>
+`;
