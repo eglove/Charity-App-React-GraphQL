@@ -21,32 +21,33 @@ const fakeCharity = () => ({
 });
 
 const fakeUser = () => ({
-  __typename: 'User',
-  id: casual.uuid,
-  name: casual.name,
-  email: casual.email,
-  password: casual.password,
-  totalDonated: casual.random,
-  permissions: ['ADMIN'],
+    __typename: 'User',
+    id: casual.uuid,
+    name: casual.name,
+    email: casual.email,
+    password: casual.password,
+    totalDonated: casual.random,
+    permissions: ['ADMIN'],
+    favorites: ['Favorite'],
 });
 
 // Fake LocalStorage
 class LocalStorageMock {
-  constructor() {
-    this.store = {};
-  }
+    constructor() {
+        this.store = {};
+    }
 
-  clear() {
-    this.store = {};
-  }
+    clear() {
+        this.store = {};
+    }
 
-  getItem(key) {
-    return this.store[key] || null;
-  }
+    getItem(key) {
+        return this.store[key] || null;
+    }
 
-  setItem(key, value) {
-    this.store[key] = value.toString();
-  }
+    setItem(key, value) {
+        this.store[key] = value.toString();
+    }
 
   removeItem(key) {
     delete this.store[key];

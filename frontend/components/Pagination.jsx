@@ -18,7 +18,7 @@ const PAGINATION_QUERY = gql`
 
 const Pagination = props => (
     <Query query={PAGINATION_QUERY}>
-        {({data, loading, error}) => {
+        {({data, loading}) => {
             if (loading) return <p>Loading...</p>;
             const count = data.charitiesConnection.aggregate.count;
             const pages = Math.ceil(count / perPage);
@@ -35,7 +35,7 @@ const Pagination = props => (
                         }}>
                             <a className="prev" aria-disabled={currentPage <= 1}>◀</a>
                         </Link>
-                        <p>Page {currentPage} of {pages} Pages</p>
+                        <p>Page {currentPage} of <span className="totalPages">{pages}</span> Pages</p>
                         <p>💙 {count} Charities Total 💙</p>
                         <Link prefetch href={{
                             pathname: '/charities',
@@ -51,3 +51,4 @@ const Pagination = props => (
 );
 
 export default Pagination;
+export {PAGINATION_QUERY};
