@@ -97,6 +97,7 @@ class CreateCharity extends Component {
                         <title>Cognitame 💙 Add Charity</title>
                     </Head>
                     <Form
+                        data-test="form"
                         onSubmit={async (e) => {
                             // Stop form from submitting
                             e.preventDefault();
