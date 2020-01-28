@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {Query} from "react-apollo";
 import gql from "graphql-tag";
 import formatMoney from "../lib/formatMoney";
+import Link from "next/link";
+import Head from "next/head";
 
 const SEARCH_BY_YEAR_QUERY = gql`
     query SEARCH_BY_YEAR_QUERY($year: Int!, $id: ID!) {
@@ -18,6 +20,7 @@ const SEARCH_BY_YEAR_QUERY = gql`
             id
             amount
             yearDonated
+            receipt
         }
     }
 `;
@@ -59,8 +62,9 @@ class History extends Component {
                             </label>
                         </form>
                         <span hidden>{totalDonated = 0}</span>
-                        {data.donations.map(donation =>
-                          {totalDonated = donation.amount + totalDonated},
+                        {data.donations.map(donation => {
+                                totalDonated = donation.amount + totalDonated
+                            },
                         )}
                         <p>Total Donated for {this.state.year}: {formatMoney(totalDonated * 100)}</p>
                         <details>
@@ -69,6 +73,11 @@ class History extends Component {
                                 {data.donations.map(donation =>
                                     <li key={donation.id}>
                                         {formatMoney(donation.amount * 100)}
+                                        {donation.receipt &&
+                                        <Link href={donation.receipt}>
+                                            <a> See Receipt</a>
+                                        </Link>
+                                        }
                                     </li>
                                 )}
                             </ul>

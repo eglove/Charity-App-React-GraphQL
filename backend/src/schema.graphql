@@ -39,7 +39,7 @@ type Mutation {
     updatePermissions(permissions: [Permission], userId: ID!):User
     addToFavorites(id: ID!):Favorite
     removeFromFavorites(id: ID!):Favorite
-    addDonation(id: ID!, yearDonated: Int!, amount: Float!):Donation
+    addDonation(id: ID!, yearDonated: Int!, amount: Float!, receipt: String):Donation
 }
 
 type Query {

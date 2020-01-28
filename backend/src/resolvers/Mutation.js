@@ -336,7 +336,8 @@ const mutations = {
             connect: { id: args.id }
           },
           amount: args.amount,
-          yearDonated: args.yearDonated
+          yearDonated: args.yearDonated,
+          receipt: args.receipt
         }
       },
       info

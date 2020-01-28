@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/ethan-glover-d293d5/charityapp-backend/dev
-# timestamp: Wed Jan 22 2020 16:56:54 GMT-0600 (Central Standard Time)
+# source: https://charity-app-prod-7437645194.herokuapp.com/charity-app-prod/prod
+# timestamp: Mon Jan 27 2020 18:05:10 GMT-0600 (Central Standard Time)
 
 type AggregateCharity {
   count: Int!
@@ -772,6 +772,7 @@ type Donation implements Node {
   id: ID!
   amount: Float!
   yearDonated: Int!
+  receipt: String
   favorite: Favorite!
 }
 
@@ -789,6 +790,7 @@ input DonationCreateInput {
   id: ID
   amount: Float
   yearDonated: Int!
+  receipt: String
   favorite: FavoriteCreateOneWithoutDonationsInput!
 }
 
@@ -801,6 +803,7 @@ input DonationCreateWithoutFavoriteInput {
   id: ID
   amount: Float
   yearDonated: Int!
+  receipt: String
 }
 
 """An edge in a connection."""
@@ -819,12 +822,15 @@ enum DonationOrderByInput {
   amount_DESC
   yearDonated_ASC
   yearDonated_DESC
+  receipt_ASC
+  receipt_DESC
 }
 
 type DonationPreviousValues {
   id: ID!
   amount: Float!
   yearDonated: Int!
+  receipt: String
 }
 
 input DonationScalarWhereInput {
@@ -920,6 +926,46 @@ input DonationScalarWhereInput {
 
   """All values greater than or equal the given value."""
   yearDonated_gte: Int
+  receipt: String
+
+  """All values that are not equal to given value."""
+  receipt_not: String
+
+  """All values that are contained in given list."""
+  receipt_in: [String!]
+
+  """All values that are not contained in given list."""
+  receipt_not_in: [String!]
+
+  """All values less than the given value."""
+  receipt_lt: String
+
+  """All values less than or equal the given value."""
+  receipt_lte: String
+
+  """All values greater than the given value."""
+  receipt_gt: String
+
+  """All values greater than or equal the given value."""
+  receipt_gte: String
+
+  """All values containing the given string."""
+  receipt_contains: String
+
+  """All values not containing the given string."""
+  receipt_not_contains: String
+
+  """All values starting with the given string."""
+  receipt_starts_with: String
+
+  """All values not starting with the given string."""
+  receipt_not_starts_with: String
+
+  """All values ending with the given string."""
+  receipt_ends_with: String
+
+  """All values not ending with the given string."""
+  receipt_not_ends_with: String
 }
 
 type DonationSubscriptionPayload {
@@ -964,17 +1010,20 @@ input DonationSubscriptionWhereInput {
 input DonationUpdateInput {
   amount: Float
   yearDonated: Int
+  receipt: String
   favorite: FavoriteUpdateOneRequiredWithoutDonationsInput
 }
 
 input DonationUpdateManyDataInput {
   amount: Float
   yearDonated: Int
+  receipt: String
 }
 
 input DonationUpdateManyMutationInput {
   amount: Float
   yearDonated: Int
+  receipt: String
 }
 
 input DonationUpdateManyWithoutFavoriteInput {
@@ -997,6 +1046,7 @@ input DonationUpdateManyWithWhereNestedInput {
 input DonationUpdateWithoutFavoriteDataInput {
   amount: Float
   yearDonated: Int
+  receipt: String
 }
 
 input DonationUpdateWithWhereUniqueWithoutFavoriteInput {
@@ -1103,6 +1153,46 @@ input DonationWhereInput {
 
   """All values greater than or equal the given value."""
   yearDonated_gte: Int
+  receipt: String
+
+  """All values that are not equal to given value."""
+  receipt_not: String
+
+  """All values that are contained in given list."""
+  receipt_in: [String!]
+
+  """All values that are not contained in given list."""
+  receipt_not_in: [String!]
+
+  """All values less than the given value."""
+  receipt_lt: String
+
+  """All values less than or equal the given value."""
+  receipt_lte: String
+
+  """All values greater than the given value."""
+  receipt_gt: String
+
+  """All values greater than or equal the given value."""
+  receipt_gte: String
+
+  """All values containing the given string."""
+  receipt_contains: String
+
+  """All values not containing the given string."""
+  receipt_not_contains: String
+
+  """All values starting with the given string."""
+  receipt_starts_with: String
+
+  """All values not starting with the given string."""
+  receipt_not_starts_with: String
+
+  """All values ending with the given string."""
+  receipt_ends_with: String
+
+  """All values not ending with the given string."""
+  receipt_not_ends_with: String
   favorite: FavoriteWhereInput
 }
 

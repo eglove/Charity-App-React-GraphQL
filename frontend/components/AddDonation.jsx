@@ -11,11 +11,13 @@ const ADD_DONATION_MUTATION = gql`
         $id: ID!,
         $amount: Float!,
         $yearDonated: Int!,
+        $receipt: String,
     ) {
         addDonation(
             id: $id,
             amount: $amount,
             yearDonated: $yearDonated,
+            receipt: $receipt,
         ) {
             id
             amount
@@ -32,12 +34,33 @@ class AddDonation extends Component {
         id: this.props.id,
         amount: 0,
         yearDonated: '',
+        receipt: '',
     };
 
     handleChange = e => {
         const {name, type, value} = e.target;
         const val = type === 'number' ? parseFloat(value) : value;
         this.setState({[name]: val});
+    };
+
+    uploadFile = async (e) => {
+        const files = e.target.files;
+        const data = new FormData();
+        data.append('file', files[0]);
+        // Preset to resize images via cloudinary
+        data.append('upload_preset', 'CharityApp');
+
+        const res = await fetch(
+            'https://api.cloudinary.com/v1_1/eglove/image/upload',
+            {
+                method: 'POST',
+                body: data
+            }
+        );
+        const file = await res.json();
+        this.setState({
+            receipt: file.secure_url,
+        })
     };
 
     render() {
@@ -69,7 +92,7 @@ class AddDonation extends Component {
                                     />
                                 </label>
                                 <label htmlFor="yearDonated">
-                                    Amount <Required>*</Required>
+                                    Year Donated <Required>*</Required>
                                     <input
                                         type="number"
                                         id="yearDonated"
@@ -78,6 +101,17 @@ class AddDonation extends Component {
                                         onChange={this.handleChange}
                                         required
                                     />
+                                </label>
+                                <label htmlFor="file">
+                                    Receipt
+                                    <input
+                                        type="file"
+                                        id="file"
+                                        name="file"
+                                        placeholder="Upload Receipt"
+                                        onChange={this.uploadFile}
+                                    />
+                                    {this.state.receipt && (<img src={this.state.receipt} width="200" alt="Image Upload Preview"/>)}
                                 </label>
                                 <button type="submit">Add{loading ? 'ing' : ''} Donation</button>
                             </fieldset>
