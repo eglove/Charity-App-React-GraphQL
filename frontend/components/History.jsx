@@ -48,7 +48,7 @@ class History extends Component {
         const {name, type, value} = e.target;
         const val = type === 'number' ? parseFloat(value) : value;
 
-        this.setState({[name]: val})
+        this.setState({[name]: val});
     };
 
     render() {
@@ -57,6 +57,7 @@ class History extends Component {
             <Query
                 query={SEARCH_BY_YEAR_QUERY}
                 variables={this.state}
+                pollInterval={500}
             >
                 {({data}) => (
                     <DataTable>
@@ -89,30 +90,30 @@ class History extends Component {
                             </tr>
                         </table>
                         <FloatFix>
-                        <details>
-                            <summary>See Transactions for {this.state.year}</summary>
-                            <ul>
-                                {data.donations.map(donation =>
-                                    <li key={donation.id}>
-                                        {formatMoney(donation.amount * 100)}
-                                        {donation.receipt &&
-                                        <Link href={donation.receipt}>
-                                            <a> See Receipt</a>
-                                        </Link>
-                                        }
-                                        :&emsp;
-                                        {donation.favorite.charity.name}
-                                        &emsp;
-                                        <Link href={{
-                                            pathname: "updateDonation",
-                                            query: {id: donation.id},
-                                        }}>
-                                            <a>✍ Edit</a>
-                                        </Link>
-                                    </li>
-                                )}
-                            </ul>
-                        </details>
+                            <details>
+                                <summary>See Transactions for {this.state.year}</summary>
+                                <ul>
+                                    {data.donations.map(donation =>
+                                        <li key={donation.id}>
+                                            {formatMoney(donation.amount * 100)}
+                                            {donation.receipt &&
+                                            <Link href={donation.receipt}>
+                                                <a> See Receipt</a>
+                                            </Link>
+                                            }
+                                            :&emsp;
+                                            {donation.favorite.charity.name}
+                                            &emsp;
+                                            <Link href={{
+                                                pathname: "updateDonation",
+                                                query: {id: donation.id},
+                                            }}>
+                                                <a>✍ Edit</a>
+                                            </Link>
+                                        </li>
+                                    )}
+                                </ul>
+                            </details>
                         </FloatFix>
                     </DataTable>
                 )}
@@ -122,3 +123,4 @@ class History extends Component {
 }
 
 export default History;
+export {SEARCH_BY_YEAR_QUERY};

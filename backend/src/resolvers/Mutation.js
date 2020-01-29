@@ -345,6 +345,10 @@ const mutations = {
     },
 
     async updateDonation(parent, args, ctx, info) {
+        // Make sure user is signed in
+        if(!ctx.request.userId) {
+            throw new Error("You must be signed in to do that.");
+        }
         // get copy of updates
         const updates = {...args};
         // remove ID from updates so it can be referenced
