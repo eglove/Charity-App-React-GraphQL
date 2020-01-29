@@ -102,6 +102,13 @@ class History extends Component {
                                         }
                                         :&emsp;
                                         {donation.favorite.charity.name}
+                                        &emsp;
+                                        <Link href={{
+                                            pathname: "updateDonation",
+                                            query: {id: donation.id},
+                                        }}>
+                                            <a>✍ Edit</a>
+                                        </Link>
                                     </li>
                                 )}
                             </ul>

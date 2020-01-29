@@ -30,6 +30,13 @@ type Mutation {
         zip: String
     ):Charity!
 
+    updateDonation(
+        id: ID!,
+        yearDonated: Int,
+        amount: Float,
+        receipt: String,
+    ):Donation!
+
     deleteCharity(id: ID!):Charity
     signup(email:String!, password:String!, name:String!):User!
     signin(email:String!, password:String!):User!
@@ -45,6 +52,7 @@ type Mutation {
 type Query {
     charities(where: CharityWhereInput, orderBy: CharityOrderByInput, skip: Int, first: Int):[Charity]!
     charity(where: CharityWhereUniqueInput!):Charity
+    donation(where: DonationWhereUniqueInput!):Donation
     charitiesConnection(where: CharityWhereInput):CharityConnection!
     me:User
     users:[User]!

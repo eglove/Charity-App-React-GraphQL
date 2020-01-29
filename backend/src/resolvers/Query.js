@@ -8,6 +8,7 @@ const Query = {
     // }
     charities: forwardTo('db'),
     charity: forwardTo('db'),
+    donation: forwardTo('db'),
     charitiesConnection: forwardTo('db'),
     donations: forwardTo('db'),
     async me(parent, args, ctx, info) {
