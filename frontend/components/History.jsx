@@ -21,6 +21,11 @@ const SEARCH_BY_YEAR_QUERY = gql`
             amount
             yearDonated
             receipt
+            favorite {
+                charity {
+                    name
+                }
+            }
         }
     }
 `;
@@ -78,6 +83,8 @@ class History extends Component {
                                             <a> See Receipt</a>
                                         </Link>
                                         }
+                                        :&emsp;
+                                        {donation.favorite.charity.name}
                                     </li>
                                 )}
                             </ul>

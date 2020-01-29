@@ -6,6 +6,7 @@ import Favorite from "./Favorite";
 import formatMoney from "../lib/formatMoney";
 import styled from "styled-components";
 import History from "./History";
+import Head from "next/head";
 
 const Underline = styled.a`
     text-decoration: underline;
@@ -19,10 +20,13 @@ const Favorites = props => {
                 if (!me) return <SignIn/>;
                 return (
                     <>
+                        <Head>
+                            <title>Cognitame 💙 Favorites</title>
+                        </Head>
                         <Supreme>{me.name}'s Favorites</Supreme>
                         <p>You have {me.favorites.length} favorite{me.favorites.length === 1 ? '' : 's'}.</p>
                         <p>
-                            Total donated: {formatMoney(me.totalDonated ? me.totalDonated * 100 : 0)}&emsp;-&emsp;
+                            Total donated: {formatMoney(me.totalDonated ? me.totalDonated * 100 : 0)}
                         </p>
                         Donation History (Enter Year)
                         <History id={me.id} favorites={me.favorites}/>

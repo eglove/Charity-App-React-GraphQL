@@ -48,8 +48,12 @@ const Favorite = ({favorite}) => {
                         <a>AmazonSmile</a>
                     </Link>
                 </p>
-                <p>{favorite.charity.street}</p>
-                <p>{favorite.charity.city} {favorite.charity.state} {favorite.charity.zip}</p>
+                {favorite.charity.street && favorite.charity.city && favorite.charity.state && favorite.charity.zip &&
+                <>
+                    <p>{favorite.charity.street}</p>
+                    <p>{favorite.charity.city} {favorite.charity.state} {favorite.charity.zip}</p>
+                </>
+                }
             </div>
             <RemoveFromFavorites id={favorite.id}/>
         </FavoriteStyles>

@@ -5,12 +5,14 @@ import {Query} from "react-apollo";
 import styled from "styled-components";
 import Head from 'next/head';
 import Error from './ErrorMessage';
+import FavoritesButtonList from "./FavoritesButtonList";
+import ItemStyles from "./styles/ItemStyles";
 
 const SingleCharityStyles = styled.div`
     max-width: 1200px;
     margin: 2em auto;
+    padding-bottom: 1px;
     box-shadow: ${props => props.theme.bs};
-    min-height: 800px;
     img {
         object-fit: contain;
         display: block;
@@ -57,46 +59,53 @@ class SingleCharity extends Component {
                     if (!data.charity) return <p>No Charity for ID: {this.props.id}</p>
                     const charity = data.charity;
                     return (
-                        <SingleCharityStyles>
-                            <Head>
-                                <title>Cognitame 💙 {charity.name}</title>
-                            </Head>
-                            <img src={charity.largeImage} alt={charity.imageDescription}/>
-                            <div className="details">
-                                <p>
-                                    {charity.name}
-                                    &emsp;
-                                    <Link href={{
-                                        pathname: 'https://apps.irs.gov/app/eos/allSearch.do',
-                                        query: {
-                                            ein1: charity.ein,
-                                            resultsPerPage: '25',
-                                            indexOfFirstRow: '0',
-                                            dispatchMethod: 'searchAll',
-                                        }
-                                    }}>
-                                        <a>{charity.ein}</a>
-                                    </Link>
-                                    &emsp;
-                                    {charity.website && (
-                                        <>
-                                            <Link href={charity.website}>
-                                                <a>Website</a>
-                                            </Link>
-                                            &emsp;
-                                        </>
-                                    )}
-                                    <Link href={{
-                                        pathname: 'https://smile.amazon.com/gp/chpf/homepage',
-                                        query: {q: charity.ein}
-                                    }}>
-                                        <a>AmazonSmile</a>
-                                    </Link>
-                                </p>
-                                <p>{charity.description}</p>
-                                <p>{charity.street}<br/>{charity.city}, {charity.state} {charity.zip}</p>
-                            </div>
-                        </SingleCharityStyles>
+                        <>
+                            <SingleCharityStyles>
+                                <Head>
+                                    <title>Cognitame 💙 {charity.name}</title>
+                                </Head>
+                                <img src={charity.largeImage} alt={charity.imageDescription}/>
+                                <div className="details">
+                                    <p>
+                                        {charity.name}
+                                        &emsp;
+                                        <Link href={{
+                                            pathname: 'https://apps.irs.gov/app/eos/allSearch.do',
+                                            query: {
+                                                ein1: charity.ein,
+                                                resultsPerPage: '25',
+                                                indexOfFirstRow: '0',
+                                                dispatchMethod: 'searchAll',
+                                            }
+                                        }}>
+                                            <a>{charity.ein}</a>
+                                        </Link>
+                                        &emsp;
+                                        {charity.website && (
+                                            <>
+                                                <Link href={charity.website}>
+                                                    <a>Website</a>
+                                                </Link>
+                                                &emsp;
+                                            </>
+                                        )}
+                                        <Link href={{
+                                            pathname: 'https://smile.amazon.com/gp/chpf/homepage',
+                                            query: {q: charity.ein}
+                                        }}>
+                                            <a>AmazonSmile</a>
+                                        </Link>
+                                    </p>
+                                    <p>{charity.description}</p>
+                                    {charity.street && charity.city && charity.state && charity.zip &&
+                                    <p>{charity.street}<br/>{charity.city}, {charity.state} {charity.zip}</p>
+                                    }
+                                </div>
+                            </SingleCharityStyles>
+                            <ItemStyles>
+                                <FavoritesButtonList charity={charity}/>
+                            </ItemStyles>
+                        </>
                     )
                 }}
             </Query>

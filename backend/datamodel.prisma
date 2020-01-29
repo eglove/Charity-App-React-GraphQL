@@ -52,5 +52,5 @@ type Donation {
     amount: Float! @default(value: 0)
     yearDonated: Int!
     receipt: String
-    favorite: Favorite!
+    favorite: Favorite
 }

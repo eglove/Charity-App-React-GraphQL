@@ -27,6 +27,7 @@ const Item = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1px;
     background: ${props => props.theme.lightgrey};
+    text-align: center;
     & > * {
       background: white;
       border: 0;

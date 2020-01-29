@@ -31,13 +31,14 @@ class DeleteCharity extends Component {
                 update={this.update}
             >
                 {(deleteCharity, {error}) => (
-                    <button onClick={() => {
-                        if(confirm('Are you sure you want to delete this?')) {
-                            deleteCharity().catch(err => {
-                                alert(err.message);
-                            });
-                        }
-                    }}>Delete ❌</button>
+                        <button onClick={() => {
+                            if (confirm('Are you sure you want to delete this?')) {
+                                deleteCharity().catch(err => {
+                                    alert(err.message);
+                                });
+                            }
+                        }}>Delete ❌
+                        </button>
                 )}
             </Mutation>
         );

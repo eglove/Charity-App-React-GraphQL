@@ -1,5 +1,5 @@
-# source: https://charity-app-prod-7437645194.herokuapp.com/charity-app-prod/prod
-# timestamp: Mon Jan 27 2020 18:05:10 GMT-0600 (Central Standard Time)
+# source: https://us1.prisma.sh/ethan-glover-d293d5/charityapp-backend/dev
+# timestamp: Tue Jan 28 2020 17:43:52 GMT-0600 (Central Standard Time)
 
 type AggregateCharity {
   count: Int!
@@ -773,7 +773,7 @@ type Donation implements Node {
   amount: Float!
   yearDonated: Int!
   receipt: String
-  favorite: Favorite!
+  favorite: Favorite
 }
 
 """A connection to a list of items."""
@@ -791,7 +791,7 @@ input DonationCreateInput {
   amount: Float
   yearDonated: Int!
   receipt: String
-  favorite: FavoriteCreateOneWithoutDonationsInput!
+  favorite: FavoriteCreateOneWithoutDonationsInput
 }
 
 input DonationCreateManyWithoutFavoriteInput {
@@ -1011,7 +1011,7 @@ input DonationUpdateInput {
   amount: Float
   yearDonated: Int
   receipt: String
-  favorite: FavoriteUpdateOneRequiredWithoutDonationsInput
+  favorite: FavoriteUpdateOneWithoutDonationsInput
 }
 
 input DonationUpdateManyDataInput {
@@ -1415,9 +1415,11 @@ input FavoriteUpdateManyWithWhereNestedInput {
   data: FavoriteUpdateManyDataInput!
 }
 
-input FavoriteUpdateOneRequiredWithoutDonationsInput {
+input FavoriteUpdateOneWithoutDonationsInput {
   create: FavoriteCreateWithoutDonationsInput
   connect: FavoriteWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
   update: FavoriteUpdateWithoutDonationsDataInput
   upsert: FavoriteUpsertWithoutDonationsInput
 }
