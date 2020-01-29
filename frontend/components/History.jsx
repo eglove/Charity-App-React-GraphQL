@@ -3,7 +3,8 @@ import {Query} from "react-apollo";
 import gql from "graphql-tag";
 import formatMoney from "../lib/formatMoney";
 import Link from "next/link";
-import Head from "next/head";
+import styled from "styled-components";
+import {DataTable} from "./Favorites";
 
 const SEARCH_BY_YEAR_QUERY = gql`
     query SEARCH_BY_YEAR_QUERY($year: Int!, $id: ID!) {
@@ -30,6 +31,12 @@ const SEARCH_BY_YEAR_QUERY = gql`
     }
 `;
 
+const FloatFix = styled.div`
+    details {
+        clear: both;
+    }
+`;
+
 class History extends Component {
 
     state = {
@@ -52,26 +59,36 @@ class History extends Component {
                 variables={this.state}
             >
                 {({data}) => (
-                    <>
-                        <form>
-                            <label htmlFor="year">
-                                <input
-                                    type="number"
-                                    id="year"
-                                    name="year"
-                                    placeholder="Year"
-                                    defaultValue={new Date().getFullYear()}
-                                    onChange={this.handleChange}
-                                    required
-                                />
-                            </label>
-                        </form>
-                        <span hidden>{totalDonated = 0}</span>
-                        {data.donations.map(donation => {
-                                totalDonated = donation.amount + totalDonated
-                            },
-                        )}
-                        <p>Total Donated for {this.state.year}: {formatMoney(totalDonated * 100)}</p>
+                    <DataTable>
+                        <table>
+                            <tr>
+                                <th>
+                                    Donated in:&emsp;
+                                    <form className="floatRight">
+                                        <label htmlFor="year">
+                                            <input
+                                                type="number"
+                                                id="year"
+                                                name="year"
+                                                placeholder="Year"
+                                                defaultValue={new Date().getFullYear()}
+                                                onChange={this.handleChange}
+                                                required
+                                            />
+                                        </label>
+                                    </form>
+                                </th>
+                            </tr>
+                            <span hidden>{totalDonated = 0}</span>
+                            {data.donations.map(donation => {
+                                    totalDonated = donation.amount + totalDonated
+                                },
+                            )}
+                            <tr>
+                                <td>{formatMoney(totalDonated * 100)}</td>
+                            </tr>
+                        </table>
+                        <FloatFix>
                         <details>
                             <summary>See Transactions for {this.state.year}</summary>
                             <ul>
@@ -89,7 +106,8 @@ class History extends Component {
                                 )}
                             </ul>
                         </details>
-                    </>
+                        </FloatFix>
+                    </DataTable>
                 )}
             </Query>
         );

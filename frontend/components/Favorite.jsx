@@ -7,9 +7,9 @@ import AddDonation from "./AddDonation";
 import formatMoney from "../lib/formatMoney";
 
 const FavoriteStyles = styled.li`
+    display: grid;
     padding: 1em 0;
     border-bottom: 1px solid ${props => props.theme.lightgrey};
-    display: grid;
     align-items: center;
     grid-template-columns: auto 1fr auto;
     img {

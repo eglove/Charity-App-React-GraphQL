@@ -13,6 +13,26 @@ const Underline = styled.a`
     cursor: pointer;
 `;
 
+const DataTable = styled.div`
+    table {
+        overflow-x:auto;
+        border-collapse: collapse;
+        float: left;
+        margin-top: 5px;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding 3px;
+    }
+    th {
+        border-bottom: none;
+    }
+    .floatRight {
+        float: right;
+    }
+`;
+
 const Favorites = props => {
     return (
         <User>
@@ -24,15 +44,20 @@ const Favorites = props => {
                             <title>Cognitame 💙 Favorites</title>
                         </Head>
                         <Supreme>{me.name}'s Favorites</Supreme>
-                        <p>You have {me.favorites.length} favorite{me.favorites.length === 1 ? '' : 's'}.</p>
-                        <p>
-                            Total donated: {formatMoney(me.totalDonated ? me.totalDonated * 100 : 0)}
-                        </p>
-                        Donation History (Enter Year)
+                        <DataTable>
+                            <table>
+                                <tr>
+                                    <th># of Favorites</th>
+                                    <th>Total Donated</th>
+                                </tr>
+                                <tr>
+                                    <td>{me.favorites.length}</td>
+                                    <td>{formatMoney(me.totalDonated ? me.totalDonated * 100 : 0)}</td>
+                                </tr>
+                            </table>
+                        </DataTable>
                         <History id={me.id} favorites={me.favorites}/>
-                        <ul>
-                            {me.favorites.map(favorite => <Favorite key={favorite.id} favorite={favorite}/>)}
-                        </ul>
+                        {me.favorites.map(favorite => <Favorite key={favorite.id} favorite={favorite}/>)}
                     </>
                 );
             }}
@@ -41,3 +66,4 @@ const Favorites = props => {
 };
 
 export default Favorites;
+export {DataTable};
