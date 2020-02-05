@@ -22,6 +22,7 @@ const Nav = () => (
                                 <FavoritesCount count={me.favorites.length}/>
                             </a>
                         </Link>
+                        <a href="http://localhost:4200/">Routine</a>
                         <SignOut/>
                     </>
                 )}
