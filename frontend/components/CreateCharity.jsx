@@ -93,141 +93,142 @@ class CreateCharity extends Component {
             <Mutation mutation={CREATE_CHARITY_MUTATION} variables={this.state}>
                 {(createCharity, {loading, error}) => (
                     <>
-                    <Head>
-                        <title>Cognitame 💙 Add Charity</title>
-                    </Head>
-                    <Form
-                        data-test="form"
-                        onSubmit={async (e) => {
-                            // Stop form from submitting
-                            e.preventDefault();
-                            // call mutation
-                            const res = await createCharity();
-                            // redirect to charity page
-                            await Router.push({
-                                pathname: '/charity',
-                                query: {id: res.data.createCharity.id}
-                            })
-                        }}
-                    >
-                        <Error error={error}/>
-                        <fieldset disabled={loading} aria-busy={loading}>
+                        <Head>
+                            <title>Cognitame 💙 Add Charity</title>
+                        </Head>
+                        <Form
+                            data-test="form"
+                            onSubmit={async (e) => {
+                                // Stop form from submitting
+                                e.preventDefault();
+                                // call mutation
+                                const res = await createCharity();
+                                // redirect to charity page
+                                await Router.push({
+                                    pathname: '/charity',
+                                    query: {id: res.data.createCharity.id}
+                                })
+                            }}
+                        >
+                            <Error error={error}/>
+                            <fieldset disabled={loading} aria-busy={loading}>
 
-                            <label htmlFor="ein">
-                                EIN (<LookupLink href="https://apps.irs.gov/app/eos/">Employer Identification
-                                Number</LookupLink>) <Required>*</Required>
-                                <input
-                                    type="text"
-                                    id="ein"
-                                    name="ein"
-                                    placeholder="EIN"
-                                    value={this.state.ein}
-                                    onChange={this.handleChange}
-                                    required
-                                />
-                            </label>
-                            <label htmlFor="name">
-                                Name <Required>*</Required>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    placeholder="Name"
-                                    value={this.state.name}
-                                    onChange={this.handleChange}
-                                    required
-                                />
-                            </label>
-                            <label htmlFor="description">
-                                Description <Required>*</Required>
-                                <textarea
-                                    id="description"
-                                    name="description"
-                                    placeholder="Description"
-                                    value={this.state.description}
-                                    onChange={this.handleChange}
-                                    required
-                                />
-                            </label>
-                            <label htmlFor="website">
-                                Website
-                                <input
-                                    type="text"
-                                    id="website"
-                                    name="website"
-                                    placeholder="Website"
-                                    value={this.state.website}
-                                    onChange={this.handleChange}
-                                />
-                            </label>
-                            <label htmlFor="file">
-                                Image
-                                <input
-                                    type="file"
-                                    id="file"
-                                    name="file"
-                                    placeholder="Upload Logo"
-                                    onChange={this.uploadFile}
-                                />
-                                {this.state.image && (<img src={this.state.image} width="200" alt="Image Upload Preview"/>)}
-                            </label>
-                            <label htmlFor="imageDescription">
-                                Image Description
-                                <textarea
-                                    id="imageDescription"
-                                    name="imageDescription"
-                                    placeholder="Image Description"
-                                    value={this.state.imageDescription}
-                                    onChange={this.handleChange}
-                                />
-                            </label>
-                            <label htmlFor="street">
-                                Street
-                                <input
-                                    type="text"
-                                    id="street"
-                                    name="street"
-                                    placeholder="Street"
-                                    value={this.state.street}
-                                    onChange={this.handleChange}
-                                />
-                            </label>
-                            <label htmlFor="city">
-                                City
-                                <input
-                                    type="text"
-                                    id="city"
-                                    name="city"
-                                    placeholder="City"
-                                    value={this.state.city}
-                                    onChange={this.handleChange}
-                                />
-                            </label>
-                            <label htmlFor="state">
-                                State
-                                <input
-                                    type="text"
-                                    id="state"
-                                    name="state"
-                                    placeholder="State"
-                                    value={this.state.state}
-                                    onChange={this.handleChange}
-                                />
-                            </label>
-                            <label htmlFor="zip">
-                                Zip
-                                <input
-                                    type="text"
-                                    id="zip"
-                                    name="zip"
-                                    placeholder="Zip"
-                                    value={this.state.zip}
-                                    onChange={this.handleChange}
-                                />
-                            </label>
-                            <button type="submit">Submit</button>
-                        </fieldset>
-                    </Form>
+                                <label htmlFor="ein">
+                                    EIN (<LookupLink href="https://apps.irs.gov/app/eos/">Employer Identification
+                                    Number</LookupLink>) <Required>*</Required>
+                                    <input
+                                        type="text"
+                                        id="ein"
+                                        name="ein"
+                                        placeholder="EIN"
+                                        value={this.state.ein}
+                                        onChange={this.handleChange}
+                                        required
+                                    />
+                                </label>
+                                <label htmlFor="name">
+                                    Name <Required>*</Required>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Name"
+                                        value={this.state.name}
+                                        onChange={this.handleChange}
+                                        required
+                                    />
+                                </label>
+                                <label htmlFor="description">
+                                    Description <Required>*</Required>
+                                    <textarea
+                                        id="description"
+                                        name="description"
+                                        placeholder="Description"
+                                        value={this.state.description}
+                                        onChange={this.handleChange}
+                                        required
+                                    />
+                                </label>
+                                <label htmlFor="website">
+                                    Website
+                                    <input
+                                        type="text"
+                                        id="website"
+                                        name="website"
+                                        placeholder="Website"
+                                        value={this.state.website}
+                                        onChange={this.handleChange}
+                                    />
+                                </label>
+                                <label htmlFor="file">
+                                    Image
+                                    <input
+                                        type="file"
+                                        id="file"
+                                        name="file"
+                                        placeholder="Upload Logo"
+                                        onChange={this.uploadFile}
+                                    />
+                                    {this.state.image && (
+                                        <img src={this.state.image} width="200" alt="Image Upload Preview"/>)}
+                                </label>
+                                <label htmlFor="imageDescription">
+                                    Image Description
+                                    <textarea
+                                        id="imageDescription"
+                                        name="imageDescription"
+                                        placeholder="Image Description"
+                                        value={this.state.imageDescription}
+                                        onChange={this.handleChange}
+                                    />
+                                </label>
+                                <label htmlFor="street">
+                                    Street
+                                    <input
+                                        type="text"
+                                        id="street"
+                                        name="street"
+                                        placeholder="Street"
+                                        value={this.state.street}
+                                        onChange={this.handleChange}
+                                    />
+                                </label>
+                                <label htmlFor="city">
+                                    City
+                                    <input
+                                        type="text"
+                                        id="city"
+                                        name="city"
+                                        placeholder="City"
+                                        value={this.state.city}
+                                        onChange={this.handleChange}
+                                    />
+                                </label>
+                                <label htmlFor="state">
+                                    State
+                                    <input
+                                        type="text"
+                                        id="state"
+                                        name="state"
+                                        placeholder="State"
+                                        value={this.state.state}
+                                        onChange={this.handleChange}
+                                    />
+                                </label>
+                                <label htmlFor="zip">
+                                    Zip
+                                    <input
+                                        type="text"
+                                        id="zip"
+                                        name="zip"
+                                        placeholder="Zip"
+                                        value={this.state.zip}
+                                        onChange={this.handleChange}
+                                    />
+                                </label>
+                                <button type="submit">Submit</button>
+                            </fieldset>
+                        </Form>
                     </>
                 )}
             </Mutation>

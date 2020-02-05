@@ -1,5 +1,5 @@
 import CharityComponent from "../components/Charity";
-import {shallow, mount} from 'enzyme';
+import {shallow} from 'enzyme';
 import toJson from "enzyme-to-json";
 
 const fakeCharity = {
@@ -17,7 +17,7 @@ const fakeCharity = {
 describe('<Charity/>', () => {
 
     it('renders and matches the snapshot', () => {
-        const wrapper = shallow(<CharityComponent charity={fakeCharity}/> );
+        const wrapper = shallow(<CharityComponent charity={fakeCharity}/>);
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 

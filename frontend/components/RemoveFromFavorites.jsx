@@ -60,17 +60,17 @@ class RemoveFromFavorites extends React.Component {
             >
                 {(removeFromFavorites, {loading, error}) => (
                     <>
-                    <br/>
-                    <BigButton
-                        disabled={loading}
-                        aria-busy={loading}
-                        onClick={() => {
-                            removeFromFavorites().catch(err => alert(err.message));
-                        }}
-                        title="Delete Favorite"
-                    >
-                        &times; Delete from Favorites
-                    </BigButton>
+                        <br/>
+                        <BigButton
+                            disabled={loading}
+                            aria-busy={loading}
+                            onClick={() => {
+                                removeFromFavorites().catch(err => alert(err.message));
+                            }}
+                            title="Delete Favorite"
+                        >
+                            &times; Delete from Favorites
+                        </BigButton>
                     </>
                 )}
             </Mutation>

@@ -44,44 +44,44 @@ const mocks = [
     // current user query mock
     {
         request: {query: CURRENT_USER_QUERY},
-        result: { data: { me } },
+        result: {data: {me}},
     },
 ];
 
 describe('<Signup/>', () => {
-   it('renders matches snapshot', async () => {
-      const wrapper = mount(
-          <MockedProvider>
-              <SignUp/>
-          </MockedProvider>
-      );
-      expect(toJson(wrapper.find('form'))).toMatchSnapshot();
-   });
+    it('renders matches snapshot', async () => {
+        const wrapper = mount(
+            <MockedProvider>
+                <SignUp/>
+            </MockedProvider>
+        );
+        expect(toJson(wrapper.find('form'))).toMatchSnapshot();
+    });
 
-   xit('calls the mutation properly', async () => {
-       let apolloClient;
-       const wrapper = mount(
-           <MockedProvider mocks={mocks}>
-               <ApolloConsumer>
-                   {client => {
-                       apolloClient = client;
-                       return <SignUp/>
-                   }}
-               </ApolloConsumer>
-           </MockedProvider>
-       );
+    xit('calls the mutation properly', async () => {
+        let apolloClient;
+        const wrapper = mount(
+            <MockedProvider mocks={mocks}>
+                <ApolloConsumer>
+                    {client => {
+                        apolloClient = client;
+                        return <SignUp/>
+                    }}
+                </ApolloConsumer>
+            </MockedProvider>
+        );
 
-       await wait();
-       wrapper.update();
-       type(wrapper, 'email', me.email);
-       type(wrapper, 'name', me.name);
-       type(wrapper, 'password', 'fakePassword');
-       type(wrapper, 'totalDonated', me.totalDonated);
+        await wait();
+        wrapper.update();
+        type(wrapper, 'email', me.email);
+        type(wrapper, 'name', me.name);
+        type(wrapper, 'password', 'fakePassword');
+        type(wrapper, 'totalDonated', me.totalDonated);
 
-       wrapper.find('form').simulate('submit');
-       await wait();
-       // query the user of the apollo client
-       const user = await apolloClient.query({query: CURRENT_USER_QUERY});
-       expect(user.data.me).toMatchObject(me);
-   });
+        wrapper.find('form').simulate('submit');
+        await wait();
+        // query the user of the apollo client
+        const user = await apolloClient.query({query: CURRENT_USER_QUERY});
+        expect(user.data.me).toMatchObject(me);
+    });
 });

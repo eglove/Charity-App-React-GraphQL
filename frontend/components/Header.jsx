@@ -54,19 +54,19 @@ const StyledHeader = styled.header`
 `;
 
 const Header = () => (
-  <StyledHeader>
-      <div className="bar">
-          <Logo>
-              <Link href="/">
-                  <a>Cognitame</a>
-              </Link>
-          </Logo>
-          <Nav/>
-      </div>
-      <div className="sub-bar">
-          <Search/>
-      </div>
-  </StyledHeader>
+    <StyledHeader>
+        <div className="bar">
+            <Logo>
+                <Link href="/">
+                    <a>Cognitame</a>
+                </Link>
+            </Logo>
+            <Nav/>
+        </div>
+        <div className="sub-bar">
+            <Search/>
+        </div>
+    </StyledHeader>
 );
 
 export default Header;

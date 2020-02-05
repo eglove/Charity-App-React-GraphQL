@@ -1,5 +1,5 @@
 import React from "react";
-import Downshift, {resetCounter, resetIdCounter} from "downshift";
+import Downshift, {resetIdCounter} from "downshift";
 import Router from "next/router";
 import {ApolloConsumer} from "react-apollo";
 import gql from "graphql-tag";
@@ -81,32 +81,32 @@ class AutoComplete extends React.Component {
                                             id: 'search',
                                             className: this.state.loading ? 'loading' : '',
                                             onChange: e => {
-                                            e.persist();
-                                            this.onChange(e, client);
-                                        },
-                                    })}/>
+                                                e.persist();
+                                                this.onChange(e, client);
+                                            },
+                                        })}/>
                                 )}
                             </ApolloConsumer>
                             {isOpen && (
                                 <DropDown>
-                                        {this.state.charities.map((item, index) =>
-                                            <DropDownItem
-                                                {...getItemProps({item})}
-                                                key={item.id}
-                                                highlighted={index === highlightedIndex}
-                                            >
-                                                <img width="50" src={item.image} alt={item.imageDescription}/>
-                                                {item.name}
-                                            </DropDownItem>
-                                        )}
-                                        {!this.state.charities.length && !this.state.loading && (
-                                            <DropDownItem>
-                                                Nothing found for '{inputValue}'.
-                                                <Link href="/add">
-                                                    <Underline>Add New Charity</Underline>
-                                                </Link>
-                                            </DropDownItem>
-                                        )}
+                                    {this.state.charities.map((item, index) =>
+                                        <DropDownItem
+                                            {...getItemProps({item})}
+                                            key={item.id}
+                                            highlighted={index === highlightedIndex}
+                                        >
+                                            <img width="50" src={item.image} alt={item.imageDescription}/>
+                                            {item.name}
+                                        </DropDownItem>
+                                    )}
+                                    {!this.state.charities.length && !this.state.loading && (
+                                        <DropDownItem>
+                                            Nothing found for '{inputValue}'.
+                                            <Link href="/add">
+                                                <Underline>Add New Charity</Underline>
+                                            </Link>
+                                        </DropDownItem>
+                                    )}
                                 </DropDown>
                             )}
                         </div>

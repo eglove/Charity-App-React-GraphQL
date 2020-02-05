@@ -1,8 +1,6 @@
 import SignUpComponent from "../components/SignUp";
-import SignIn from "../components/SignIn";
-import RequestReset from "../components/RequestReset";
 import styled from "styled-components";
-import Link from "next/link";
+import React from "react";
 
 const Columns = styled.div`
     display: grid;

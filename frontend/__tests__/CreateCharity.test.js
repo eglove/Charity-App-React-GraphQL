@@ -55,7 +55,12 @@ describe('<CreateItem/>', () => {
         wrapper.find('#description').simulate('change', {target: {value: 'A description', name: 'description'}});
         wrapper.find('#city').simulate('change', {target: {value: 'Springfield', name: 'city'}});
         wrapper.find('#ein').simulate('change', {target: {value: '1234', name: 'ein'}});
-        wrapper.find('#imageDescription').simulate('change', {target: {value: 'Descriptive description', name: 'imageDescription'}});
+        wrapper.find('#imageDescription').simulate('change', {
+            target: {
+                value: 'Descriptive description',
+                name: 'imageDescription'
+            }
+        });
         wrapper.find('#state').simulate('change', {target: {value: 'Aknas', name: 'state'}});
         wrapper.find('#street').simulate('change', {target: {value: '123 Main', name: 'street'}});
         wrapper.find('#zip').simulate('change', {target: {value: '00001', name: 'zip'}});
@@ -121,13 +126,18 @@ describe('<CreateItem/>', () => {
         wrapper.find('#ein').simulate('change', {target: {value: charity.ein, name: 'ein'}});
         wrapper.find('#file').simulate('change', {target: {value: "", name: 'file'}});
         // wrapper.find('#largeImage').simulate('change', {target: {value: "", name: 'largeImage'}});
-        wrapper.find('#imageDescription').simulate('change', {target: {value: charity.imageDescription, name: 'imageDescription'}});
+        wrapper.find('#imageDescription').simulate('change', {
+            target: {
+                value: charity.imageDescription,
+                name: 'imageDescription'
+            }
+        });
         wrapper.find('#state').simulate('change', {target: {value: charity.state, name: 'state'}});
         wrapper.find('#street').simulate('change', {target: {value: charity.street, name: 'street'}});
         wrapper.find('#zip').simulate('change', {target: {value: charity.zip, name: 'zip'}});
 
         // mock the router
-        Router.router = {push: jest.fn() };
+        Router.router = {push: jest.fn()};
         wrapper.find('form').simulate('submit');
         await wait(50);
         expect(Router.router.push).toHaveBeenCalled();

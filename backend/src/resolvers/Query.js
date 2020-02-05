@@ -22,7 +22,7 @@ const Query = {
     },
     async users(parent, args, ctx, info) {
         // check if user is logged in
-        if(!ctx.request.userId) {
+        if (!ctx.request.userId) {
             throw new Error("You must be logged in.");
         }
 

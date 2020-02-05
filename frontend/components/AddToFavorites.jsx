@@ -22,7 +22,8 @@ class AddToFavorites extends React.Component {
                 refetchQueries={[{query: CURRENT_USER_QUERY}]}
             >
                 {(addToFavorites, {loading}) => (
-                    <button disabled={loading} aria-busy={loading} onClick={addToFavorites}>💙 Add{loading ? 'ing' : ''} To Favorites 💙</button>
+                    <button disabled={loading} aria-busy={loading} onClick={addToFavorites}>💙
+                        Add{loading ? 'ing' : ''} To Favorites 💙</button>
                 )}
             </Mutation>
         );

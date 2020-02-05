@@ -111,7 +111,8 @@ class AddDonation extends Component {
                                         placeholder="Upload Receipt"
                                         onChange={this.uploadFile}
                                     />
-                                    {this.state.receipt && (<img src={this.state.receipt} width="200" alt="Image Upload Preview"/>)}
+                                    {this.state.receipt && (
+                                        <img src={this.state.receipt} width="200" alt="Image Upload Preview"/>)}
                                 </label>
                                 <button type="submit">Add{loading ? 'ing' : ''} Donation</button>
                             </fieldset>

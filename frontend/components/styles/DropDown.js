@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 
 const DropDown = styled.div`
   position: absolute;
@@ -44,4 +44,4 @@ const SearchStyles = styled.div`
   }
 `;
 
-export { DropDown, DropDownItem, SearchStyles };
+export {DropDown, DropDownItem, SearchStyles};

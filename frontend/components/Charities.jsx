@@ -52,8 +52,8 @@ class Charities extends Component {
                     }}
                 >
                     {({data, error, loading}) => {
-                        if(loading) return <p>Loading...</p>;
-                        if(error) return <p>Error: {error.message}</p>
+                        if (loading) return <p>Loading...</p>;
+                        if (error) return <p>Error: {error.message}</p>
                         return (
                             <CharitiesList>
                                 {data.charities.map(charity =>

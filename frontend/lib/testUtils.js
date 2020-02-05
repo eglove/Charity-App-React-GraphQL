@@ -4,20 +4,20 @@ import casual from 'casual';
 casual.seed(777);
 
 const fakeCharity = () => ({
-  __typename: 'Charity',
-  id: casual.uuid,
-  ein: casual.uuid,
-  name: casual.company_name,
-  description: casual.description,
-  website: casual.url,
-  image: `${casual.word}.png`,
-  largeImage: `${casual.word}.png`,
-  imageDescription: casual.description,
-  street: casual.street,
-  city: casual.city,
-  state: casual.state,
-  zip: casual.zip,
-  user: casual.uuid,
+    __typename: 'Charity',
+    id: casual.uuid,
+    ein: casual.uuid,
+    name: casual.company_name,
+    description: casual.description,
+    website: casual.url,
+    image: `${casual.word}.png`,
+    largeImage: `${casual.word}.png`,
+    imageDescription: casual.description,
+    street: casual.street,
+    city: casual.city,
+    state: casual.state,
+    zip: casual.zip,
+    user: casual.uuid,
 });
 
 const fakeUser = () => ({
@@ -49,13 +49,13 @@ class LocalStorageMock {
         this.store[key] = value.toString();
     }
 
-  removeItem(key) {
-    delete this.store[key];
-  }
+    removeItem(key) {
+        delete this.store[key];
+    }
 }
 
 export {
-  LocalStorageMock,
-  fakeCharity,
-  fakeUser,
+    LocalStorageMock,
+    fakeCharity,
+    fakeUser,
 };

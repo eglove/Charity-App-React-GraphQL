@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import FavoritesButtonList from "./FavoritesButtonList";
 import ItemStyles from "./styles/ItemStyles";
 
