@@ -21,7 +21,7 @@ public class RecurringDonationController {
 		this.graphQLService = graphQLService;
 	}
 	
-	@GetMapping
+	@PostMapping
 	public ResponseEntity<Object> getAllRecurringDonations(@RequestBody String query) {
 		logger.info("Entering getAllRecurringDonations@RecurringDonationController");
 		ExecutionResult execute = graphQLService.getGraphQL().execute(query);
