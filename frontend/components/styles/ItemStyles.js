@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 const Item = styled.div`
   background: white;
-  border: 1px solid ${props => props.theme.offWhite};
+  border: 1px solid ${props => props.theme.offwhite};
   box-shadow: ${props => props.theme.bs};
   position: relative;
   display: flex;
   flex-direction: column;
   img {
+    padding-top: 3px;
     width: 300px;
     margin: auto;
     object-fit: cover;
@@ -23,6 +24,7 @@ const Item = styled.div`
   .buttonList {
     display: grid;
     width: 100%;
+    border: ${props => props.theme.offwhite};
     border-top: 1px solid ${props => props.theme.lightgrey};
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1px;
