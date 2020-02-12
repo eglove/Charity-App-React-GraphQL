@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import Table from "./styles/Table";
 import SickButton from "./styles/SickButton";
 import PropTypes from 'prop-types';
+import * as React from "react";
 
 const possiblePermissions = [
     'ADMIN',

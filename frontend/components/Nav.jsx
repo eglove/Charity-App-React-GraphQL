@@ -30,6 +30,11 @@ const Nav = () => (
                         <a>Sign In</a>
                     </Link>
                 )}
+                {me && me.permissions.includes("ADMIN") && (
+                    <Link href="permissions">
+                        <a>Permissions</a>
+                    </Link>
+                )}
             </NavStyles>
         )}
     </User>
